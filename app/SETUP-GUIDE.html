@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steadfast Student Services — Launch Setup Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#0B1F3A;--gold:#C9A84C;--teal:#1A6B72;--green:#16a34a;--green-bg:#dcfce7; }
+  * { margin:0;padding:0;box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif;background:#f8f6f0;color:#1e293b;line-height:1.6; }
+  .cover { background:linear-gradient(135deg,var(--navy),var(--teal));color:white;padding:60px 48px; }
+  .cover h1 { font-family:'Playfair Display',serif;font-size:36px;color:#C9A84C;margin-bottom:8px; }
+  .cover p { color:rgba(255,255,255,0.75);max-width:500px; }
+  .container { max-width:860px;margin:0 auto;padding:0 40px 60px; }
+  h2 { font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);margin:40px 0 12px;border-bottom:2px solid #e2e8f0;padding-bottom:8px; }
+  h3 { font-size:15px;font-weight:600;color:var(--navy);margin:20px 0 8px; }
+  p { color:#475569;font-size:14px;margin-bottom:10px; }
+  .step { background:white;border-radius:10px;padding:20px 24px;margin-bottom:16px;border:1px solid #e2e8f0;border-left:4px solid var(--teal); }
+  .step-num { display:inline-block;background:var(--teal);color:white;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:10px; }
+  code, .code-block { font-family:'JetBrains Mono',monospace; }
+  .code-block { background:#0B1F3A;color:#e2e8f0;padding:16px 20px;border-radius:8px;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre; }
+  .highlight { color:#C9A84C; }
+  .badge-free { display:inline-block;background:#dcfce7;color:#16a34a;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px; }
+  .badge-paid { display:inline-block;background:#fef3c7;color:#d97706;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px; }
+  .checklist { list-style:none; }
+  .checklist li { padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:14px;color:#475569;display:flex;align-items:flex-start;gap:10px; }
+  .checklist li::before { content:'□';font-size:16px;color:#cbd5e1;flex-shrink:0;margin-top:-1px; }
+  .total-box { background:var(--navy);color:white;border-radius:10px;padding:20px 24px;margin:24px 0;text-align:center; }
+  .total-box .amount { font-size:40px;font-weight:700;color:var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>Launch Setup Guide</h1>
+  <p>Step-by-step instructions to go from these files to a live website. Estimated time to launch: 2–4 hours.</p>
+</div>
+
+<div class="container">
+
+  <h2>What You Built</h2>
+  <p>The <code>app/</code> folder contains a complete Next.js web application for Steadfast Student Services. Here is what is included:</p>
+  <ul style="color:#475569;font-size:14px;padding-left:20px;margin-bottom:16px;line-height:2;">
+    <li><strong>Landing page</strong> — Hero, stats, services, process, testimonials, CTAs</li>
+    <li><strong>Services page</strong> — All three risk tiers with feature lists and FAQ</li>
+    <li><strong>Free Risk Assessment Quiz</strong> — 7-step questionnaire with AI scoring</li>
+    <li><strong>Booking page</strong> — Cal.com embed for free consultations</li>
+    <li><strong>Student Portal</strong> — Progress tracker, document checklist, application Kanban</li>
+    <li><strong>AI Chatbot</strong> — "Sofia" powered by Gemini 1.5 Flash (free tier)</li>
+    <li><strong>Contact page</strong> — Form with automatic lead creation and welcome email</li>
+    <li><strong>About page</strong> — Story, stats, values</li>
+    <li><strong>Resources/Blog</strong> — Article hub with downloadable checklists</li>
+    <li><strong>Admin Dashboard</strong> — CRM lead pipeline with search</li>
+  </ul>
+
+  <h2>Step-by-Step Launch Checklist</h2>
+
+  <div class="step">
+    <div class="step-num">STEP 1 — Install Node.js</div>
+    <h3>Download Node.js (if not already installed)</h3>
+    <p>Go to <strong>nodejs.org</strong> and download the LTS version (v20 or higher). Verify it works:</p>
+    <div class="code-block">node --version
+npm --version</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 2 — Install Dependencies</div>
+    <h3>Open terminal in the app folder</h3>
+    <p>In VS Code: Terminal → New Terminal. Or use Windows Terminal / PowerShell.</p>
+    <div class="code-block">cd "c:\Users\DueDiligence\Desktop\student enrollment\app"
+npm install</div>
+    <p>This downloads all packages (Next.js, Supabase, Tailwind, Gemini SDK, etc.). Takes 2–3 minutes.</p>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 3 — Create Supabase Project <span class="badge-free">FREE</span></div>
+    <h3>Set up your database and auth</h3>
+    <ol style="color:#475569;font-size:14px;padding-left:20px;line-height:2.2;">
+      <li>Go to <strong>supabase.com</strong> → Sign up → New Project</li>
+      <li>Name it "steadfast-student-services", choose a region (US East recommended)</li>
+      <li>Go to Project Settings → API → copy <code>Project URL</code> and <code>anon public</code> key</li>
+      <li>Go to SQL Editor → paste contents of <code>supabase-setup.sql</code> → Run</li>
+      <li>Go to Storage → New Bucket → name: <code>student-documents</code> → Private</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 4 — Get Gemini API Key <span class="badge-free">FREE</span></div>
+    <h3>Free AI chatbot — 1 million tokens per day</h3>
+    <ol style="color:#475569;font-size:14px;padding-left:20px;line-height:2.2;">
+      <li>Go to <strong>aistudio.google.com</strong></li>
+      <li>Sign in with Google → click "Get API Key" → Create API Key</li>
+      <li>Copy the key (starts with <code>AIzaSy...</code>)</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 5 — Set Up Resend Email <span class="badge-free">FREE</span></div>
+    <h3>3,000 free emails per month</h3>
+    <ol style="color:#475569;font-size:14px;padding-left:20px;line-height:2.2;">
+      <li>Go to <strong>resend.com</strong> → Sign up</li>
+      <li>Add your domain (or use the Resend test domain to start)</li>
+      <li>API Keys → Create API Key → Copy it</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 6 — Create Environment File</div>
+    <h3>Copy <code>.env.example</code> to <code>.env.local</code> and fill in your values</h3>
+    <div class="code-block">copy .env.example .env.local</div>
+    <p>Then open <code>.env.local</code> and fill in:</p>
+    <ul style="color:#475569;font-size:14px;padding-left:20px;line-height:2;">
+      <li><code class="highlight">NEXT_PUBLIC_SUPABASE_URL</code> — from Supabase dashboard</li>
+      <li><code class="highlight">NEXT_PUBLIC_SUPABASE_ANON_KEY</code> — from Supabase dashboard</li>
+      <li><code class="highlight">SUPABASE_SERVICE_ROLE_KEY</code> — from Supabase Settings → API</li>
+      <li><code class="highlight">GEMINI_API_KEY</code> — from Google AI Studio</li>
+      <li><code class="highlight">RESEND_API_KEY</code> — from Resend dashboard</li>
+      <li><code class="highlight">RESEND_FROM_EMAIL</code> — your verified sender email</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 7 — Test Locally</div>
+    <h3>Run the development server</h3>
+    <div class="code-block">npm run dev</div>
+    <p>Open <strong>http://localhost:3000</strong> in your browser. You should see the landing page. Test:</p>
+    <ul class="checklist">
+      <li>Landing page loads with navigation and hero</li>
+      <li>AI chatbot button appears bottom-right — click it, send a message</li>
+      <li>Assessment quiz completes all 7 steps</li>
+      <li>Contact form submits without errors</li>
+      <li>Services, About, Resources pages load</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 8 — Deploy to Vercel <span class="badge-free">FREE</span></div>
+    <h3>Go live in 5 minutes</h3>
+    <ol style="color:#475569;font-size:14px;padding-left:20px;line-height:2.2;">
+      <li>Create a GitHub account if you don't have one (<strong>github.com</strong>)</li>
+      <li>Push your <code>app/</code> folder to a new GitHub repository</li>
+      <li>Go to <strong>vercel.com</strong> → Sign up with GitHub → Import your repo</li>
+      <li>Vercel auto-detects Next.js — no config needed</li>
+      <li>Add all your environment variables in Vercel dashboard → Settings → Environment Variables</li>
+      <li>Click Deploy — your site is live in 2 minutes!</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 9 — Connect Your Domain <span class="badge-free">FREE via Cloudflare</span></div>
+    <h3>Optional: Add a custom domain</h3>
+    <ol style="color:#475569;font-size:14px;padding-left:20px;line-height:2.2;">
+      <li>Buy <code>steadfaststudentservices.com</code> from Namecheap (~$12/year)</li>
+      <li>Sign up at <strong>cloudflare.com</strong> → Add Site → follow DNS setup</li>
+      <li>In Vercel: Settings → Domains → Add your domain</li>
+      <li>Cloudflare provides free CDN + SSL + DDoS protection</li>
+    </ol>
+  </div>
+
+  <div class="step">
+    <div class="step-num">STEP 10 — Set Up Cal.com Booking <span class="badge-free">FREE</span></div>
+    <h3>Enable online consultation booking</h3>
+    <ol style="color:#475569;font-size:14px;padding-left:20px;line-height:2.2;">
+      <li>Go to <strong>cal.com</strong> → Sign up free</li>
+      <li>Create event type: "Free 30-Minute Consultation" (30 min, video or phone)</li>
+      <li>Connect your Google Calendar or Outlook</li>
+      <li>Get your embed URL → update the <code>src</code> in <code>/app/book/page.tsx</code></li>
+      <li>Set up webhook: Cal.com → Settings → Webhooks → point to <code>yoursite.com/api/notify</code></li>
+    </ol>
+  </div>
+
+  <h2>Total Monthly Cost</h2>
+  <div class="total-box">
+    <div class="amount">~$1/month</div>
+    <div style="color:rgba(255,255,255,0.7);margin-top:6px;">Just the domain — everything else is FREE at launch</div>
+  </div>
+
+  <table style="width:100%;border-collapse:collapse;font-size:14px;background:white;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0;">
+    <thead><tr style="background:#0B1F3A;color:white;">
+      <th style="padding:10px 16px;text-align:left;">Service</th>
+      <th style="padding:10px 16px;text-align:left;">Tier</th>
+      <th style="padding:10px 16px;text-align:right;">$/Month</th>
+    </tr></thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:10px 16px;">Vercel (hosting)</td><td><span class="badge-free">Free</span></td><td style="text-align:right;font-weight:600;">$0</td></tr>
+      <tr style="border-bottom:1px solid #f1f5f9;background:#f8f9fa;"><td style="padding:10px 16px;">Supabase (database + auth)</td><td><span class="badge-free">Free</span></td><td style="text-align:right;font-weight:600;">$0</td></tr>
+      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:10px 16px;">Gemini 1.5 Flash (AI chatbot)</td><td><span class="badge-free">Free</span></td><td style="text-align:right;font-weight:600;">$0</td></tr>
+      <tr style="border-bottom:1px solid #f1f5f9;background:#f8f9fa;"><td style="padding:10px 16px;">Resend (email)</td><td><span class="badge-free">Free (3K/mo)</span></td><td style="text-align:right;font-weight:600;">$0</td></tr>
+      <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:10px 16px;">Cal.com (booking)</td><td><span class="badge-free">Free</span></td><td style="text-align:right;font-weight:600;">$0</td></tr>
+      <tr style="border-bottom:1px solid #f1f5f9;background:#f8f9fa;"><td style="padding:10px 16px;">Cloudflare (CDN + DNS)</td><td><span class="badge-free">Free</span></td><td style="text-align:right;font-weight:600;">$0</td></tr>
+      <tr><td style="padding:10px 16px;">Domain (.com)</td><td><span class="badge-paid">~$12/year</span></td><td style="text-align:right;font-weight:600;">$1</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Files You Will Need to Customize</h2>
+  <ul class="checklist">
+    <li><code>src/app/book/page.tsx</code> — Replace Cal.com iframe src with your actual booking URL</li>
+    <li><code>src/lib/gemini.ts</code> — Update SYSTEM_PROMPT with any additional company-specific info</li>
+    <li><code>src/app/page.tsx</code> — Update testimonials with real student stories (with permission)</li>
+    <li><code>src/app/about/page.tsx</code> — Add real team member names and bios</li>
+    <li><code>.env.local</code> — Fill in all API keys (never commit this file)</li>
+  </ul>
+
+  <h2>Need Help?</h2>
+  <p>The setup is straightforward but involves several services. If you get stuck on any step, common resources:</p>
+  <ul style="color:#475569;font-size:14px;padding-left:20px;line-height:2.2;">
+    <li><strong>Supabase docs:</strong> supabase.com/docs</li>
+    <li><strong>Vercel docs:</strong> vercel.com/docs</li>
+    <li><strong>Gemini API docs:</strong> ai.google.dev/docs</li>
+    <li><strong>Resend docs:</strong> resend.com/docs</li>
+    <li><strong>Cal.com embed docs:</strong> cal.com/docs/enterprise-features/embed</li>
+  </ul>
+
+</div>
+</body>
+</html>

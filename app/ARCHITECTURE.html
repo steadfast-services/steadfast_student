@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steadfast Student Services — App Architecture Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --navy-light: #142d52;
+    --gold: #C9A84C;
+    --gold-light: #e4c575;
+    --teal: #1A6B72;
+    --teal-light: #2a8f98;
+    --white: #FFFFFF;
+    --off-white: #F8F6F0;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --amber: #d97706;
+    --amber-bg: #fef3c7;
+    --blue: #2563eb;
+    --blue-bg: #dbeafe;
+    --purple: #7c3aed;
+    --purple-bg: #ede9fe;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--gray-800); line-height: 1.6; }
+
+  /* ===== COVER ===== */
+  .cover {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, var(--teal) 100%);
+    color: white; padding: 80px 60px; min-height: 280px;
+    display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden;
+  }
+  .cover::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 350px; height: 350px; border-radius: 50%;
+    background: rgba(201,168,76,0.12); pointer-events: none;
+  }
+  .cover::after {
+    content: ''; position: absolute; bottom: -40px; left: -40px;
+    width: 250px; height: 250px; border-radius: 50%;
+    background: rgba(26,107,114,0.2); pointer-events: none;
+  }
+  .cover-badge { display: inline-block; background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+  .cover h1 { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+  .cover h1 span { color: var(--gold); }
+  .cover p { font-size: 16px; opacity: 0.85; max-width: 600px; margin-bottom: 30px; }
+  .cover-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+  .cover-meta-item { font-size: 13px; opacity: 0.7; }
+  .cover-meta-item strong { display: block; font-size: 15px; opacity: 1; color: var(--gold-light); }
+
+  /* ===== LAYOUT ===== */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+  .section { padding: 56px 0 32px; }
+  .section + .section { border-top: 1px solid var(--gray-200); }
+
+  /* ===== HEADINGS ===== */
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+  h2 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  h3 { font-size: 16px; font-weight: 600; color: var(--navy); margin: 24px 0 10px; }
+  h4 { font-size: 14px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+  p { color: var(--gray-600); font-size: 14.5px; margin-bottom: 12px; }
+
+  /* ===== CARDS ===== */
+  .card { background: white; border-radius: 10px; padding: 24px 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); border: 1px solid var(--gray-200); }
+  .card-grid { display: grid; gap: 20px; }
+  .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ===== BADGES ===== */
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.3px; }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+  .badge-amber { background: var(--amber-bg); color: var(--amber); }
+  .badge-red { background: var(--red-bg); color: var(--red); }
+  .badge-blue { background: var(--blue-bg); color: var(--blue); }
+  .badge-purple { background: var(--purple-bg); color: var(--purple); }
+  .badge-teal { background: #d1faf8; color: var(--teal); }
+  .badge-navy { background: #dce4f0; color: var(--navy); }
+
+  /* ===== ARCHITECTURE DIAGRAM ===== */
+  .arch-diagram { background: var(--navy); border-radius: 12px; padding: 40px; color: white; font-family: 'JetBrains Mono', monospace; font-size: 13px; overflow-x: auto; }
+  .arch-layer { margin-bottom: 28px; }
+  .arch-layer-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; font-family: 'Inter', sans-serif; font-weight: 600; }
+  .arch-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .arch-box { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 18px; font-size: 13px; white-space: nowrap; }
+  .arch-box.gold { border-color: var(--gold); background: rgba(201,168,76,0.12); color: var(--gold-light); }
+  .arch-box.teal { border-color: var(--teal-light); background: rgba(26,107,114,0.18); color: #7dd3d8; }
+  .arch-box.green { border-color: #22c55e; background: rgba(34,197,94,0.12); color: #86efac; }
+  .arch-box.purple { border-color: #a78bfa; background: rgba(139,92,246,0.12); color: #c4b5fd; }
+  .arch-box.blue { border-color: #60a5fa; background: rgba(96,165,250,0.12); color: #93c5fd; }
+  .arch-connector { text-align: center; color: rgba(255,255,255,0.3); font-size: 20px; margin: 8px 0; }
+
+  /* ===== COST TABLE ===== */
+  .cost-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .cost-table th { background: var(--navy); color: white; padding: 12px 16px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.5px; }
+  .cost-table th:last-child { text-align: right; }
+  .cost-table td { padding: 12px 16px; border-bottom: 1px solid var(--gray-200); vertical-align: middle; }
+  .cost-table td:last-child { text-align: right; font-weight: 600; }
+  .cost-table tr:nth-child(even) td { background: var(--gray-100); }
+  .cost-table tr:last-child td { border-bottom: none; }
+  .cost-total { background: var(--navy) !important; color: white !important; font-weight: 700 !important; }
+  .cost-total td { background: var(--navy) !important; color: white !important; }
+
+  /* ===== FEATURE TABLE ===== */
+  .feature-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .feature-table th { background: var(--teal); color: white; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; }
+  .feature-table td { padding: 10px 14px; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+  .feature-table tr:hover td { background: var(--gray-100); }
+
+  /* ===== CHATBOT COMPARE ===== */
+  .compare-card { border-radius: 10px; padding: 24px; border: 2px solid transparent; }
+  .compare-card.winner { border-color: var(--green); background: #f0fdf4; }
+  .compare-card.alt { border-color: var(--gray-200); background: white; }
+  .compare-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .compare-name { font-size: 18px; font-weight: 700; color: var(--navy); }
+  .compare-price { font-size: 22px; font-weight: 700; color: var(--green); }
+  .compare-price.paid { color: var(--amber); }
+  .compare-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(0,0,0,0.07); font-size: 13.5px; }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-label { color: var(--gray-600); }
+  .compare-val { font-weight: 600; color: var(--navy); }
+
+  /* ===== AUTOMATION FLOW ===== */
+  .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 0; margin: 16px 0; }
+  .flow-step { background: var(--navy); color: white; padding: 10px 18px; border-radius: 6px; font-size: 13px; font-weight: 500; position: relative; white-space: nowrap; }
+  .flow-step.trigger { background: var(--teal); }
+  .flow-step.action { background: var(--gold); color: var(--navy); }
+  .flow-step.outcome { background: var(--green); }
+  .flow-arrow { color: var(--gray-600); font-size: 20px; padding: 0 8px; }
+
+  /* ===== PAGE MAP ===== */
+  .page-map { display: grid; grid-template-columns: 220px 1fr; gap: 0; border: 1px solid var(--gray-200); border-radius: 10px; overflow: hidden; }
+  .page-sidebar { background: var(--navy); padding: 0; }
+  .page-sidebar-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.07); color: rgba(255,255,255,0.7); font-size: 13px; transition: all 0.2s; }
+  .page-sidebar-item.active { background: var(--teal); color: white; font-weight: 600; }
+  .page-content { padding: 24px; }
+  .page-feature { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .page-feature-icon { width: 22px; height: 22px; background: var(--teal); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+  .page-feature-text { font-size: 13.5px; color: var(--gray-600); }
+  .page-feature-text strong { display: block; color: var(--navy); font-size: 14px; }
+
+  /* ===== DB SCHEMA ===== */
+  .schema-table { background: var(--navy); border-radius: 8px; padding: 20px 24px; color: white; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; margin-bottom: 16px; }
+  .schema-table-name { font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 12px; }
+  .schema-row { display: grid; grid-template-columns: 160px 120px 1fr; gap: 12px; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .schema-row:last-child { border-bottom: none; }
+  .schema-col { color: #93c5fd; }
+  .schema-type { color: #86efac; }
+  .schema-note { color: rgba(255,255,255,0.45); font-size: 11.5px; }
+
+  /* ===== ROADMAP ===== */
+  .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .phase { border-radius: 10px; padding: 22px; }
+  .phase-1 { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 1px solid #bbf7d0; }
+  .phase-2 { background: linear-gradient(135deg, #fef9ee, #fef3c7); border: 1px solid #fde68a; }
+  .phase-3 { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 1px solid #bfdbfe; }
+  .phase-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px; }
+  .phase-1 .phase-label { color: var(--green); }
+  .phase-2 .phase-label { color: var(--amber); }
+  .phase-3 .phase-label { color: var(--blue); }
+  .phase-title { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+  .phase-item { font-size: 13px; color: var(--gray-600); padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; gap: 8px; align-items: flex-start; }
+  .phase-item::before { content: '✓'; font-size: 12px; font-weight: 700; margin-top: 1px; flex-shrink: 0; }
+  .phase-1 .phase-item::before { color: var(--green); }
+  .phase-2 .phase-item::before { color: var(--amber); }
+  .phase-3 .phase-item::before { color: var(--blue); }
+
+  /* ===== HIGHLIGHT BOX ===== */
+  .highlight-box { border-radius: 10px; padding: 20px 24px; margin: 20px 0; }
+  .highlight-box.navy { background: var(--navy); color: white; }
+  .highlight-box.teal { background: linear-gradient(135deg, #e6f7f8, #ccf0f2); border-left: 4px solid var(--teal); }
+  .highlight-box.gold { background: linear-gradient(135deg, #fdf8ee, #fef3c7); border-left: 4px solid var(--gold); }
+  .highlight-box.green { background: var(--green-bg); border-left: 4px solid var(--green); }
+  .highlight-box h3 { margin-top: 0; }
+
+  /* ===== FOOTER ===== */
+  .doc-footer { background: var(--navy); color: rgba(255,255,255,0.5); text-align: center; padding: 28px; font-size: 12px; margin-top: 60px; }
+  .doc-footer span { color: var(--gold); }
+
+  /* ===== PRINT ===== */
+  @media print {
+    body { background: white; }
+    .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 768px) {
+    .cover { padding: 40px 24px; }
+    .cover h1 { font-size: 28px; }
+    .container { padding: 0 20px; }
+    .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; }
+    .roadmap { grid-template-columns: 1fr; }
+    .page-map { grid-template-columns: 1fr; }
+    .arch-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<div class="cover">
+  <div class="container">
+    <div class="cover-badge">Architecture Design Document</div>
+    <h1>Steadfast Student Services<br><span>Web Application Blueprint</span></h1>
+    <p>Full-stack platform design — student portal, AI chatbot, automation engine, CRM, booking system, and university partnership hub. Built for scale, optimized for a $0–$25/month startup budget.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><strong>v1.0</strong>Revision</div>
+      <div class="cover-meta-item"><strong>June 2026</strong>Prepared</div>
+      <div class="cover-meta-item"><strong>Next.js + Supabase</strong>Core Stack</div>
+      <div class="cover-meta-item"><strong>Gemini 1.5 Flash</strong>AI Chatbot</div>
+      <div class="cover-meta-item"><strong>~$1–25/mo</strong>Hosting Target</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== EXECUTIVE SUMMARY ===== -->
+  <div class="section">
+    <div class="section-label">Section 1</div>
+    <h2>Executive Summary</h2>
+    <p>This document defines the complete technical architecture for the Steadfast Student Services web platform — a full-stack application designed to automate the student enrollment journey from first inquiry through visa approval. The platform centers on three core pillars: <strong>intelligent automation</strong> (reducing manual advisor work by 70%), a <strong>24/7 AI chatbot</strong> powered by Google Gemini 1.5 Flash (free tier), and a <strong>student-first UX</strong> engineered for repeat engagement and trust.</p>
+
+    <div class="card-grid card-grid-4" style="margin-top:24px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:32px;font-weight:700;color:var(--teal);">8</div>
+        <div style="font-size:13px;color:var(--gray-600);margin-top:4px;">Core Pages</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:32px;font-weight:700;color:var(--gold);">12+</div>
+        <div style="font-size:13px;color:var(--gray-600);margin-top:4px;">Automation Flows</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:32px;font-weight:700;color:var(--navy);">$0</div>
+        <div style="font-size:13px;color:var(--gray-600);margin-top:4px;">AI Chatbot Cost (Launch)</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:32px;font-weight:700;color:var(--green);">$1–25</div>
+        <div style="font-size:13px;color:var(--gray-600);margin-top:4px;">Est. Monthly Hosting</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SYSTEM ARCHITECTURE ===== -->
+  <div class="section">
+    <div class="section-label">Section 2</div>
+    <h2>System Architecture</h2>
+    <p>A Jamstack-style architecture: static/SSR pages on Vercel's edge network, Supabase as the database and auth backbone, serverless API routes handling all business logic, and third-party services for email, booking, and AI.</p>
+
+    <div class="arch-diagram">
+      <div class="arch-layer">
+        <div class="arch-layer-label">▸ Client Layer (Browser)</div>
+        <div class="arch-row">
+          <div class="arch-box gold">Landing Page</div>
+          <div class="arch-box gold">Services Pages</div>
+          <div class="arch-box gold">Assessment Quiz</div>
+          <div class="arch-box gold">Student Portal</div>
+          <div class="arch-box gold">Booking Page</div>
+          <div class="arch-box gold">Blog / Resources</div>
+          <div class="arch-box gold">Admin Dashboard</div>
+        </div>
+      </div>
+      <div class="arch-connector">⬇&nbsp;&nbsp;&nbsp;HTTPS / WebSocket</div>
+      <div class="arch-layer">
+        <div class="arch-layer-label">▸ Edge / Hosting Layer (Vercel — Free Tier)</div>
+        <div class="arch-row">
+          <div class="arch-box">Next.js 14 App Router</div>
+          <div class="arch-box">Edge Middleware (Auth guards)</div>
+          <div class="arch-box">Static Asset CDN</div>
+          <div class="arch-box">Image Optimization</div>
+        </div>
+      </div>
+      <div class="arch-connector">⬇&nbsp;&nbsp;&nbsp;API Calls</div>
+      <div class="arch-layer">
+        <div class="arch-layer-label">▸ API / Serverless Layer (Next.js API Routes)</div>
+        <div class="arch-row">
+          <div class="arch-box teal">/api/chat — AI Chatbot</div>
+          <div class="arch-box teal">/api/assessment — Risk Scoring</div>
+          <div class="arch-box teal">/api/leads — CRM Entry</div>
+          <div class="arch-box teal">/api/documents — File Handler</div>
+          <div class="arch-box teal">/api/notifications — Email/SMS</div>
+          <div class="arch-box teal">/api/admin — Dashboard</div>
+        </div>
+      </div>
+      <div class="arch-connector">⬇&nbsp;&nbsp;&nbsp;SDK / REST Calls</div>
+      <div class="arch-layer">
+        <div class="arch-layer-label">▸ Services Layer (Third-Party Integrations)</div>
+        <div class="arch-row">
+          <div class="arch-box green">Supabase (PostgreSQL + Auth + Storage)</div>
+          <div class="arch-box green">Gemini 1.5 Flash API (AI Chatbot)</div>
+          <div class="arch-box green">Resend (Transactional Email)</div>
+          <div class="arch-box green">Cal.com (Booking)</div>
+          <div class="arch-box green">Stripe (Payments)</div>
+          <div class="arch-box green">Cloudflare (CDN / DNS)</div>
+        </div>
+      </div>
+      <div class="arch-connector">⬇&nbsp;&nbsp;&nbsp;Webhooks / Events</div>
+      <div class="arch-layer">
+        <div class="arch-layer-label">▸ Automation Engine (Supabase Edge Functions + Triggers)</div>
+        <div class="arch-row">
+          <div class="arch-box purple">Lead Nurture Sequence</div>
+          <div class="arch-box purple">Document Checklist Auto-Fill</div>
+          <div class="arch-box purple">Visa Timeline Reminders</div>
+          <div class="arch-box purple">Application Status Updates</div>
+          <div class="arch-box purple">Inactivity Re-Engagement</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TECH STACK ===== -->
+  <div class="section">
+    <div class="section-label">Section 3</div>
+    <h2>Technology Stack</h2>
+
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <h3 style="margin-top:0;">Frontend</h3>
+        <table class="feature-table">
+          <tr><td><strong>Next.js 14</strong></td><td>React framework — App Router, SSR, SSG, API routes in one package. No separate backend server needed.</td></tr>
+          <tr><td><strong>Tailwind CSS</strong></td><td>Utility-first CSS — fast development, tiny CSS bundle, fully responsive out of the box.</td></tr>
+          <tr><td><strong>Framer Motion</strong></td><td>Smooth animations and micro-interactions that create the "polished" feel students expect.</td></tr>
+          <tr><td><strong>React Hook Form</strong></td><td>Performant form handling for intake forms, assessment quizzes, and document uploads.</td></tr>
+          <tr><td><strong>Zustand</strong></td><td>Lightweight global state for auth, chat history, and portal data.</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;">Backend &amp; Infrastructure</h3>
+        <table class="feature-table">
+          <tr><td><strong>Supabase</strong></td><td>PostgreSQL database, row-level security, real-time subscriptions, Auth (magic link + OAuth), and file storage in one platform.</td></tr>
+          <tr><td><strong>Vercel</strong></td><td>Hosting + CDN. Automatic deploys from GitHub. Serverless functions at the edge. Zero config SSL.</td></tr>
+          <tr><td><strong>Cloudflare</strong></td><td>DNS + DDoS protection + free CDN on top of Vercel for extra performance globally.</td></tr>
+          <tr><td><strong>Resend</strong></td><td>Developer-first transactional email. 3,000 free emails/month — handles all automated sequences.</td></tr>
+          <tr><td><strong>Cal.com</strong></td><td>Open-source scheduling. Free self-hostable or free hosted tier. Webhook triggers automation on booking.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== AI CHATBOT COMPARISON ===== -->
+  <div class="section">
+    <div class="section-label">Section 4</div>
+    <h2>AI Chatbot — Cost Analysis &amp; Recommendation</h2>
+    <p>Two strong candidates were evaluated: Google Gemini 1.5 Flash and Anthropic Claude Haiku 4.5. For a startup with unpredictable initial traffic, the free tier matters most.</p>
+
+    <div class="card-grid card-grid-2" style="margin-top:24px;">
+      <div class="compare-card winner">
+        <div class="compare-header">
+          <div>
+            <div class="compare-name">Gemini 1.5 Flash</div>
+            <div style="font-size:12px;color:var(--gray-600);">Google AI Studio / Vertex AI</div>
+          </div>
+          <div>
+            <div class="compare-price">$0/mo</div>
+            <div style="font-size:11px;color:var(--green);text-align:right;">FREE at launch</div>
+          </div>
+        </div>
+        <span class="badge badge-green" style="margin-bottom:14px;">✓ RECOMMENDED</span>
+        <div class="compare-row"><span class="compare-label">Free Tier</span><span class="compare-val">1,000,000 tokens/day FREE</span></div>
+        <div class="compare-row"><span class="compare-label">Rate Limit (free)</span><span class="compare-val">15 RPM / 1M TPD</span></div>
+        <div class="compare-row"><span class="compare-label">Input Pricing</span><span class="compare-val">$0.075/MTok (after free)</span></div>
+        <div class="compare-row"><span class="compare-label">Output Pricing</span><span class="compare-val">$0.30/MTok (after free)</span></div>
+        <div class="compare-row"><span class="compare-label">Context Window</span><span class="compare-val">1,000,000 tokens</span></div>
+        <div class="compare-row"><span class="compare-label">Estimated Monthly Cost</span><span class="compare-val" style="color:var(--green);">$0 (until ~20K+ chat sessions)</span></div>
+        <div style="margin-top:14px;padding:10px;background:rgba(22,163,74,0.1);border-radius:6px;font-size:13px;color:var(--gray-600);">
+          At launch with modest traffic (100–500 student chats/day, ~1K tokens each), the free tier handles everything. You can operate the chatbot for <strong>months before paying a cent.</strong>
+        </div>
+      </div>
+
+      <div class="compare-card alt">
+        <div class="compare-header">
+          <div>
+            <div class="compare-name">Claude Haiku 4.5</div>
+            <div style="font-size:12px;color:var(--gray-600);">Anthropic API</div>
+          </div>
+          <div>
+            <div class="compare-price paid">$2–8/mo</div>
+            <div style="font-size:11px;color:var(--amber);text-align:right;">Low-volume estimate</div>
+          </div>
+        </div>
+        <span class="badge badge-amber" style="margin-bottom:14px;">Alternative (Scale-up)</span>
+        <div class="compare-row"><span class="compare-label">Free Tier</span><span class="compare-val">None (pay per token)</span></div>
+        <div class="compare-row"><span class="compare-label">Input Pricing</span><span class="compare-val">$1.00/MTok</span></div>
+        <div class="compare-row"><span class="compare-label">Output Pricing</span><span class="compare-val">$5.00/MTok</span></div>
+        <div class="compare-row"><span class="compare-label">Context Window</span><span class="compare-val">200K tokens</span></div>
+        <div class="compare-row"><span class="compare-label">Strengths</span><span class="compare-val">Nuance, instruction-following</span></div>
+        <div class="compare-row"><span class="compare-label">Estimated Monthly Cost</span><span class="compare-val" style="color:var(--amber);">$2–8/mo (low vol.) / $15–40/mo (high)</span></div>
+        <div style="margin-top:14px;padding:10px;background:var(--amber-bg);border-radius:6px;font-size:13px;color:var(--gray-600);">
+          Excellent quality upgrade for Phase 2 when the business generates revenue. Switch is seamless — just swap the API key and endpoint in one config file.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box teal" style="margin-top:20px;">
+      <h3 style="color:var(--teal);">Upgrade Path</h3>
+      <p>The chatbot module is built as an abstracted service layer. Switching from Gemini to Claude (or any other model) requires changing <strong>one environment variable</strong> and <strong>one API adapter file</strong> — no frontend changes needed. This means zero lock-in and a clean upgrade path when revenue supports it.</p>
+    </div>
+  </div>
+
+  <!-- ===== HOSTING COST BREAKDOWN ===== -->
+  <div class="section">
+    <div class="section-label">Section 5</div>
+    <h2>Monthly Hosting Cost Breakdown</h2>
+    <p>Three scenarios are modeled: Launch (Months 1–3), Growth (Months 4–12), and Scale (Year 2+). All are well under the $50/month target.</p>
+
+    <h3>Scenario A — Launch Phase (Months 1–3)</h3>
+    <table class="cost-table">
+      <thead><tr><th>Service</th><th>Tier</th><th>What You Get</th><th style="text-align:right;">$/Month</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Vercel</strong></td><td><span class="badge badge-green">Free</span></td><td>Hosting, CDN, SSL, serverless functions, 100GB bandwidth</td><td>$0</td></tr>
+        <tr><td><strong>Supabase</strong></td><td><span class="badge badge-green">Free</span></td><td>PostgreSQL 500MB, Auth, 1GB file storage, 50K monthly active users</td><td>$0</td></tr>
+        <tr><td><strong>Gemini 1.5 Flash</strong></td><td><span class="badge badge-green">Free</span></td><td>1M tokens/day — handles ~500 chat sessions daily at zero cost</td><td>$0</td></tr>
+        <tr><td><strong>Resend</strong></td><td><span class="badge badge-green">Free</span></td><td>3,000 transactional emails/month — welcome, reminders, status updates</td><td>$0</td></tr>
+        <tr><td><strong>Cal.com</strong></td><td><span class="badge badge-green">Free</span></td><td>Unlimited booking pages, Zoom/Google Meet integration</td><td>$0</td></tr>
+        <tr><td><strong>Cloudflare</strong></td><td><span class="badge badge-green">Free</span></td><td>DNS, DDoS protection, free CDN, analytics</td><td>$0</td></tr>
+        <tr><td><strong>Domain (.com)</strong></td><td><span class="badge badge-blue">Paid</span></td><td>steadfaststudentservices.com — annual ~$12</td><td>$1</td></tr>
+        <tr><td><strong>Stripe</strong></td><td><span class="badge badge-blue">Transaction</span></td><td>2.9% + 30¢ per payment — no monthly fee, only pay when you earn</td><td>$0</td></tr>
+        <tr class="cost-total"><td colspan="3"><strong>TOTAL — LAUNCH</strong></td><td><strong>~$1/month</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:32px;">Scenario B — Growth Phase (Months 4–12, 200+ active students)</h3>
+    <table class="cost-table">
+      <thead><tr><th>Service</th><th>Tier</th><th>What You Get</th><th style="text-align:right;">$/Month</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Vercel</strong></td><td><span class="badge badge-green">Free</span></td><td>Still within free tier for most startups</td><td>$0</td></tr>
+        <tr><td><strong>Supabase</strong></td><td><span class="badge badge-green">Free → Pro</span></td><td>Free tier until 500MB DB; Pro at $25/mo gives 8GB + daily backups</td><td>$0–$25</td></tr>
+        <tr><td><strong>Gemini 1.5 Flash</strong></td><td><span class="badge badge-green">Free</span></td><td>Still free — 1M tokens/day supports thousands of conversations</td><td>$0</td></tr>
+        <tr><td><strong>Resend</strong></td><td><span class="badge badge-amber">Starter $20</span></td><td>50,000 emails/month for growing nurture sequences</td><td>$0–$20</td></tr>
+        <tr><td><strong>Cal.com</strong></td><td><span class="badge badge-green">Free</span></td><td>Still free for all core scheduling</td><td>$0</td></tr>
+        <tr><td><strong>Cloudflare</strong></td><td><span class="badge badge-green">Free</span></td><td>Free tier remains sufficient</td><td>$0</td></tr>
+        <tr><td><strong>Domain</strong></td><td><span class="badge badge-blue">Paid</span></td><td>Annual renewal</td><td>$1</td></tr>
+        <tr class="cost-total"><td colspan="3"><strong>TOTAL — GROWTH</strong></td><td><strong>~$1–$46/month</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box green" style="margin-top:20px;">
+      <strong>Budget Verdict:</strong> Even in the Growth phase with all paid tiers activated, the maximum cost is $46/month — still under your $50 target. The Launch phase runs at approximately <strong>$1/month</strong> (just the domain). All services have clearly-defined upgrade triggers so you scale costs with revenue.
+    </div>
+  </div>
+
+  <!-- ===== PAGE MAP ===== -->
+  <div class="section">
+    <div class="section-label">Section 6</div>
+    <h2>Site Map &amp; Feature Inventory</h2>
+
+    <div style="overflow-x:auto;">
+      <table class="feature-table" style="margin-top:16px;">
+        <thead>
+          <tr>
+            <th style="width:180px;">Page / Route</th>
+            <th style="width:100px;">Auth Required</th>
+            <th>Key Features &amp; Components</th>
+            <th style="width:120px;">Automation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>/</strong><br><span style="font-size:12px;color:var(--gray-600);">Landing Page</span></td>
+            <td><span class="badge badge-green">Public</span></td>
+            <td>Hero with animated stats, Services overview, Country risk map, Success stories carousel, Lead capture CTA, AI chatbot widget (floating)</td>
+            <td><span class="badge badge-teal">Lead auto-capture</span></td>
+          </tr>
+          <tr>
+            <td><strong>/services</strong><br><span style="font-size:12px;color:var(--gray-600);">Services Page</span></td>
+            <td><span class="badge badge-green">Public</span></td>
+            <td>Three-tier service cards (Low/Moderate/High risk), Pricing packages, Process timeline, FAQ accordion, CTA to assessment quiz</td>
+            <td><span class="badge badge-teal">Package match</span></td>
+          </tr>
+          <tr>
+            <td><strong>/assessment</strong><br><span style="font-size:12px;color:var(--gray-600);">Risk Assessment Quiz</span></td>
+            <td><span class="badge badge-green">Public</span></td>
+            <td>Multi-step quiz (country, GPA, finances, intent), Real-time risk score calculation, Personalized package recommendation, Email gate before results</td>
+            <td><span class="badge badge-teal">Auto-score + CRM entry</span></td>
+          </tr>
+          <tr>
+            <td><strong>/book</strong><br><span style="font-size:12px;color:var(--gray-600);">Consultation Booking</span></td>
+            <td><span class="badge badge-green">Public</span></td>
+            <td>Cal.com embed, Advisor availability calendar, Video/phone toggle, Pre-booking questionnaire, Confirmation + reminder automation</td>
+            <td><span class="badge badge-teal">Email reminders</span></td>
+          </tr>
+          <tr>
+            <td><strong>/portal</strong><br><span style="font-size:12px;color:var(--gray-600);">Student Dashboard</span></td>
+            <td><span class="badge badge-navy">Student Login</span></td>
+            <td>Progress tracker (visual timeline), Document checklist with upload, Application status real-time updates, Advisor messages, Next steps widget, Visa countdown timer</td>
+            <td><span class="badge badge-teal">Full automation</span></td>
+          </tr>
+          <tr>
+            <td><strong>/portal/documents</strong><br><span style="font-size:12px;color:var(--gray-600);">Document Center</span></td>
+            <td><span class="badge badge-navy">Student Login</span></td>
+            <td>Drag-and-drop upload, Auto-checklist by university/program, Document status (Pending/Reviewing/Approved), Secure Supabase Storage, Advisor annotation</td>
+            <td><span class="badge badge-teal">Advisor alerts</span></td>
+          </tr>
+          <tr>
+            <td><strong>/portal/applications</strong><br><span style="font-size:12px;color:var(--gray-600);">Applications Tracker</span></td>
+            <td><span class="badge badge-navy">Student Login</span></td>
+            <td>Kanban-style application board, Status pipeline (Draft → Submitted → Decision), Deadline calendar, Offer letter upload, Decision comparison tool</td>
+            <td><span class="badge badge-teal">Deadline reminders</span></td>
+          </tr>
+          <tr>
+            <td><strong>/about</strong><br><span style="font-size:12px;color:var(--gray-600);">About Page</span></td>
+            <td><span class="badge badge-green">Public</span></td>
+            <td>Company story, Team profiles, Key stats (students helped, visa success rate), Partner logos (aggregators + universities), Trust signals</td>
+            <td>–</td>
+          </tr>
+          <tr>
+            <td><strong>/resources</strong><br><span style="font-size:12px;color:var(--gray-600);">Blog / Resource Hub</span></td>
+            <td><span class="badge badge-green">Public</span></td>
+            <td>Country guides, Visa tip articles, University spotlights, Downloadable checklists, Email gate for premium content (list building)</td>
+            <td><span class="badge badge-teal">Email list growth</span></td>
+          </tr>
+          <tr>
+            <td><strong>/admin</strong><br><span style="font-size:12px;color:var(--gray-600);">Admin Dashboard</span></td>
+            <td><span class="badge badge-red">Admin Only</span></td>
+            <td>Student pipeline CRM, Lead activity feed, Booking management, Document review queue, Email campaign builder, Analytics dashboard, University/partner management</td>
+            <td><span class="badge badge-teal">Full CRM</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== AUTOMATION FLOWS ===== -->
+  <div class="section">
+    <div class="section-label">Section 7</div>
+    <h2>Automation Engine — 12 Core Flows</h2>
+    <p>Every automation runs via Supabase Database Triggers → Edge Functions → Resend email, eliminating manual follow-up at each stage of the student journey.</p>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h3 style="margin-top:0;">Flow 1 — New Lead Capture</h3>
+      <div class="flow">
+        <div class="flow-step trigger">Student submits inquiry form</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Auto-create CRM entry</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Send welcome email (Resend)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Alert advisor Slack/email</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step outcome">Nurture sequence starts</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h3 style="margin-top:0;">Flow 2 — Assessment Quiz Completion</h3>
+      <div class="flow">
+        <div class="flow-step trigger">Quiz submitted</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">AI risk score calculated</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Package recommendation generated</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Email with custom plan sent</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step outcome">Booking CTA triggered</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h3 style="margin-top:0;">Flow 3 — Consultation Booking</h3>
+      <div class="flow">
+        <div class="flow-step trigger">Booking confirmed (Cal.com webhook)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">CRM status → "Consultation Scheduled"</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Confirmation email + calendar invite</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">24hr + 1hr reminders</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step outcome">Post-session feedback request</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h3 style="margin-top:0;">Flow 4 — Document Upload</h3>
+      <div class="flow">
+        <div class="flow-step trigger">Student uploads document</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Checklist item auto-checked</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Advisor notification sent</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">AI pre-screens for completeness</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step outcome">Status: "Under Review"</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h3 style="margin-top:0;">Flow 5 — Application Status Change</h3>
+      <div class="flow">
+        <div class="flow-step trigger">Advisor updates application status</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Portal dashboard updates instantly</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Student email notification</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step outcome">Next action prompt displayed</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h3 style="margin-top:0;">Flow 6 — Visa Appointment Reminders</h3>
+      <div class="flow">
+        <div class="flow-step trigger">Visa appointment date saved</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">7-day prep email (document checklist)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">3-day reminder (what to bring)</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Morning-of reminder</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step outcome">Post-appointment outcome survey</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h3 style="margin-top:0;">Flow 7 — Inactivity Re-Engagement</h3>
+      <div class="flow">
+        <div class="flow-step trigger">No portal login for 14 days</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Re-engagement email with progress summary</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step action">Pending action items highlighted</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step outcome">Book call CTA if still inactive +7 days</div>
+      </div>
+    </div>
+
+    <div class="card-grid card-grid-2" style="margin-top:16px;">
+      <div class="card">
+        <h4>Additional Automation Flows</h4>
+        <div class="phase-item">Deadline Countdown — 30/14/7/3/1 day alerts for each application deadline</div>
+        <div class="phase-item">Offer Letter Received — Trigger acceptance decision workflow + comparison email</div>
+        <div class="phase-item">I-20 / Acceptance Letter Issued — Auto-start visa prep checklist</div>
+        <div class="phase-item">SEVIS Fee Payment Reminder — 30 days before F-1 visa appointment</div>
+        <div class="phase-item">Post-Arrival Check-in — 2 weeks after enrollment start date</div>
+      </div>
+      <div class="card">
+        <h4>AI Chatbot Automation Triggers</h4>
+        <div class="phase-item">Idle chat for 30 seconds → "Can I help you with something specific?"</div>
+        <div class="phase-item">User asks about visa → Show personalized denial-rate data for their country</div>
+        <div class="phase-item">User asks "how much" → Show package pricing + book consultation CTA</div>
+        <div class="phase-item">3+ chatbot interactions without booking → Offer free 15-min quick call</div>
+        <div class="phase-item">Exit intent detected → Chatbot pops with "Get your free risk assessment"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DATABASE SCHEMA ===== -->
+  <div class="section">
+    <div class="section-label">Section 8</div>
+    <h2>Database Schema (Supabase / PostgreSQL)</h2>
+
+    <div class="card-grid card-grid-2">
+      <div>
+        <div class="schema-table">
+          <div class="schema-table-name">TABLE: students</div>
+          <div class="schema-row"><span class="schema-col">id</span><span class="schema-type">uuid</span><span class="schema-note">Primary key (auth.uid)</span></div>
+          <div class="schema-row"><span class="schema-col">full_name</span><span class="schema-type">text</span><span class="schema-note">NOT NULL</span></div>
+          <div class="schema-row"><span class="schema-col">email</span><span class="schema-type">text</span><span class="schema-note">UNIQUE, NOT NULL</span></div>
+          <div class="schema-row"><span class="schema-col">phone</span><span class="schema-type">text</span><span class="schema-note"></span></div>
+          <div class="schema-row"><span class="schema-col">country_of_origin</span><span class="schema-type">text</span><span class="schema-note">ISO 3166 code</span></div>
+          <div class="schema-row"><span class="schema-col">risk_tier</span><span class="schema-type">text</span><span class="schema-note">low | moderate | high</span></div>
+          <div class="schema-row"><span class="schema-col">risk_score</span><span class="schema-type">integer</span><span class="schema-note">0–100 from assessment</span></div>
+          <div class="schema-row"><span class="schema-col">service_package</span><span class="schema-type">text</span><span class="schema-note">standard | premium | elite</span></div>
+          <div class="schema-row"><span class="schema-col">status</span><span class="schema-type">text</span><span class="schema-note">lead | active | enrolled | alumni</span></div>
+          <div class="schema-row"><span class="schema-col">advisor_id</span><span class="schema-type">uuid</span><span class="schema-note">FK → advisors.id</span></div>
+          <div class="schema-row"><span class="schema-col">created_at</span><span class="schema-type">timestamptz</span><span class="schema-note">DEFAULT now()</span></div>
+        </div>
+        <div class="schema-table">
+          <div class="schema-table-name">TABLE: applications</div>
+          <div class="schema-row"><span class="schema-col">id</span><span class="schema-type">uuid</span><span class="schema-note">Primary key</span></div>
+          <div class="schema-row"><span class="schema-col">student_id</span><span class="schema-type">uuid</span><span class="schema-note">FK → students.id</span></div>
+          <div class="schema-row"><span class="schema-col">institution_name</span><span class="schema-type">text</span><span class="schema-note">NOT NULL</span></div>
+          <div class="schema-row"><span class="schema-col">program</span><span class="schema-type">text</span><span class="schema-note">Degree program name</span></div>
+          <div class="schema-row"><span class="schema-col">status</span><span class="schema-type">text</span><span class="schema-note">draft|submitted|decision|enrolled</span></div>
+          <div class="schema-row"><span class="schema-col">deadline</span><span class="schema-type">date</span><span class="schema-note">Application deadline</span></div>
+          <div class="schema-row"><span class="schema-col">decision</span><span class="schema-type">text</span><span class="schema-note">accepted|rejected|waitlist</span></div>
+          <div class="schema-row"><span class="schema-col">notes</span><span class="schema-type">text</span><span class="schema-note">Advisor notes</span></div>
+          <div class="schema-row"><span class="schema-col">updated_at</span><span class="schema-type">timestamptz</span><span class="schema-note">Auto-updated trigger</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="schema-table">
+          <div class="schema-table-name">TABLE: documents</div>
+          <div class="schema-row"><span class="schema-col">id</span><span class="schema-type">uuid</span><span class="schema-note">Primary key</span></div>
+          <div class="schema-row"><span class="schema-col">student_id</span><span class="schema-type">uuid</span><span class="schema-note">FK → students.id</span></div>
+          <div class="schema-row"><span class="schema-col">doc_type</span><span class="schema-type">text</span><span class="schema-note">passport|transcript|bank_stmt|lor|sop|...</span></div>
+          <div class="schema-row"><span class="schema-col">file_path</span><span class="schema-type">text</span><span class="schema-note">Supabase Storage path</span></div>
+          <div class="schema-row"><span class="schema-col">status</span><span class="schema-type">text</span><span class="schema-note">pending|reviewing|approved|rejected</span></div>
+          <div class="schema-row"><span class="schema-col">advisor_notes</span><span class="schema-type">text</span><span class="schema-note">Review feedback</span></div>
+          <div class="schema-row"><span class="schema-col">uploaded_at</span><span class="schema-type">timestamptz</span><span class="schema-note">DEFAULT now()</span></div>
+        </div>
+        <div class="schema-table">
+          <div class="schema-table-name">TABLE: chat_sessions</div>
+          <div class="schema-row"><span class="schema-col">id</span><span class="schema-type">uuid</span><span class="schema-note">Primary key</span></div>
+          <div class="schema-row"><span class="schema-col">session_key</span><span class="schema-type">text</span><span class="schema-note">Anonymous/auth identifier</span></div>
+          <div class="schema-row"><span class="schema-col">student_id</span><span class="schema-type">uuid</span><span class="schema-note">NULL if anonymous visitor</span></div>
+          <div class="schema-row"><span class="schema-col">messages</span><span class="schema-type">jsonb</span><span class="schema-note">[{role, content, ts}]</span></div>
+          <div class="schema-row"><span class="schema-col">lead_captured</span><span class="schema-type">boolean</span><span class="schema-note">Email collected?</span></div>
+          <div class="schema-row"><span class="schema-col">started_at</span><span class="schema-type">timestamptz</span><span class="schema-note">DEFAULT now()</span></div>
+        </div>
+        <div class="schema-table">
+          <div class="schema-table-name">TABLE: leads</div>
+          <div class="schema-row"><span class="schema-col">id</span><span class="schema-type">uuid</span><span class="schema-note">Primary key</span></div>
+          <div class="schema-row"><span class="schema-col">email</span><span class="schema-type">text</span><span class="schema-note">UNIQUE</span></div>
+          <div class="schema-row"><span class="schema-col">source</span><span class="schema-type">text</span><span class="schema-note">chatbot|quiz|contact|blog</span></div>
+          <div class="schema-row"><span class="schema-col">quiz_data</span><span class="schema-type">jsonb</span><span class="schema-note">Raw assessment answers</span></div>
+          <div class="schema-row"><span class="schema-col">converted</span><span class="schema-type">boolean</span><span class="schema-note">Became a student?</span></div>
+          <div class="schema-row"><span class="schema-col">created_at</span><span class="schema-type">timestamptz</span><span class="schema-note">DEFAULT now()</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CHATBOT DESIGN ===== -->
+  <div class="section">
+    <div class="section-label">Section 9</div>
+    <h2>AI Chatbot — Behavior Design</h2>
+    <p>The chatbot is a floating widget on every page. It is not just a FAQ bot — it is a guided enrollment advisor that qualifies leads, collects contact info, and books consultations automatically.</p>
+
+    <div class="card-grid card-grid-2">
+      <div class="card">
+        <h3 style="margin-top:0;">System Prompt Strategy</h3>
+        <p>Gemini receives a carefully crafted system prompt that establishes the bot as "Sofia" — a Steadfast Student Services enrollment advisor. The prompt includes:</p>
+        <div class="phase-item">Company overview and services (never reveal all pricing upfront)</div>
+        <div class="phase-item">Risk tier definitions for each country region</div>
+        <div class="phase-item">Common visa Q&amp;A (F-1, M-1, J-1 processes)</div>
+        <div class="phase-item">Instructions to collect email before giving detailed advice</div>
+        <div class="phase-item">Instructions to recommend booking a consultation for complex cases</div>
+        <div class="phase-item">Tone: warm, professional, encouraging — never overwhelming</div>
+        <div class="phase-item">Escalation: "Let me connect you with a human advisor" for edge cases</div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;">Engagement Triggers (Zero Cost, High Conversion)</h3>
+        <div class="phase-item"><strong>Time on page &gt; 45s:</strong> Chatbot opens with "Hi! Curious about studying in the U.S.?"</div>
+        <div class="phase-item"><strong>Pricing page visit:</strong> "I can help you find the right package — what's your home country?"</div>
+        <div class="phase-item"><strong>3rd page view:</strong> "Looks like you're doing your research — want a quick personalized assessment?"</div>
+        <div class="phase-item"><strong>Return visitor:</strong> "Welcome back! Ready to take the next step?"</div>
+        <div class="phase-item"><strong>Exit intent:</strong> "Before you go — get your free visa eligibility score (2 minutes)"</div>
+        <div class="phase-item"><strong>Chat &gt; 5 messages:</strong> "Would you like to book a free 30-minute call with an advisor?"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== IMPLEMENTATION ROADMAP ===== -->
+  <div class="section">
+    <div class="section-label">Section 10</div>
+    <h2>Implementation Roadmap</h2>
+
+    <div class="roadmap">
+      <div class="phase phase-1">
+        <div class="phase-label">Phase 1 — Weeks 1–3</div>
+        <div class="phase-title">Foundation &amp; Launch</div>
+        <div class="phase-item">Next.js project setup + Tailwind config</div>
+        <div class="phase-item">Vercel deployment + Cloudflare DNS</div>
+        <div class="phase-item">Supabase project + schema migration</div>
+        <div class="phase-item">Landing page (full design)</div>
+        <div class="phase-item">Services &amp; About pages</div>
+        <div class="phase-item">AI Chatbot widget (Gemini API)</div>
+        <div class="phase-item">Lead capture form + CRM entry</div>
+        <div class="phase-item">Welcome email automation (Resend)</div>
+        <div class="phase-item">Contact page + booking link</div>
+      </div>
+      <div class="phase phase-2">
+        <div class="phase-label">Phase 2 — Weeks 4–7</div>
+        <div class="phase-title">Student Portal &amp; Automation</div>
+        <div class="phase-item">Auth system (magic link login)</div>
+        <div class="phase-item">Assessment quiz + risk scoring</div>
+        <div class="phase-item">Student portal dashboard</div>
+        <div class="phase-item">Document upload center</div>
+        <div class="phase-item">Application tracker (Kanban)</div>
+        <div class="phase-item">Cal.com booking integration</div>
+        <div class="phase-item">All 12 automation email flows</div>
+        <div class="phase-item">Admin dashboard (student pipeline CRM)</div>
+        <div class="phase-item">Stripe payment integration</div>
+      </div>
+      <div class="phase phase-3">
+        <div class="phase-label">Phase 3 — Weeks 8–12</div>
+        <div class="phase-title">Growth &amp; Intelligence</div>
+        <div class="phase-item">Blog / Resource hub + email gates</div>
+        <div class="phase-item">Country guide content pages</div>
+        <div class="phase-item">Analytics dashboard (Vercel Analytics)</div>
+        <div class="phase-item">Advanced chatbot context (portal-aware)</div>
+        <div class="phase-item">University partner portal (MOU tracking)</div>
+        <div class="phase-item">A/B test landing page CTAs</div>
+        <div class="phase-item">Referral program module</div>
+        <div class="phase-item">SEO optimization + sitemap</div>
+        <div class="phase-item">Performance audit + PWA features</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FILE STRUCTURE ===== -->
+  <div class="section">
+    <div class="section-label">Section 11</div>
+    <h2>Project File Structure</h2>
+
+    <div class="arch-diagram" style="font-size:13px;line-height:1.7;">
+<pre style="font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,0.85);">app/
+├── <span style="color:#C9A84C;">ARCHITECTURE.html</span>          ← This document
+├── <span style="color:#86efac;">package.json</span>               ← Dependencies (Next.js, Supabase, Tailwind...)
+├── <span style="color:#86efac;">next.config.js</span>            ← Next.js config
+├── <span style="color:#86efac;">tailwind.config.js</span>        ← Brand colors + custom theme
+├── <span style="color:#86efac;">.env.example</span>              ← Environment variables template
+├── <span style="color:#86efac;">tsconfig.json</span>             ← TypeScript config
+│
+├── <span style="color:#7dd3d8;">public/</span>
+│   ├── favicon.ico
+│   └── images/                    ← Static assets
+│
+└── <span style="color:#7dd3d8;">src/</span>
+    ├── <span style="color:#c4b5fd;">app/</span>                       ← Next.js App Router
+    │   ├── layout.tsx             ← Root layout (Nav + Footer + Chatbot)
+    │   ├── page.tsx               ← Landing page
+    │   ├── globals.css
+    │   ├── about/page.tsx
+    │   ├── services/page.tsx
+    │   ├── contact/page.tsx
+    │   ├── assessment/page.tsx    ← Risk assessment quiz
+    │   ├── book/page.tsx          ← Cal.com booking embed
+    │   ├── resources/             ← Blog + country guides
+    │   │   ├── page.tsx
+    │   │   └── [slug]/page.tsx
+    │   ├── portal/                ← Student dashboard (auth-protected)
+    │   │   ├── layout.tsx         ← Portal sidebar layout
+    │   │   ├── page.tsx           ← Dashboard overview
+    │   │   ├── documents/page.tsx
+    │   │   └── applications/page.tsx
+    │   ├── admin/                 ← Admin CRM (admin-only)
+    │   │   └── page.tsx
+    │   └── api/                   ← Serverless API routes
+    │       ├── chat/route.ts      ← Gemini AI chatbot endpoint
+    │       ├── assessment/route.ts ← Risk scoring logic
+    │       ├── leads/route.ts     ← CRM lead creation
+    │       ├── documents/route.ts ← File upload handler
+    │       └── notify/route.ts    ← Email trigger endpoint
+    │
+    ├── <span style="color:#93c5fd;">components/</span>
+    │   ├── layout/
+    │   │   ├── Navigation.tsx
+    │   │   ├── Footer.tsx
+    │   │   └── PortalSidebar.tsx
+    │   ├── chat/
+    │   │   ├── ChatWidget.tsx     ← Floating chat button + window
+    │   │   ├── ChatMessage.tsx
+    │   │   └── ChatInput.tsx
+    │   ├── ui/
+    │   │   ├── Button.tsx
+    │   │   ├── Card.tsx
+    │   │   ├── Badge.tsx
+    │   │   ├── ProgressBar.tsx
+    │   │   └── Modal.tsx
+    │   ├── assessment/
+    │   │   ├── QuizStep.tsx
+    │   │   └── RiskResult.tsx
+    │   └── portal/
+    │       ├── ApplicationKanban.tsx
+    │       ├── DocumentUpload.tsx
+    │       └── ProgressTimeline.tsx
+    │
+    └── <span style="color:#fca5a5;">lib/</span>
+        ├── supabase.ts            ← Supabase client + types
+        ├── gemini.ts              ← Gemini API adapter
+        ├── email.ts               ← Resend email helper
+        ├── assessment.ts          ← Risk scoring algorithm
+        └── types.ts               ← Shared TypeScript interfaces</pre>
+    </div>
+  </div>
+
+  <!-- ===== KEY DECISIONS ===== -->
+  <div class="section">
+    <div class="section-label">Section 12</div>
+    <h2>Key Design Decisions</h2>
+
+    <div class="card-grid card-grid-2" style="margin-top:16px;">
+      <div class="highlight-box gold">
+        <h3 style="color:var(--navy);margin-top:0;">Why Next.js over plain HTML?</h3>
+        <p>The existing documents are standalone HTML files — perfect for printable reports. But a dynamic web app requires real-time data, authentication, file uploads, and API calls. Next.js provides all of this with a single framework, Vercel deploys it for free, and the developer experience is excellent for future contractors or team members.</p>
+      </div>
+      <div class="highlight-box teal">
+        <h3 style="color:var(--teal);margin-top:0;">Why Supabase over Firebase?</h3>
+        <p>Supabase is PostgreSQL — a real relational database with joins, triggers, and row-level security built in. It also includes auth, file storage, real-time subscriptions, and Edge Functions. The free tier is generous. PostgreSQL ensures your student data is structured, queryable, and easily exportable — critical for compliance and reporting.</p>
+      </div>
+      <div class="highlight-box gold">
+        <h3 style="color:var(--navy);margin-top:0;">Why Gemini over Claude for chatbot?</h3>
+        <p>Gemini 1.5 Flash has a completely free tier (1M tokens/day, 15 RPM). For a startup with unpredictable early traffic, this means zero chatbot costs for months. Claude Haiku 4.5 has no free tier — even at $1/MTok, it costs money from day one. The architecture abstracts the AI provider so switching to Claude when revenue grows is a one-line change.</p>
+      </div>
+      <div class="highlight-box teal">
+        <h3 style="color:var(--teal);margin-top:0;">Why Cal.com over Calendly?</h3>
+        <p>Cal.com is open-source with a generous free hosted tier that includes unlimited event types, Zoom/Google Meet integration, and webhook support for automation triggers. Calendly's free tier is limited to one event type. Cal.com's webhook fires on every booking, feeding directly into the Supabase automation engine.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="doc-footer">
+  <strong style="color:white;">Steadfast Student Services</strong> — App Architecture Design Document<br>
+  Prepared June 2026 · Version 1.0 · <span>Confidential &amp; Proprietary</span><br>
+  All figures estimated at startup volumes. Costs may vary with usage.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Steadfast Student Services — High Risk Flyer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .flyer {
+      width: 816px;
+      min-height: 1056px;
+      background: #FFFFFF;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(150deg, #0B0F1A 0%, #0B1F3A 50%, #162840 100%);
+      padding: 46px 52px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.08);
+      top: -200px; right: -100px;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.04);
+      bottom: -80px; left: 40px;
+    }
+    /* Gold accent line top */
+    .header-accent-line {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #C9A84C 0%, #F0D080 50%, #C9A84C 100%);
+    }
+
+    .logo-row {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 26px;
+    }
+    .logo-mark {
+      width: 46px; height: 46px;
+      background: #C9A84C;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem; font-weight: 900; color: #FFFFFF; line-height: 1;
+    }
+    .logo-name span { color: #C9A84C; }
+    .logo-sub {
+      font-size: 0.66rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 2px; text-transform: uppercase; margin-top: 3px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: #C9A84C;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;
+    }
+
+    .h-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.7rem; font-weight: 900; color: #FFFFFF;
+      line-height: 1.08; max-width: 600px; margin-bottom: 14px;
+    }
+    .h-headline span { color: #C9A84C; }
+
+    .h-sub {
+      font-size: 0.97rem; color: rgba(255,255,255,0.62);
+      max-width: 540px; line-height: 1.65; margin-bottom: 26px;
+    }
+
+    /* Data banner */
+    .data-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .db-cell {
+      background: rgba(255,255,255,0.03);
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .db-cell .db-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; font-weight: 700;
+      color: #C9A84C; line-height: 1; margin-bottom: 4px;
+    }
+    .db-cell .db-label {
+      font-size: 0.68rem; color: rgba(255,255,255,0.45);
+      text-transform: uppercase; letter-spacing: 0.8px; line-height: 1.3;
+    }
+
+    /* ── ACCENT ── */
+    .strip { height: 4px; background: #C9A84C; }
+
+    /* ── BODY ── */
+    .body { padding: 38px 52px; flex: 1; display: flex; flex-direction: column; gap: 28px; }
+
+    .sec-label {
+      font-size: 0.66rem; letter-spacing: 3px; text-transform: uppercase;
+      color: #C9A84C; font-weight: 700; margin-bottom: 6px;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.28rem; font-weight: 700; color: #0B1F3A;
+      margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #EAE6DA;
+    }
+
+    /* ── Stat reality table ── */
+    .stat-reality {
+      background: #F7F5F0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .sr-header {
+      background: #0B1F3A;
+      padding: 12px 22px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.4fr 1.6fr;
+      gap: 8px;
+    }
+    .sr-header span {
+      font-size: 0.7rem; font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .sr-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.4fr 1.6fr;
+      gap: 8px;
+      padding: 11px 22px;
+      border-bottom: 1px solid #E8E4D8;
+      align-items: center;
+    }
+    .sr-row:last-child { border-bottom: none; }
+    .sr-row:nth-child(even) { background: #F0EDE4; }
+    .sr-row .country { font-size: 0.85rem; font-weight: 600; color: #0B1F3A; }
+    .sr-row .rate {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700; color: #8B1C1C;
+    }
+    .sr-row .blocker { font-size: 0.75rem; color: #5A4A3A; }
+    .sr-row .our-focus {
+      font-size: 0.75rem; color: #1A5C2A; font-weight: 500;
+    }
+
+    /* Key blockers section */
+    .blockers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    .blocker-card {
+      background: #0B1F3A;
+      border-radius: 10px;
+      padding: 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blocker-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: #C9A84C;
+    }
+    .blocker-card .bc-icon { font-size: 1.3rem; margin-bottom: 8px; }
+    .blocker-card .bc-title {
+      font-size: 0.84rem; font-weight: 700; color: #FFFFFF; margin-bottom: 5px;
+    }
+    .blocker-card .bc-desc {
+      font-size: 0.74rem; color: rgba(255,255,255,0.52); line-height: 1.5;
+    }
+    .blocker-card .bc-rate {
+      margin-top: 10px;
+      font-size: 0.7rem; font-weight: 700;
+      color: #C9A84C;
+    }
+
+    /* Confidence section */
+    .confidence-box {
+      background: linear-gradient(135deg, #C9A84C 0%, #E8C86A 100%);
+      border-radius: 14px;
+      padding: 28px 30px;
+    }
+    .confidence-box .cb-label {
+      font-size: 0.66rem; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(11,31,58,0.65); font-weight: 700; margin-bottom: 8px;
+    }
+    .confidence-box .cb-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 900; color: #0B1F3A;
+      margin-bottom: 14px; line-height: 1.15;
+    }
+    .confidence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .cg-item {
+      background: rgba(11,31,58,0.08);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .cg-check {
+      width: 20px; height: 20px;
+      background: #0B1F3A;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; color: #C9A84C; font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .cg-text { font-size: 0.82rem; color: #0B1F3A; font-weight: 500; line-height: 1.4; }
+    .cb-protected {
+      background: rgba(11,31,58,0.12);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 0.8rem;
+      color: rgba(11,31,58,0.75);
+      line-height: 1.55;
+    }
+    .cb-protected strong { color: #0B1F3A; }
+
+    /* Phase preview */
+    .phase-preview {
+      display: flex;
+      gap: 0;
+      border: 1px solid #E0D8C8;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .pp-step {
+      flex: 1;
+      padding: 16px 14px;
+      border-right: 1px solid #E0D8C8;
+      text-align: center;
+      background: #FDFBF7;
+    }
+    .pp-step:last-child { border-right: none; }
+    .pp-step .pp-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: #C9A84C; margin-bottom: 4px;
+    }
+    .pp-step .pp-title {
+      font-size: 0.78rem; font-weight: 700; color: #0B1F3A; margin-bottom: 3px;
+    }
+    .pp-step .pp-hint {
+      font-size: 0.7rem; color: #8A7A5A;
+    }
+    .pp-step.locked { background: #F0EDE4; }
+    .pp-step.locked .pp-title { color: #8A7A5A; }
+    .pp-step.locked .pp-hint { color: rgba(138,122,90,0.6); font-style: italic; }
+    .lock-badge {
+      display: inline-block;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+
+    /* Countries */
+    .countries-band {
+      background: #0B1F3A;
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .countries-band .cb2-label {
+      font-size: 0.66rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #C9A84C; font-weight: 700; margin-bottom: 12px;
+    }
+    .flags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .flag-chip {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 5px 13px;
+      font-size: 0.77rem; color: rgba(255,255,255,0.75); font-weight: 500;
+    }
+    .flag-chip.high { border-color: rgba(201,168,76,0.3); color: rgba(255,255,255,0.85); }
+
+    /* CTA */
+    .cta {
+      background: #0B1F3A;
+      border-radius: 12px;
+      padding: 26px 30px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .cta .cl-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: white; margin-bottom: 5px;
+    }
+    .cta .cl-sub { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+    .cta-btn {
+      flex-shrink: 0;
+      background: #C9A84C; color: #0B1F3A;
+      font-size: 0.85rem; font-weight: 700;
+      padding: 13px 26px; border-radius: 8px;
+      text-decoration: none; letter-spacing: 0.3px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #060D1A; padding: 16px 52px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer .fn {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.92rem; color: white; font-weight: 700;
+    }
+    .footer .fn span { color: #C9A84C; }
+    .footer .fc { font-size: 0.73rem; color: rgba(255,255,255,0.35); text-align: right; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .flyer { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="flyer">
+
+  <div class="header">
+    <div class="header-accent-line"></div>
+    <div class="logo-row">
+      <div class="logo-mark">🎓</div>
+      <div>
+        <div class="logo-name">Steadfast <span>Student</span> Services</div>
+        <div class="logo-sub">International Education Consulting</div>
+      </div>
+    </div>
+    <div class="eyebrow">⚡ For Students in High-Risk Markets</div>
+    <div class="h-headline">The Numbers Are Hard.<br/><span>Your Ambition Doesn't Have to Be.</span></div>
+    <div class="h-sub">We will not pretend your path to a U.S. university is easy. Students from your country face some of the highest visa denial rates in the world. But denial is not destiny — and the difference between a rejected applicant and an enrolled student is almost always preparation, strategy, and the right team.</div>
+    <div class="data-banner">
+      <div class="db-cell">
+        <div class="db-num">70–83<span style="font-size:1rem">%</span></div>
+        <div class="db-label">Visa Denial Rate<br/>High-Risk Markets</div>
+      </div>
+      <div class="db-cell">
+        <div class="db-num">&lt;3<span style="font-size:1rem">min</span></div>
+        <div class="db-label">Avg. Time of<br/>Most Denials</div>
+      </div>
+      <div class="db-cell">
+        <div class="db-num">80<span style="font-size:1rem">%+</span></div>
+        <div class="db-label">Denials Caused by<br/>Prep Failures</div>
+      </div>
+      <div class="db-cell">
+        <div class="db-num">214<span style="font-size:1rem">(b)</span></div>
+        <div class="db-label">Primary Legal<br/>Basis for Denial</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip"></div>
+
+  <div class="body">
+
+    <!-- Country denial data table -->
+    <div>
+      <div class="sec-label">The Data Your Country Doesn't Advertise</div>
+      <div class="sec-title">Visa Denial Rates &amp; Key Blockers by Country</div>
+      <div class="stat-reality">
+        <div class="sr-header">
+          <span>Country</span>
+          <span>Denial Rate</span>
+          <span>Primary Blocker</span>
+          <span>Steadfast Focus Area</span>
+        </div>
+        <div class="sr-row">
+          <div class="country">🇳🇵 Nepal</div>
+          <div class="rate">~81%</div>
+          <div class="blocker">214(b) intent; financial docs</div>
+          <div class="our-focus">Home-tie coaching + doc audit</div>
+        </div>
+        <div class="sr-row">
+          <div class="country">🇸🇴 Somalia</div>
+          <div class="rate">~83%</div>
+          <div class="blocker">Consular profiling; documentation</div>
+          <div class="our-focus">Profile risk mitigation strategy</div>
+        </div>
+        <div class="sr-row">
+          <div class="country">🇪🇹 Ethiopia</div>
+          <div class="rate">~78%</div>
+          <div class="blocker">Weak career path narrative</div>
+          <div class="our-focus">Academic-career alignment coaching</div>
+        </div>
+        <div class="sr-row">
+          <div class="country">🇳🇬 Nigeria</div>
+          <div class="rate">~75%</div>
+          <div class="blocker">Financial credibility; intent proof</div>
+          <div class="our-focus">Financial narrative + interview prep</div>
+        </div>
+        <div class="sr-row">
+          <div class="country">🇧🇩 Bangladesh</div>
+          <div class="rate">~73%</div>
+          <div class="blocker">214(b); university choice signal</div>
+          <div class="our-focus">School fit optimization + mock drills</div>
+        </div>
+        <div class="sr-row">
+          <div class="country">🇵🇰 Pakistan</div>
+          <div class="rate">~71%</div>
+          <div class="blocker">Travel history; sponsor credibility</div>
+          <div class="our-focus">Sponsor doc structure + tie evidence</div>
+        </div>
+        <div class="sr-row">
+          <div class="country">🇾🇪 Yemen</div>
+          <div class="rate">~67%</div>
+          <div class="blocker">Consular access; political context</div>
+          <div class="our-focus">Third-country consulate routing</div>
+        </div>
+        <div class="sr-row">
+          <div class="country">🇬🇭 Ghana</div>
+          <div class="rate">~65%</div>
+          <div class="blocker">Financial docs; intent narrative</div>
+          <div class="our-focus">Financial verification coaching</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key blockers -->
+    <div>
+      <div class="sec-label">What Consular Officers Are Really Looking For</div>
+      <div class="sec-title">The 3 Systemic Blockers We Resolve</div>
+      <div class="blockers-grid">
+        <div class="blocker-card">
+          <div class="bc-icon">🔗</div>
+          <div class="bc-title">Weak Home-Country Ties</div>
+          <div class="bc-desc">Under Section 214(b), every applicant is presumed to intend to immigrate. You must prove compelling reasons to return — family, property, job offer, community standing. Most applicants fail to build this case with evidence.</div>
+          <div class="bc-rate">Cited in 60%+ of 214(b) denials</div>
+        </div>
+        <div class="blocker-card">
+          <div class="bc-icon">💰</div>
+          <div class="bc-title">Financial Documentation Failures</div>
+          <div class="bc-desc">Bank statements that look "too new," funds with no clear source, or sponsor letters that don't match I-20 financial requirements — any of these can end an application before the interview even begins.</div>
+          <div class="bc-rate">Flagged in majority of I-20 delays</div>
+        </div>
+        <div class="blocker-card">
+          <div class="bc-icon">🗣️</div>
+          <div class="bc-title">Interview Unpreparedness</div>
+          <div class="bc-desc">Consular officers make decisions in 2–3 minutes. Hesitation, inconsistency, or vague answers on career goals and school choice are red flags. Most applicants have never practiced under realistic conditions.</div>
+          <div class="bc-rate">The #1 preventable cause of denial</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confidence + protected strategy -->
+    <div class="confidence-box">
+      <div class="cb-label">The Steadfast Commitment</div>
+      <div class="cb-headline">We Have Built a System Specifically for Students in Your Situation.</div>
+      <div class="confidence-grid">
+        <div class="cg-item">
+          <div class="cg-check">✓</div>
+          <div class="cg-text"><strong>Deep country-specific preparation</strong> — your case is built around the specific objections your embassy raises, not a generic script.</div>
+        </div>
+        <div class="cg-item">
+          <div class="cg-check">✓</div>
+          <div class="cg-text"><strong>Rigorous mock interview protocol</strong> — multiple rounds of adversarial preparation with scored debriefs and written action plans.</div>
+        </div>
+        <div class="cg-item">
+          <div class="cg-check">✓</div>
+          <div class="cg-text"><strong>Financial document architecture</strong> — we review and structure every support document to the exact standards your school and consulate require.</div>
+        </div>
+        <div class="cg-item">
+          <div class="cg-check">✓</div>
+          <div class="cg-text"><strong>Honest assessment upfront</strong> — if your profile has critical gaps, we tell you before you pay a cent. No empty promises.</div>
+        </div>
+      </div>
+      <div class="cb-protected">
+        <strong>Our full preparation methodology is shared exclusively with enrolled clients.</strong> The strategies we use to address each blocker are developed through hundreds of high-risk visa cases — and we keep them protected. What we can promise publicly: it is structured, it is specific, and it works harder than anything a self-guided applicant will find on their own.
+      </div>
+    </div>
+
+    <!-- Phase preview — show steps 1–2, lock 3–5 -->
+    <div>
+      <div class="sec-label">A Glimpse of Our Process</div>
+      <div class="sec-title">Step-by-Step — The First Two Phases Are Always Free</div>
+      <div class="phase-preview">
+        <div class="pp-step">
+          <div class="pp-num">01</div>
+          <div class="pp-title">Eligibility Assessment</div>
+          <div class="pp-hint">Honest profile review — free, no obligation</div>
+        </div>
+        <div class="pp-step">
+          <div class="pp-num">02</div>
+          <div class="pp-title">Risk-Mapped School Selection</div>
+          <div class="pp-hint">Universities chosen to strengthen your visa case</div>
+        </div>
+        <div class="pp-step locked">
+          <div class="lock-badge">🔒</div>
+          <div class="pp-title">Document Defense System</div>
+          <div class="pp-hint">Shared with enrolled clients only</div>
+        </div>
+        <div class="pp-step locked">
+          <div class="lock-badge">🔒</div>
+          <div class="pp-title">Visa Preparation Protocol</div>
+          <div class="pp-hint">Shared with enrolled clients only</div>
+        </div>
+        <div class="pp-step locked">
+          <div class="lock-badge">🔒</div>
+          <div class="pp-title">Arrival &amp; Enrollment</div>
+          <div class="pp-hint">Shared with enrolled clients only</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Countries -->
+    <div class="countries-band">
+      <div class="cb2-label">High-Risk Markets We Serve</div>
+      <div class="flags">
+        <span class="flag-chip high">🇳🇵 Nepal</span>
+        <span class="flag-chip high">🇸🇴 Somalia</span>
+        <span class="flag-chip high">🇪🇹 Ethiopia</span>
+        <span class="flag-chip high">🇳🇬 Nigeria</span>
+        <span class="flag-chip high">🇧🇩 Bangladesh</span>
+        <span class="flag-chip high">🇵🇰 Pakistan</span>
+        <span class="flag-chip high">🇾🇪 Yemen</span>
+        <span class="flag-chip high">🇬🇭 Ghana</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <div>
+        <div class="cl-headline">Your First Step Costs Nothing. Your Future Is Worth Everything.</div>
+        <div class="cl-sub">Book a free eligibility review. We'll tell you exactly where you stand — honestly, specifically, and without pressure.</div>
+      </div>
+      <a class="cta-btn" href="#">Get Your Free Strategy Session</a>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="fn">Steadfast <span>Student</span> Services</div>
+    <div class="fc">steadfaststudentservices.com &nbsp;|&nbsp; info@steadfaststudentservices.com<br/>U.S.-Based · Globally Connected</div>
+  </div>
+
+</div>
+</body>
+</html>

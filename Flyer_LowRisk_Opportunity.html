@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Steadfast Student Services — Low Risk Flyer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #dde8e8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .flyer {
+      width: 816px;
+      min-height: 1056px;
+      background: #FFFFFF;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(140deg, #0E4D4D 0%, #1A7A72 55%, #239B8A 100%);
+      padding: 50px 52px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      top: -160px; right: -80px;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      bottom: -80px; left: 60px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+    .logo-mark {
+      width: 46px; height: 46px;
+      background: #C9F0EB;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .logo-name span { color: #A8EAE0; }
+    .logo-sub {
+      font-size: 0.66rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: #A8EAE0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+
+    .h-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.08;
+      max-width: 560px;
+      margin-bottom: 18px;
+    }
+    .h-headline span { color: #A8EAE0; }
+
+    .h-sub {
+      font-size: 1.02rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 520px;
+      line-height: 1.65;
+      margin-bottom: 30px;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 32px;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 10px;
+      padding: 12px 20px;
+      text-align: center;
+    }
+    .stat-pill .snum {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #A8EAE0;
+      line-height: 1;
+    }
+    .stat-pill .slabel {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 3px;
+    }
+
+    /* ── ACCENT STRIP ── */
+    .strip {
+      height: 5px;
+      background: linear-gradient(90deg, #239B8A, #A8EAE0);
+    }
+
+    /* ── BODY ── */
+    .body { padding: 42px 52px; flex: 1; display: flex; flex-direction: column; gap: 34px; }
+
+    .sec-label {
+      font-size: 0.66rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #1A7A72;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0D2E2E;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #E0F0EE;
+    }
+
+    /* Path steps */
+    .path {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .path-step {
+      background: #F0FAF8;
+      border-radius: 10px;
+      padding: 18px 16px;
+      text-align: center;
+      border-top: 3px solid #1A7A72;
+      position: relative;
+    }
+    .path-step .ps-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1A7A72;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .path-step .ps-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0D2E2E;
+      margin-bottom: 4px;
+    }
+    .path-step .ps-desc {
+      font-size: 0.74rem;
+      color: #5A7A78;
+      line-height: 1.4;
+    }
+    .path-step .arrow {
+      position: absolute;
+      right: -10px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: #1A7A72;
+      z-index: 1;
+    }
+    .path-step:last-child .arrow { display: none; }
+
+    /* Two col */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    /* Benefit list */
+    .benefit-list { list-style: none; padding: 0; }
+    .benefit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid #E8F4F2;
+      font-size: 0.86rem;
+      color: #1C2E2E;
+    }
+    .benefit-list li:last-child { border-bottom: none; }
+    .b-icon {
+      width: 22px; height: 22px;
+      background: #1A7A72;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem;
+      color: white;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* School tags */
+    .school-box {
+      background: #F0FAF8;
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .school-box .sb-label {
+      font-size: 0.66rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #1A7A72;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .school-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .school-tag {
+      background: white;
+      border: 1px solid #C0DDD9;
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 0.78rem;
+      color: #0D2E2E;
+      font-weight: 500;
+    }
+
+    /* Countries */
+    .countries-band {
+      background: #0E4D4D;
+      border-radius: 12px;
+      padding: 22px 26px;
+    }
+    .countries-band .cb-label {
+      font-size: 0.66rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #A8EAE0;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .flags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .flag-chip {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(90deg, #1A7A72, #0E4D4D);
+      border-radius: 12px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .cta-left .cl-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 5px;
+    }
+    .cta-left .cl-sub { font-size: 0.82rem; color: rgba(255,255,255,0.65); }
+    .cta-btn {
+      flex-shrink: 0;
+      background: #A8EAE0;
+      color: #0E4D4D;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+
+    /* Footer */
+    .footer {
+      background: #0D2E2E;
+      padding: 16px 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer .fn {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.92rem;
+      color: white;
+      font-weight: 700;
+    }
+    .footer .fn span { color: #A8EAE0; }
+    .footer .fc { font-size: 0.73rem; color: rgba(255,255,255,0.45); text-align: right; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .flyer { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="flyer">
+
+  <div class="header">
+    <div class="logo-row">
+      <div class="logo-mark">🎓</div>
+      <div>
+        <div class="logo-name">Steadfast <span>Student</span> Services</div>
+        <div class="logo-sub">International Education Consulting</div>
+      </div>
+    </div>
+    <div class="eyebrow">✦ For Students in Low-Risk Markets</div>
+    <div class="h-headline">Your U.S. University<br/><span>Is Already Within Reach.</span></div>
+    <div class="h-sub">Students from your country are among the most successfully placed in U.S. universities. With the right advisor, you can move from application to campus — faster, smoother, and with confidence at every step.</div>
+    <div class="stat-row">
+      <div class="stat-pill">
+        <div class="snum">80%+</div>
+        <div class="slabel">Visa Approval Rate<br/>Your Region</div>
+      </div>
+      <div class="stat-pill">
+        <div class="snum">60<span style="font-size:1rem">days</span></div>
+        <div class="slabel">Avg. Application<br/>to I-20 Issued</div>
+      </div>
+      <div class="stat-pill">
+        <div class="snum">$0</div>
+        <div class="slabel">Upfront Cost<br/>Most Packages</div>
+      </div>
+      <div class="stat-pill">
+        <div class="snum">50+</div>
+        <div class="slabel">Partner<br/>Universities</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strip"></div>
+
+  <div class="body">
+
+    <!-- Path to Enrollment -->
+    <div>
+      <div class="sec-label">Your Clear Path Forward</div>
+      <div class="sec-title">How We Get You From Here to Campus</div>
+      <div class="path">
+        <div class="path-step">
+          <div class="ps-num">01</div>
+          <div class="ps-title">Free Eligibility Review</div>
+          <div class="ps-desc">We assess your GPA, English scores, and financial capacity — no cost, no obligation.</div>
+          <div class="arrow">›</div>
+        </div>
+        <div class="path-step">
+          <div class="ps-num">02</div>
+          <div class="ps-title">University Match</div>
+          <div class="ps-desc">We build your personalized school portfolio — reach, target, and safety institutions.</div>
+          <div class="arrow">›</div>
+        </div>
+        <div class="path-step">
+          <div class="ps-num">03</div>
+          <div class="ps-title">Application & I-20</div>
+          <div class="ps-desc">We manage every submission and guide your I-20 processing from start to finish.</div>
+          <div class="arrow">›</div>
+        </div>
+        <div class="path-step">
+          <div class="ps-num">04</div>
+          <div class="ps-title">Visa Ready & Enrolled</div>
+          <div class="ps-desc">Visa prep session + pre-departure orientation so you land confident and prepared.</div>
+          <div class="arrow">›</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits + Schools -->
+    <div class="two-col">
+      <div>
+        <div class="sec-label">Why Steadfast</div>
+        <div class="sec-title">What You Get</div>
+        <ul class="benefit-list">
+          <li><span class="b-icon">✓</span><div><strong>No Upfront Cost</strong> — For qualifying students, our fee is collected from the university after you enroll. You pay nothing to get started.</div></li>
+          <li><span class="b-icon">✓</span><div><strong>Top University Access</strong> — Direct application pipelines through ApplyBoard, Adventus, and Shorelight to 50+ U.S. institutions.</div></li>
+          <li><span class="b-icon">✓</span><div><strong>Dedicated Advisor</strong> — One point of contact, not a call center. Your advisor knows your file personally.</div></li>
+          <li><span class="b-icon">✓</span><div><strong>Visa Prep Included</strong> — A focused mock interview session so you walk into the consulate knowing exactly what to expect.</div></li>
+          <li><span class="b-icon">✓</span><div><strong>Full Document Management</strong> — SOP coaching, resume formatting, transcript coordination — handled end-to-end.</div></li>
+          <li><span class="b-icon">✓</span><div><strong>Pre-Departure Support</strong> — Banking, housing, campus arrival, DSO check-in — we prep you for Day 1 in America.</div></li>
+        </ul>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div>
+          <div class="sec-label">Partner Universities</div>
+          <div class="sec-title">Where Our Students Enroll</div>
+          <div class="school-box">
+            <div class="sb-label">A Selection of Our University Partners</div>
+            <div class="school-tags">
+              <span class="school-tag">Arizona State University</span>
+              <span class="school-tag">Univ. of Delaware</span>
+              <span class="school-tag">Univ. of Arizona</span>
+              <span class="school-tag">Univ. of Utah</span>
+              <span class="school-tag">Northeastern Univ.</span>
+              <span class="school-tag">Univ. of South Florida</span>
+              <span class="school-tag">Wichita State Univ.</span>
+              <span class="school-tag">+ Many More</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:#F0FAF8; border-radius:10px; padding:18px 20px; border-left:3px solid #1A7A72;">
+          <div style="font-size:0.78rem; font-weight:700; color:#0D2E2E; margin-bottom:6px;">Our Commitment to You</div>
+          <div style="font-size:0.78rem; color:#5A7A78; line-height:1.55;">We never guarantee visa outcomes — because no one can. What we guarantee is that you will be <strong>more prepared, better matched, and more confidently presented</strong> than any self-guided applicant.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Countries -->
+    <div class="countries-band">
+      <div class="cb-label">Students We Serve in Low-Risk Markets</div>
+      <div class="flags">
+        <span class="flag-chip">🇯🇵 Japan (~12% denial)</span>
+        <span class="flag-chip">🇰🇷 South Korea (~16%)</span>
+        <span class="flag-chip">🇹🇼 Taiwan (~15%)</span>
+        <span class="flag-chip">🇨🇱 Chile (~18%)</span>
+        <span class="flag-chip">🇸🇦 Saudi Arabia (~20%)</span>
+        <span class="flag-chip">🇧🇷 Brazil (~22%)</span>
+        <span class="flag-chip">🇨🇴 Colombia (~23%)</span>
+        <span class="flag-chip">🇵🇪 Peru (~24%)</span>
+        <span class="flag-chip">🇮🇩 Indonesia (~25%)</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <div class="cta-left">
+        <div class="cl-headline">Start Your Application — At No Cost to You.</div>
+        <div class="cl-sub">Book a free 30-minute eligibility consultation with a Steadfast advisor today.</div>
+      </div>
+      <a class="cta-btn" href="#">Book Free Consultation</a>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="fn">Steadfast <span>Student</span> Services</div>
+    <div class="fc">steadfaststudentservices.com &nbsp;|&nbsp; info@steadfaststudentservices.com<br/>U.S.-Based · Globally Connected</div>
+  </div>
+
+</div>
+</body>
+</html>

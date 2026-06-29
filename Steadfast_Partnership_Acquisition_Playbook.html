@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Steadfast Student Services — Partnership Acquisition Playbook</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --navy:   #0B1F3A;
+      --gold:   #C9A84C;
+      --gold-lt:#F0D080;
+      --teal:   #1A6B72;
+      --light:  #F4F7FA;
+      --white:  #FFFFFF;
+      --text:   #1C2B3A;
+      --muted:  #5A6A7A;
+      --border: #D6E0EA;
+      --accent: #E8F4F5;
+      --warn:   #FEF3C7;
+      --warn-b: #92600A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); line-height: 1.72; }
+
+    /* ── COVER ── */
+    .cover {
+      min-height: 100vh;
+      background: linear-gradient(150deg, var(--navy) 0%, #142d52 55%, var(--teal) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 60px 40px;
+      position: relative; overflow: hidden;
+    }
+    .cover::before {
+      content: ''; position: absolute;
+      width: 600px; height: 600px; border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.12);
+      top: -150px; right: -150px;
+    }
+    .cover-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 900; color: var(--white); margin-bottom: 4px;
+    }
+    .cover-logo span { color: var(--gold); }
+    .cover-tagline {
+      font-size: 0.78rem; color: rgba(255,255,255,0.5);
+      letter-spacing: 3px; text-transform: uppercase; margin-bottom: 50px;
+    }
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 900; color: var(--white);
+      max-width: 720px; margin-bottom: 16px; line-height: 1.1;
+    }
+    .cover-title span { color: var(--gold); }
+    .cover-sub {
+      font-size: 1rem; color: rgba(255,255,255,0.65);
+      max-width: 580px; margin-bottom: 50px; line-height: 1.7;
+    }
+    .cover-divider { width: 70px; height: 3px; background: var(--gold); margin: 0 auto 40px; border-radius: 2px; }
+    .cover-meta { display: flex; gap: 36px; flex-wrap: wrap; justify-content: center; }
+    .cm-item .cm-label {
+      font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 3px;
+    }
+    .cm-item .cm-val { font-size: 0.92rem; color: rgba(255,255,255,0.82); font-weight: 500; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 980px; margin: 0 auto; padding: 0 40px; }
+
+    .section { padding: 65px 0 48px; }
+    .section + .section { border-top: 1px solid var(--border); }
+
+    .section-label {
+      font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem; font-weight: 700; color: var(--navy); margin-bottom: 8px;
+    }
+    .section-intro { font-size: 1rem; color: var(--muted); max-width: 740px; margin-bottom: 32px; }
+
+    h3 { font-size: 1.12rem; font-weight: 700; color: var(--navy); margin: 28px 0 10px; }
+    h4 { font-size: 0.97rem; font-weight: 600; color: var(--teal); margin: 18px 0 7px; }
+    p { margin-bottom: 12px; }
+    ul, ol { padding-left: 20px; margin-bottom: 12px; }
+    li { margin-bottom: 5px; }
+    strong { color: var(--navy); }
+
+    /* ── HIGHLIGHT BOX ── */
+    .hbox {
+      border-radius: 0 8px 8px 0;
+      padding: 18px 22px; margin: 20px 0;
+    }
+    .hbox.teal { background: var(--accent); border-left: 4px solid var(--teal); }
+    .hbox.gold { background: #FDF8EE; border-left: 4px solid var(--gold); }
+    .hbox.navy { background: #EEF1F6; border-left: 4px solid var(--navy); }
+    .hbox.warn { background: var(--warn); border-left: 4px solid var(--warn-b); }
+    .hbox p { margin: 0; font-size: 0.93rem; }
+
+    /* ── PILLAR CARDS ── */
+    .pillar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin: 24px 0; }
+    .pillar-card {
+      border-radius: 14px; padding: 28px;
+      border: 2px solid var(--border);
+    }
+    .pillar-card.p1 { border-color: var(--teal); background: var(--accent); }
+    .pillar-card.p2 { border-color: var(--gold); background: #FDF8EE; }
+    .pillar-card .pc-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 900; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .p1 .pc-num { color: var(--teal); }
+    .p2 .pc-num { color: var(--gold); }
+    .pillar-card .pc-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .pillar-card .pc-desc { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── AGGREGATOR CARD ── */
+    .agg-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 22px;
+    }
+    .agg-header {
+      background: var(--navy);
+      padding: 18px 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .agg-header .ah-left { }
+    .agg-header .ah-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: var(--white);
+    }
+    .agg-header .ah-type {
+      font-size: 0.7rem; color: rgba(255,255,255,0.5);
+      text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px;
+    }
+    .agg-header .ah-right { text-align: right; flex-shrink: 0; }
+    .priority-badge {
+      display: inline-block;
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 0.74rem; font-weight: 700;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+    .pb-p1 { background: #C9A84C; color: #0B1F3A; }
+    .pb-p2 { background: #2A8A92; color: white; }
+    .pb-p3 { background: #3D5278; color: white; }
+    .agg-body { padding: 22px 26px; }
+    .agg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .ag-cell .ag-label {
+      font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--gold); font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .ag-cell .ag-val { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+    .agg-steps { margin-top: 14px; }
+    .agg-steps .as-title {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--teal); font-weight: 700; margin-bottom: 10px;
+    }
+    .agg-step-list { list-style: none; padding: 0; }
+    .agg-step-list li {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 7px 0; border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .agg-step-list li:last-child { border-bottom: none; }
+    .step-n {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      background: var(--navy); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 700; color: var(--gold);
+      margin-top: 1px;
+    }
+    .agg-note {
+      background: var(--light); border-radius: 8px;
+      padding: 12px 16px; margin-top: 14px;
+      font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* ── UNIVERSITY TABLE ── */
+    .uni-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.84rem; margin: 18px 0;
+    }
+    .uni-table th {
+      background: var(--navy); color: var(--white);
+      padding: 12px 14px; text-align: left;
+      font-size: 0.74rem; font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .uni-table td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .uni-table tr:nth-child(even) td { background: var(--light); }
+    .uni-table .inst-name { font-weight: 700; color: var(--navy); }
+    .uni-table .inst-type {
+      font-size: 0.72rem; color: var(--muted); margin-top: 2px;
+    }
+    .tier-badge {
+      display: inline-block; padding: 2px 9px;
+      border-radius: 12px; font-size: 0.72rem; font-weight: 700;
+    }
+    .tb-direct { background: #D1FAE5; color: #065F46; }
+    .tb-agg { background: #DBEAFE; color: #1E40AF; }
+    .tb-both { background: #EDE9FE; color: #5B21B6; }
+
+    /* ── EMAIL TEMPLATE ── */
+    .email-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 18px 0;
+    }
+    .email-header {
+      background: var(--navy); padding: 14px 22px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.8);
+    }
+    .email-header strong { color: var(--gold); }
+    .email-body {
+      padding: 22px 26px;
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.75;
+      white-space: pre-wrap;
+      font-family: 'Georgia', serif;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 24px 0; }
+    .tl-week {
+      display: flex; gap: 20px; margin-bottom: 18px; align-items: flex-start;
+    }
+    .tl-badge {
+      flex-shrink: 0;
+      min-width: 80px;
+      background: var(--navy);
+      color: var(--gold);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tl-badge.gold-bg { background: var(--gold); color: var(--navy); }
+    .tl-badge.teal-bg { background: var(--teal); color: white; }
+    .tl-content {
+      background: var(--light); border-radius: 10px;
+      padding: 16px 18px; flex: 1;
+      border-left: 3px solid var(--navy);
+    }
+    .tl-content.gold-border { border-left-color: var(--gold); }
+    .tl-content.teal-border { border-left-color: var(--teal); }
+    .tl-content .tl-title {
+      font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 6px;
+    }
+    .tl-content ul { margin: 0; }
+    .tl-content li { font-size: 0.84rem; }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .cl-box {
+      flex-shrink: 0; width: 20px; height: 20px;
+      border: 2px solid var(--navy); border-radius: 4px;
+      margin-top: 2px;
+    }
+
+    /* ── TWO COL ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin: 18px 0; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--navy); color: rgba(255,255,255,0.5);
+      text-align: center; padding: 36px 40px; font-size: 0.82rem;
+    }
+    .footer strong { color: var(--gold); }
+
+    @media print {
+      .cover { min-height: auto; padding: 40px; }
+      .section { padding: 36px 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<div class="cover">
+  <div class="cover-logo">Steadfast <span>Student</span> Services</div>
+  <div class="cover-tagline">International Education Consulting</div>
+  <div class="cover-divider"></div>
+  <div class="cover-title">Partnership <span>Acquisition</span> Playbook</div>
+  <div class="cover-sub">The complete who, when, and how guide to securing aggregator platform credentials and direct university partnerships — your two revenue pillars from Day 1.</div>
+  <div class="cover-meta">
+    <div class="cm-item"><div class="cm-label">Aggregator Platforms</div><div class="cm-val">7 Priority Platforms</div></div>
+    <div class="cm-item"><div class="cm-label">Universities & Colleges</div><div class="cm-val">22 Institutions</div></div>
+    <div class="cm-item"><div class="cm-label">Email Templates</div><div class="cm-val">3 Ready-to-Send</div></div>
+    <div class="cm-item"><div class="cm-label">Timeline</div><div class="cm-val">Week-by-Week, 12 Months</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ══ SECTION 1: OVERVIEW ══ -->
+  <div class="section">
+    <div class="section-label">Section 01</div>
+    <div class="section-title">The Two-Pillar Partnership Strategy</div>
+    <div class="section-intro">Every commission dollar Steadfast earns flows through one of two channels. You need both. They serve different purposes and activate at different times.</div>
+
+    <div class="pillar-grid">
+      <div class="pillar-card p1">
+        <div class="pc-num">01</div>
+        <div class="pc-title">Aggregator Platform Credentials</div>
+        <div class="pc-desc">These are the master networks — ApplyBoard, Adventus, Shorelight, IDP — that give you instant access to hundreds of university partners through a single portal. You apply once and gain access to many. Commissions flow through the network (10–15% first-year tuition, split with the aggregator). <strong>Start here on Day 1.</strong> These are your fastest path to being operational and generating commission revenue.</div>
+      </div>
+      <div class="pillar-card p2">
+        <div class="pc-num">02</div>
+        <div class="pc-title">Direct University Partnerships</div>
+        <div class="pc-desc">Direct relationships with a school's International Admissions or Global Partnerships office. You are added to their <em>authorized agent list</em> and submit applications directly — cutting out the aggregator's commission split (25–40%). This takes longer to build (3–12 months per school) but yields significantly higher net commission per placed student. <strong>Start pursuing these in Month 2–3, while your aggregator pipeline is live.</strong></div>
+      </div>
+    </div>
+
+    <div class="hbox gold">
+      <p><strong>Strategic Sequence:</strong> Apply to all aggregator platforms in Weeks 1–3 so you have an active pipeline immediately. Begin direct university outreach in Month 2 using the email templates in Section 4. By Month 6, aim to have 3–5 direct relationships live to reduce your dependence on the aggregator split.</p>
+    </div>
+
+    <h3>What You Need Before You Can Apply to Either</h3>
+    <div class="two-col">
+      <div>
+        <h4>Business Credentials</h4>
+        <ul>
+          <li>Registered LLC or business entity (EIN required)</li>
+          <li>Professional website — even a simple landing page with your services, contact, and about page</li>
+          <li>Professional email address (@steadfaststudentservices.com)</li>
+          <li>Business bank account (separate from personal)</li>
+          <li>LinkedIn company page for Steadfast Student Services</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Documentation Aggregators Will Request</h4>
+        <ul>
+          <li>Government-issued ID (passport or driver's license)</li>
+          <li>Proof of business registration (EIN letter or LLC certificate)</li>
+          <li>Brief company bio / background statement</li>
+          <li>Countries of operation you intend to recruit from</li>
+          <li>Description of your recruitment methods (digital, in-person, referral partners)</li>
+          <li>References — if available (not always required for first-time agents)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2: AGGREGATORS ══ -->
+  <div class="section">
+    <div class="section-label">Section 02</div>
+    <div class="section-title">Aggregator Platform Partnerships</div>
+    <div class="section-intro">Apply to these platforms in priority order. Platforms 1–3 are your immediate income engine. Platforms 4–7 expand your university portfolio and geographic reach over time.</div>
+
+    <!-- ApplyBoard -->
+    <div class="agg-card">
+      <div class="agg-header">
+        <div class="ah-left">
+          <div class="ah-name">ApplyBoard</div>
+          <div class="ah-type">Largest Agent Network in North America · 1,500+ University Partners</div>
+        </div>
+        <div class="ah-right">
+          <div class="priority-badge pb-p1">Priority 1 — Apply First</div>
+        </div>
+      </div>
+      <div class="agg-body">
+        <div class="agg-grid">
+          <div class="ag-cell">
+            <div class="ag-label">Who to Contact</div>
+            <div class="ag-val">Recruitment Partner Team via agent signup portal on applyboard.com — search "ApplyBoard become a recruitment partner"</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Commission Structure</div>
+            <div class="ag-val">Varies by school. Typical range: 8–12% of first-year tuition paid to agent. ApplyBoard retains their platform fee separately from the school commission.</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Approval Timeline</div>
+            <div class="ag-val">5–14 business days after completing the application and verification</div>
+          </div>
+        </div>
+        <div class="agg-steps">
+          <div class="as-title">Step-by-Step: How to Apply</div>
+          <ul class="agg-step-list">
+            <li><div class="step-n">1</div><div>Go to <strong>applyboard.com</strong> → click "Partners" or "Recruitment Partners" in the footer or main nav → select "Become a Recruitment Partner"</div></li>
+            <li><div class="step-n">2</div><div>Complete the online agent application: company name, website, EIN or business registration, countries you recruit from, and estimated annual student volume</div></li>
+            <li><div class="step-n">3</div><div>Upload ID and business registration documents when prompted</div></li>
+            <li><div class="step-n">4</div><div>Complete ApplyBoard's online agent training modules — mandatory before your account is activated (usually 2–4 hours, free)</div></li>
+            <li><div class="step-n">5</div><div>Account activated → you can immediately browse all partner schools, submit applications, and track commission status in your dashboard</div></li>
+          </ul>
+        </div>
+        <div class="agg-note"><strong>Pro Tip:</strong> When asked about student volume, estimate conservatively (10–20 students/year to start). Overpromising early and underdelivering can flag your account. You can grow the relationship as your volume increases.</div>
+      </div>
+    </div>
+
+    <!-- Adventus.io -->
+    <div class="agg-card">
+      <div class="agg-header">
+        <div class="ah-left">
+          <div class="ah-name">Adventus.io</div>
+          <div class="ah-type">300+ University Partners · Strong in U.S., UK, Canada, Australia</div>
+        </div>
+        <div class="ah-right">
+          <div class="priority-badge pb-p1">Priority 1 — Apply First</div>
+        </div>
+      </div>
+      <div class="agg-body">
+        <div class="agg-grid">
+          <div class="ag-cell">
+            <div class="ag-label">Who to Contact</div>
+            <div class="ag-val">Partner onboarding team via adventus.io — search "Adventus agent registration" or "Adventus become a partner"</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Commission Structure</div>
+            <div class="ag-val">Commission set by each institution. Adventus operates on a marketplace model — you see the commission rate per school before submitting applications</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Approval Timeline</div>
+            <div class="ag-val">3–10 business days. Faster if your documentation is complete at submission</div>
+          </div>
+        </div>
+        <div class="agg-steps">
+          <div class="as-title">Step-by-Step: How to Apply</div>
+          <ul class="agg-step-list">
+            <li><div class="step-n">1</div><div>Go to <strong>adventus.io</strong> → "Register as an Agent" or "Join as a Counsellor" — the signup is free</div></li>
+            <li><div class="step-n">2</div><div>Fill in your agency profile: business name, address, countries of operation, and a short description of your advising practice</div></li>
+            <li><div class="step-n">3</div><div>Upload proof of business registration and ID</div></li>
+            <li><div class="step-n">4</div><div>Complete the Adventus platform orientation (short video walkthrough, typically under 1 hour)</div></li>
+            <li><div class="step-n">5</div><div>Gain access to the marketplace — browse schools, compare commission rates, and submit student applications directly through the platform</div></li>
+          </ul>
+        </div>
+        <div class="agg-note"><strong>Why Adventus Matters:</strong> Adventus shows you the commission rate upfront before applying. Use this to prioritize which schools to actively recruit for based on tuition levels and commission percentage. High-tuition schools = higher absolute commission even at the same percentage.</div>
+      </div>
+    </div>
+
+    <!-- Shorelight -->
+    <div class="agg-card">
+      <div class="agg-header">
+        <div class="ah-left">
+          <div class="ah-name">Shorelight</div>
+          <div class="ah-type">Premium U.S. University Access · Embedded Campus Programs</div>
+        </div>
+        <div class="ah-right">
+          <div class="priority-badge pb-p2">Priority 2 — Apply in Month 2</div>
+        </div>
+      </div>
+      <div class="agg-body">
+        <div class="agg-grid">
+          <div class="ag-cell">
+            <div class="ag-label">Who to Contact</div>
+            <div class="ag-val">Global Partner Relations team at shorelight.com — look for "Partners" or "Work with Us" section. Email: agents@shorelight.com (verify current address on their site)</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Commission Structure</div>
+            <div class="ag-val">10–15% of first-year tuition. Shorelight works with specific embedded programs at partner universities — higher quality placements, higher tuitions</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Approval Timeline</div>
+            <div class="ag-val">2–4 weeks. Shorelight has a more selective agent vetting process — having an active ApplyBoard or Adventus account first helps credibility</div>
+          </div>
+        </div>
+        <div class="agg-steps">
+          <div class="as-title">Step-by-Step: How to Apply</div>
+          <ul class="agg-step-list">
+            <li><div class="step-n">1</div><div>Visit <strong>shorelight.com</strong> → navigate to the Partners or Agents section and locate the agent registration form</div></li>
+            <li><div class="step-n">2</div><div>Submit agency profile: business name, EIN, website, countries you serve, and a description of your recruitment model</div></li>
+            <li><div class="step-n">3</div><div>A Shorelight partner representative will typically follow up with a brief onboarding call — prepare a 10-minute overview of your practice and target markets</div></li>
+            <li><div class="step-n">4</div><div>Sign the Shorelight sub-agent agreement (standard contract — review commission split, payment timing, and student protection clauses)</div></li>
+            <li><div class="step-n">5</div><div>Receive access to their university partner portfolio and submit applications through their agent portal</div></li>
+          </ul>
+        </div>
+        <div class="agg-note"><strong>Key Schools via Shorelight:</strong> University of Alabama, University of Arizona, University of Kansas, Tulane University, Northeastern University among others. These are high-tuition schools — each placed student yields $2,000–$4,000+ net commission to your agency.</div>
+      </div>
+    </div>
+
+    <!-- IDP Education -->
+    <div class="agg-card">
+      <div class="agg-header">
+        <div class="ah-left">
+          <div class="ah-name">IDP Education</div>
+          <div class="ah-type">Global Agent Network · Strong Asia-Pacific & South Asia Pipeline</div>
+        </div>
+        <div class="ah-right">
+          <div class="priority-badge pb-p2">Priority 2 — Apply in Month 2</div>
+        </div>
+      </div>
+      <div class="agg-body">
+        <div class="agg-grid">
+          <div class="ag-cell">
+            <div class="ag-label">Who to Contact</div>
+            <div class="ag-val">IDP agent partnerships team via idp.com — navigate to "Partners" or search "IDP become an agent partner." Regional contacts vary by country of operation.</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Commission Structure</div>
+            <div class="ag-val">Commission varies by institution. IDP operates its own IELTS testing centers — cross-referral opportunities for test prep revenue alongside placement fees</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Approval Timeline</div>
+            <div class="ag-val">3–6 weeks. IDP has a formal agent accreditation process including compliance training</div>
+          </div>
+        </div>
+        <div class="agg-steps">
+          <div class="as-title">Step-by-Step: How to Apply</div>
+          <ul class="agg-step-list">
+            <li><div class="step-n">1</div><div>Visit <strong>idp.com</strong> → locate the "Agent" or "Partner" section — IDP has a global agent network portal for sub-partners</div></li>
+            <li><div class="step-n">2</div><div>Submit business credentials and describe your source-country recruitment capacity</div></li>
+            <li><div class="step-n">3</div><div>Complete IDP's mandatory compliance training (covers ethical recruitment, student privacy, and documentation standards)</div></li>
+            <li><div class="step-n">4</div><div>Attend an IDP orientation webinar — these are held monthly for new agent partners</div></li>
+            <li><div class="step-n">5</div><div>Activate access to IDP's U.S. university portfolio and begin submitting through their CRM</div></li>
+          </ul>
+        </div>
+        <div class="agg-note"><strong>Why IDP:</strong> IDP's strength is South Asia and Southeast Asia — Nepal, Bangladesh, Vietnam, Indonesia. If these are core source markets for you, IDP gives you credibility and relationships in those regions that accelerate your own referral agent recruitment.</div>
+      </div>
+    </div>
+
+    <!-- CIEE / Study Group / INTO -->
+    <div class="agg-card">
+      <div class="agg-header">
+        <div class="ah-left">
+          <div class="ah-name">Study Group / INTO University Partnerships</div>
+          <div class="ah-type">Pathway Programs · Direct University Integration</div>
+        </div>
+        <div class="ah-right">
+          <div class="priority-badge pb-p3">Priority 3 — Apply Month 3–4</div>
+        </div>
+      </div>
+      <div class="agg-body">
+        <div class="agg-grid">
+          <div class="ag-cell">
+            <div class="ag-label">Who to Contact</div>
+            <div class="ag-val">Study Group: studygroup.com → "Agents" section. INTO: intoglobal.com → "Counsellors & Agents" tab. Both have online agent registration portals.</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Commission Structure</div>
+            <div class="ag-val">Pathway program commissions: typically $500–$2,500 per enrolled student depending on program length and tuition. Paid on arrival confirmation.</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Approval Timeline</div>
+            <div class="ag-val">2–3 weeks for Study Group. INTO may take 3–5 weeks including a brief phone interview with a regional representative</div>
+          </div>
+        </div>
+        <div class="agg-steps">
+          <div class="as-title">Why These Matter for Your Students</div>
+          <ul class="agg-step-list">
+            <li><div class="step-n">1</div><div><strong>Pathway programs</strong> are a critical option for students who don't meet direct admission requirements — conditional admission paired with English language courses</div></li>
+            <li><div class="step-n">2</div><div>INTO partners include Drew University, University of South Florida, George Mason University, University of New Hampshire, and others</div></li>
+            <li><div class="step-n">3</div><div>Study Group partners include Robert Morris University, Hofstra University, and others — strong for moderate-to-high-risk students who need a conditional pathway</div></li>
+            <li><div class="step-n">4</div><div>Register at both platforms: studygroup.com/agents and intoglobal.com/counsellors. Online forms take under 30 minutes each.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- EduCo / Navitas -->
+    <div class="agg-card">
+      <div class="agg-header">
+        <div class="ah-left">
+          <div class="ah-name">Navitas / EduCo Pathways</div>
+          <div class="ah-type">Pathway &amp; Direct Entry · College Partnerships</div>
+        </div>
+        <div class="ah-right">
+          <div class="priority-badge pb-p3">Priority 3 — Apply Month 3–4</div>
+        </div>
+      </div>
+      <div class="agg-body">
+        <div class="agg-grid">
+          <div class="ag-cell">
+            <div class="ag-label">Who to Contact</div>
+            <div class="ag-val">Navitas: navitas.com → "Agent Partners." EduCo: educopathways.com → "Counselors" section. Both have free self-registration portals.</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Key U.S. Partners</div>
+            <div class="ag-val">Navitas: City University of Seattle, Bay Path University. EduCo: University of New Haven, Lynn University, Adelphi University</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Approval Timeline</div>
+            <div class="ag-val">1–3 weeks. Both platforms are agent-growth focused and have streamlined onboarding for new agencies</div>
+          </div>
+        </div>
+        <div class="agg-note"><strong>EduCo Advantage:</strong> EduCo specifically serves high-risk source markets including Nigeria, Ghana, and Nepal with pathway routes. Commission rates are clearly displayed per program in their agent portal — making it easy to identify highest-yield placements.</div>
+      </div>
+    </div>
+
+    <!-- MPOWER / Kaplan -->
+    <div class="agg-card">
+      <div class="agg-header">
+        <div class="ah-left">
+          <div class="ah-name">Kaplan International Pathways</div>
+          <div class="ah-type">Test Prep + Pathway Programs · Globally Recognized Brand</div>
+        </div>
+        <div class="ah-right">
+          <div class="priority-badge pb-p3">Priority 3 — Apply Month 4–5</div>
+        </div>
+      </div>
+      <div class="agg-body">
+        <div class="agg-grid">
+          <div class="ag-cell">
+            <div class="ag-label">Who to Contact</div>
+            <div class="ag-val">kaplaninternational.com → "Agents & Counsellors" → "Become a Partner." Email contact is typically available on their agents page.</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Commission Structure</div>
+            <div class="ag-val">Commission on pathway programs + referral bonus on IELTS/TOEFL prep course enrollments — dual revenue stream from a single student relationship</div>
+          </div>
+          <div class="ag-cell">
+            <div class="ag-label">Approval Timeline</div>
+            <div class="ag-val">2–3 weeks. Kaplan often has regional agent managers who will schedule a brief onboarding call</div>
+          </div>
+        </div>
+        <div class="agg-note"><strong>Cross-Sell Opportunity:</strong> Every student who doesn't meet IELTS/TOEFL thresholds is a Kaplan test-prep referral. You earn on the prep course AND on the eventual placement — two commissions from the same student relationship.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ SECTION 3: UNIVERSITIES ══ -->
+  <div class="section">
+    <div class="section-label">Section 03</div>
+    <div class="section-title">Direct University &amp; Community College Partnerships</div>
+    <div class="section-intro">These 22 institutions have active international agent programs, strong international student offices, and established commission or referral fee structures. Pursue direct relationships to eliminate the aggregator split over time.</div>
+
+    <div class="hbox navy">
+      <p><strong>How Direct University Partnerships Work:</strong> Each school maintains an "Authorized Agent List" managed by their International Admissions or Global Partnerships office. You apply via a form on their website (or by emailing their DSO/international director). Once approved and added to their agent list, you submit applications directly and receive commission paid by the school — no aggregator cut.</p>
+    </div>
+
+    <h3>Tier 1: Apply Immediately (Month 1–3)</h3>
+    <p style="font-size:0.88rem; color:var(--muted); margin-bottom:12px;">These schools have open agent registration portals, fast approval processes, and strong commission structures. Apply to all of these within your first 60 days.</p>
+
+    <table class="uni-table">
+      <thead>
+        <tr>
+          <th>Institution</th>
+          <th>Who to Contact</th>
+          <th>How to Apply</th>
+          <th>Commission / Fee</th>
+          <th>Channel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="inst-name">Arizona State University (ASU)</div><div class="inst-type">R1 Research · Tempe, AZ · 10,000+ Int'l Students</div></td>
+          <td>ASU Global Launch / International Admissions — email: globallaunch@asu.edu (verify on asu.edu)</td>
+          <td>Apply via ApplyBoard or Adventus (ASU is on both). For direct: email ASU Global Launch requesting agent MOU</td>
+          <td>~10–12% first-year tuition via aggregator. Direct MOU negotiated separately.</td>
+          <td><span class="tier-badge tb-both">Both</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">University of Arizona</div><div class="inst-type">R1 Research · Tucson, AZ · 5,000+ Int'l Students</div></td>
+          <td>UA International Admissions — internationaladmissions@arizona.edu</td>
+          <td>Email international admissions requesting agent partnership documentation. They have a formal agent MOU process.</td>
+          <td>10–15% first-year tuition. Paid after student completes first semester.</td>
+          <td><span class="tier-badge tb-both">Both</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">University of Delaware</div><div class="inst-type">R1 Research · Newark, DE · Active Int'l Program</div></td>
+          <td>Center for Global Programs &amp; Services — global@udel.edu</td>
+          <td>Via ApplyBoard (preferred pathway). Request direct agent relationship after first placed student.</td>
+          <td>Commission via aggregator portal; negotiate direct rate after establishing volume</td>
+          <td><span class="tier-badge tb-agg">Aggregator</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">University of South Florida (USF)</div><div class="inst-type">R1 Research · Tampa, FL · 4,500+ Int'l Students</div></td>
+          <td>USF World — global@usf.edu. INTO USF for pathway programs.</td>
+          <td>Register with INTO University Partnerships for pathway access. Email USF World for direct agent MOU inquiry.</td>
+          <td>INTO pathway: ~$800–$1,500/student. Direct: negotiate with USF World</td>
+          <td><span class="tier-badge tb-both">Both</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Wichita State University (WSU)</div><div class="inst-type">Doctoral · Wichita, KS · Agent-Friendly</div></td>
+          <td>International Admissions Office — international@wichita.edu</td>
+          <td>Direct email to international admissions. WSU actively recruits agents and has a straightforward MOU process.</td>
+          <td>~$500–$1,000 flat referral fee or % of tuition depending on MOU terms</td>
+          <td><span class="tier-badge tb-direct">Direct</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">University of the Incarnate Word (UIW)</div><div class="inst-type">Master's · San Antonio, TX · High Int'l Volume</div></td>
+          <td>International Admissions — intladmissions@uiwtx.edu</td>
+          <td>Direct email. UIW has an active agent recruitment program. Request the agent partnership agreement form.</td>
+          <td>Flat fee per enrolled student ($500–$800) or % of first-year tuition</td>
+          <td><span class="tier-badge tb-direct">Direct</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Fairleigh Dickinson University (FDU)</div><div class="inst-type">Master's · NJ/NY · Large Int'l Student Body</div></td>
+          <td>Global Education Center — intl-admissions@fdu.edu</td>
+          <td>Email Global Education Center. FDU has campuses in Vancouver (CA) and Wroxton (UK) and maintains global agent lists.</td>
+          <td>Commission-based per enrolled student; rate in MOU</td>
+          <td><span class="tier-badge tb-direct">Direct</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Pace University</div><div class="inst-type">Master's · New York City, NY · High Demand</div></td>
+          <td>International Student Office — international@pace.edu</td>
+          <td>Via Adventus or direct email. Pace actively works with agents particularly for graduate programs.</td>
+          <td>10–12% first-year tuition via aggregator; direct MOU available</td>
+          <td><span class="tier-badge tb-both">Both</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Tier 2: Apply in Months 2–4</h3>
+    <table class="uni-table">
+      <thead>
+        <tr>
+          <th>Institution</th>
+          <th>Who to Contact</th>
+          <th>How to Apply</th>
+          <th>Commission / Fee</th>
+          <th>Channel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="inst-name">University of Utah</div><div class="inst-type">R1 Research · Salt Lake City, UT</div></td>
+          <td>International Student &amp; Scholar Services — international@utah.edu</td>
+          <td>Email inquiry for agent authorization. Utah has a growing international recruitment program.</td>
+          <td>Commission varies; discuss directly with their international office</td>
+          <td><span class="tier-badge tb-direct">Direct</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">University of New Haven</div><div class="inst-type">Master's · West Haven, CT</div></td>
+          <td>International Admissions — intladmissions@newhaven.edu</td>
+          <td>Via EduCo Pathways (fastest) or direct email to international admissions</td>
+          <td>EduCo commission displayed in portal. Direct: negotiate flat fee or %</td>
+          <td><span class="tier-badge tb-both">Both</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Lynn University</div><div class="inst-type">Bachelor's/Master's · Boca Raton, FL</div></td>
+          <td>International Admissions — intl@lynn.edu. Also via EduCo Pathways.</td>
+          <td>EduCo agent portal or direct email. Lynn is highly agent-friendly and actively recruits via commission agents.</td>
+          <td>EduCo rate or direct MOU — typically $800–$1,200 per enrollment</td>
+          <td><span class="tier-badge tb-both">Both</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">University of Bridgeport</div><div class="inst-type">Master's · Bridgeport, CT · STEM Focus</div></td>
+          <td>International Admissions Office — admissions@bridgeport.edu</td>
+          <td>Direct email. University of Bridgeport has a high STEM acceptance rate and actively partners with agents.</td>
+          <td>Flat referral fee per enrolled student; confirm in MOU</td>
+          <td><span class="tier-badge tb-direct">Direct</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Missouri S&amp;T (Missouri University of Science &amp; Technology)</div><div class="inst-type">R1 Research · Rolla, MO · Engineering/STEM</div></td>
+          <td>International Affairs — international@mst.edu</td>
+          <td>Direct inquiry to international affairs office. Strong for engineering-track students from South Asia.</td>
+          <td>Commission negotiated via MOU. Strong STEM placement = higher tuition base.</td>
+          <td><span class="tier-badge tb-direct">Direct</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">George Mason University</div><div class="inst-type">R1 Research · Fairfax, VA</div></td>
+          <td>INTO George Mason for pathway access — intogmu@intouk.com</td>
+          <td>Register with INTO University Partnerships. INTO GMU handles agents directly for pathway admissions.</td>
+          <td>INTO commission structure — typically $800–$2,000 per student depending on program</td>
+          <td><span class="tier-badge tb-agg">Aggregator (INTO)</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">University of Illinois Chicago (UIC)</div><div class="inst-type">R1 Research · Chicago, IL</div></td>
+          <td>Office of International Services — ois@uic.edu</td>
+          <td>Direct outreach to international services. Request agent agreement. UIC has significant South Asian enrollment.</td>
+          <td>Commission % varies by program; negotiate directly</td>
+          <td><span class="tier-badge tb-direct">Direct</span></td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">University of Alabama</div><div class="inst-type">R1 Research · Tuscaloosa, AL · Merit Aid Available</div></td>
+          <td>International Student Services — Via Shorelight partnership</td>
+          <td>Apply through Shorelight agent portal. UA is a Shorelight partner institution.</td>
+          <td>Shorelight agent commission rate. High merit aid = affordable for students, good placement.</td>
+          <td><span class="tier-badge tb-agg">Aggregator (Shorelight)</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Tier 3: Community Colleges (Apply Months 3–6)</h3>
+    <p style="font-size:0.88rem; color:var(--muted); margin-bottom:12px;">Community colleges are an underutilized channel. They have lower visa denial rates for admitted students, lower tuition (making financial docs easier to pass), strong transfer pathways to 4-year schools, and many actively pay agent commissions. These are especially valuable for high-risk market students with lower academic profiles.</p>
+
+    <table class="uni-table">
+      <thead>
+        <tr>
+          <th>Institution</th>
+          <th>Who to Contact</th>
+          <th>How to Apply</th>
+          <th>Fee / Commission</th>
+          <th>Transfer Path</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="inst-name">Northern Virginia Community College (NOVA)</div><div class="inst-type">Largest 2-Year College in U.S. · Falls Church, VA</div></td>
+          <td>International Student Office — intl@nvcc.edu</td>
+          <td>Direct email to international student office. NOVA has a formal agent program and pays referral fees.</td>
+          <td>Flat fee per enrolled F-1 student (~$300–$500)</td>
+          <td>George Mason, Virginia Tech, UVA transfer pathways</td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Miami Dade College (MDC)</div><div class="inst-type">Largest U.S. Community College by Enrollment · Miami, FL</div></td>
+          <td>International Student Services — intl@mdc.edu</td>
+          <td>Email international services. MDC has a well-established agent program with Latin American focus.</td>
+          <td>Flat referral fee; negotiate directly</td>
+          <td>FIU, UM, FAU transfer pathways — strong articulation agreements</td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Houston Community College (HCC)</div><div class="inst-type">Multi-Campus System · Houston, TX</div></td>
+          <td>International Student Services — international@hccs.edu</td>
+          <td>Direct email. HCC actively works with international student agents and has a streamlined F-1 application process.</td>
+          <td>Flat referral fee; confirm MOU terms</td>
+          <td>University of Houston, Texas Southern transfer options</td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Dallas College</div><div class="inst-type">Multi-Campus · Dallas, TX · Formerly Dallas County CC</div></td>
+          <td>International Student Office — international@dcccd.edu</td>
+          <td>Direct email. Dallas College has multiple campuses and an active international enrollment program.</td>
+          <td>Flat referral fee per enrolled student</td>
+          <td>UT Dallas, UT Arlington strong transfer pathways</td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Portland Community College (PCC)</div><div class="inst-type">Multi-Campus · Portland, OR</div></td>
+          <td>International Programs — international@pcc.edu</td>
+          <td>Email international programs office. PCC works with agents and has a formal intake process.</td>
+          <td>Fee per enrolled student; MOU required</td>
+          <td>Portland State, Oregon State transfer articulation</td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Austin Community College (ACC)</div><div class="inst-type">Multi-Campus · Austin, TX</div></td>
+          <td>International Student Services — international@austincc.edu</td>
+          <td>Direct inquiry. Austin is a booming international student market. ACC actively enrolls F-1 students.</td>
+          <td>Flat referral; negotiate in MOU</td>
+          <td>UT Austin, Texas State transfer agreements</td>
+        </tr>
+        <tr>
+          <td><div class="inst-name">Columbus State Community College</div><div class="inst-type">Multi-Campus · Columbus, OH</div></td>
+          <td>Global Education Office — global@cscc.edu</td>
+          <td>Direct email. Columbus State has a growing international student body and works with agents.</td>
+          <td>Flat referral fee; confirm in agreement</td>
+          <td>Ohio State University transfer articulation</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="hbox teal">
+      <p><strong>Community College Placement Strategy:</strong> Position community college enrollment as a strength, not a fallback. Two years at NOVA → George Mason; two years at Miami Dade → FIU — these are legitimate, cost-effective pathways that often have better visa approval rates than direct 4-year admission. This is especially powerful for high-risk market students with mid-range GPAs.</p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4: OUTREACH TEMPLATES ══ -->
+  <div class="section">
+    <div class="section-label">Section 04</div>
+    <div class="section-title">Outreach Email Templates</div>
+    <div class="section-intro">Three ready-to-send templates — one for aggregator platforms, one for universities, and one for community colleges. Personalize the bracketed fields before sending.</div>
+
+    <h3>Template A — Aggregator Platform Initial Contact</h3>
+    <p style="font-size:0.88rem; color:var(--muted);">Use for: ApplyBoard, Adventus, Shorelight, IDP — when their registration is partially online but you want to accelerate with a direct human contact.</p>
+    <div class="email-box">
+      <div class="email-header">
+        <strong>To:</strong> [Partner/Agent Team at Platform] &nbsp;&nbsp;
+        <strong>Subject:</strong> New Agency Registration — Steadfast Student Services | U.S.-Based | [Your Source Countries]
+      </div>
+      <div class="email-body">Dear [Platform] Partner Team,
+
+My name is [Your Name], and I am the founder of Steadfast Student Services, a U.S.-based international education consulting firm specializing in F-1 student placement and visa navigation services.
+
+We are actively recruiting students from [list your 3–5 primary source countries] and are seeking sub-agent credentials through your platform to begin submitting student applications to your partner university network.
+
+A brief overview of our practice:
+  • Business Type: LLC / Education Consulting Agency — U.S.-based
+  • Source Markets: [List countries — e.g., Nepal, Nigeria, Colombia, Vietnam]
+  • Services: Pre-screening, university matching, document preparation, I-20 guidance, and visa interview coaching
+  • Projected Annual Volume: 15–25 students in Year 1, scaling to 60+ by Year 2
+
+I have already completed your online registration form [if applicable] and am following up to confirm receipt and inquire about the next steps in the agent onboarding and training process.
+
+I am happy to schedule a brief introductory call at your convenience to discuss our operations and how we can best serve your partner institutions.
+
+Please find our website at [steadfaststudentservices.com] and feel free to contact me directly at [your email] or [your phone number].
+
+Thank you for your time. I look forward to building a productive partnership.
+
+Sincerely,
+
+[Your Full Name]
+Founder, Steadfast Student Services
+[Email] | [Phone] | steadfaststudentservices.com</div>
+    </div>
+
+    <h3>Template B — Direct University International Admissions</h3>
+    <p style="font-size:0.88rem; color:var(--muted);">Use for: All direct university outreach — 4-year institutions. Personalize the university name and any specific programs you're recruiting for.</p>
+    <div class="email-box">
+      <div class="email-header">
+        <strong>To:</strong> International Admissions / Global Partnerships Office &nbsp;&nbsp;
+        <strong>Subject:</strong> Agent Partnership Inquiry — Steadfast Student Services | [Your Source Countries]
+      </div>
+      <div class="email-body">Dear [Name / International Admissions Team] at [University Name],
+
+I am writing to inquire about establishing a formal agent partnership between Steadfast Student Services and [University Name]'s International Admissions office.
+
+Steadfast Student Services is a U.S.-based international education consulting firm. We guide students from [source countries] through every step of the F-1 enrollment process — including pre-screening, university matching, document preparation, I-20 support, and a structured visa interview preparation program.
+
+We are specifically interested in [University Name] because of [1–2 specific reasons: e.g., your strong STEM programs, your conditional admission pathway, your high retention rate for international students from South Asia, etc.].
+
+We would like to:
+  1. Be added to your authorized agent list
+  2. Receive your current agent agreement or MOU for review
+  3. Understand your commission structure and payment timeline for placed students
+
+We serve students primarily from: [list your countries]. Our focus is on academically qualified applicants — all prospective students pass an internal eligibility screening before we present them to partner institutions.
+
+I would welcome the opportunity for a brief call with a member of your international recruitment or admissions team to discuss how we can work together.
+
+Our website: [steadfaststudentservices.com]
+Contact: [your email] | [your phone]
+Business Registration: [EIN or LLC name for their records]
+
+Thank you for your time and I look forward to hearing from you.
+
+Sincerely,
+
+[Your Full Name]
+Founder, Steadfast Student Services
+[Email] | [Phone]</div>
+    </div>
+
+    <h3>Template C — Community College International Student Office</h3>
+    <p style="font-size:0.88rem; color:var(--muted);">Use for: All community college outreach. Emphasize the transfer pathway angle — community colleges love knowing their enrolled students will transfer to strong 4-year programs.</p>
+    <div class="email-box">
+      <div class="email-header">
+        <strong>To:</strong> International Student Services / International Programs &nbsp;&nbsp;
+        <strong>Subject:</strong> Agent Partnership Inquiry — F-1 Student Referrals | Steadfast Student Services
+      </div>
+      <div class="email-body">Dear [Name / International Student Services Team] at [College Name],
+
+My name is [Your Name], founder of Steadfast Student Services — a U.S.-based education consulting firm specializing in international student placement and F-1 visa preparation.
+
+I am reaching out to inquire about establishing a referral agent relationship with [College Name]'s International Student Services department. We have students from [list countries] who are strong candidates for F-1 enrollment at a community college, particularly those seeking a two-year pathway with the goal of transferring to a four-year institution.
+
+[College Name]'s [specific transfer articulation agreement or program — e.g., "articulation agreement with George Mason University"] makes it a particularly strong option for students we work with who plan to continue into a bachelor's degree program in [fields].
+
+We pre-screen all prospective students for academic eligibility and financial documentation before presenting them to partner institutions — meaning every referral we send is a qualified, documentation-complete applicant.
+
+We would appreciate information on:
+  1. Your current agent partnership or referral fee program
+  2. The process to be added to your authorized agent list
+  3. Your enrollment timeline for upcoming F-1 start terms
+
+Our operations are fully compliant with U.S. tax and immigration regulations (1099/Schedule C reporting, no work authorization violations). We are happy to provide our business registration documentation.
+
+Website: [steadfaststudentservices.com]
+Contact: [email] | [phone]
+
+Thank you. I look forward to potentially placing qualified students with [College Name].
+
+Sincerely,
+
+[Your Full Name]
+Founder, Steadfast Student Services</div>
+    </div>
+
+    <div class="hbox warn">
+      <p><strong>Follow-Up Protocol:</strong> If you receive no response after 7 business days, send one polite follow-up email. If still no response after another 7 days, call the main office and ask to be directed to the International Admissions or Global Partnerships contact. Never send more than 2 follow-up emails — persistence is good, but beyond two touches you risk being marked as spam.</p>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5: TIMELINE ══ -->
+  <div class="section">
+    <div class="section-label">Section 05</div>
+    <div class="section-title">Week-by-Week Partnership Acquisition Timeline</div>
+    <div class="section-intro">A 12-month sequenced roadmap — what to do, in what order, and why the sequence matters.</div>
+
+    <h3>Month 1 — Foundation Week by Week</h3>
+    <div class="timeline">
+      <div class="tl-week">
+        <div class="tl-badge">Week 1</div>
+        <div class="tl-content">
+          <div class="tl-title">Business Setup &amp; Digital Presence</div>
+          <ul>
+            <li>Register LLC (use your state's Secretary of State online portal — $50–$200)</li>
+            <li>Apply for EIN via IRS.gov (free, instant online)</li>
+            <li>Set up Google Workspace: admin@steadfaststudentservices.com</li>
+            <li>Create LinkedIn company page for Steadfast Student Services</li>
+            <li>Launch basic website (3 pages: Home, Services, Contact) — Squarespace or Wix if no developer</li>
+            <li>Open business bank account (Chase Business Checking or similar)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-week">
+        <div class="tl-badge">Week 2</div>
+        <div class="tl-content gold-border">
+          <div class="tl-title">Apply to Priority 1 Aggregators</div>
+          <ul>
+            <li><strong>Day 1:</strong> Submit ApplyBoard agent registration — complete all documentation and training modules same week</li>
+            <li><strong>Day 2:</strong> Submit Adventus.io agent registration — upload business credentials and complete orientation</li>
+            <li><strong>Day 3:</strong> Draft your agency bio and countries-of-recruitment list (you'll reuse this for every application)</li>
+            <li>Set up a tracking spreadsheet: Platform, Date Applied, Status, Contact Name, Follow-Up Date</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-week">
+        <div class="tl-badge">Week 3</div>
+        <div class="tl-content teal-border">
+          <div class="tl-title">First Wave University Emails — Tier 1 Schools</div>
+          <ul>
+            <li>Send Template B to: ASU, University of Arizona, Wichita State, UIW, Fairleigh Dickinson, Pace University</li>
+            <li>Send Template A to: Shorelight (if not fully self-service on their portal)</li>
+            <li>Log every email sent in tracking spreadsheet with date and contact name</li>
+            <li>Set 7-day follow-up reminders in your calendar for every outreach</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-week">
+        <div class="tl-badge">Week 4</div>
+        <div class="tl-content">
+          <div class="tl-title">Follow-Up &amp; Priority 2 Aggregators</div>
+          <ul>
+            <li>Follow up on any Week 3 university emails with no response</li>
+            <li>Apply to IDP Education agent program</li>
+            <li>Apply to Study Group agent portal</li>
+            <li>Apply to INTO University Partnerships counsellor portal</li>
+            <li>Begin training on ApplyBoard platform (if approved) — learn university search, application submission, commission tracking</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>Month 2 — Pipeline Activation</h3>
+    <div class="timeline">
+      <div class="tl-week">
+        <div class="tl-badge gold-bg">Weeks 5–6</div>
+        <div class="tl-content gold-border">
+          <div class="tl-title">Tier 1 University Agreements &amp; First Student Submissions</div>
+          <ul>
+            <li>Review and sign any MOU agreements received from Tier 1 schools (read commission payment timing and student refund clauses carefully)</li>
+            <li>Begin submitting your first student applications through ApplyBoard and Adventus — even if just 1–2 students, this establishes your activity record on both platforms</li>
+            <li>Send Template B to remaining Tier 1 schools: University of South Florida, University of Delaware</li>
+            <li>Send Template B to Tier 2 schools: University of New Haven, Lynn University, Pace University, University of Bridgeport</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-week">
+        <div class="tl-badge gold-bg">Weeks 7–8</div>
+        <div class="tl-content gold-border">
+          <div class="tl-title">Community College Outreach Begins</div>
+          <ul>
+            <li>Send Template C to all 6 community colleges: NOVA, Miami Dade, Houston CC, Dallas College, PCC, ACC</li>
+            <li>Apply to Navitas agent portal and EduCo Pathways portal</li>
+            <li>Apply to Kaplan International Pathways agent program</li>
+            <li>Follow up on all outstanding university applications (any sent 7+ days ago with no reply)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>Month 3–4 — Scale &amp; Solidify</h3>
+    <div class="timeline">
+      <div class="tl-week">
+        <div class="tl-badge teal-bg">Month 3</div>
+        <div class="tl-content teal-border">
+          <div class="tl-title">Remaining Tier 2 &amp; 3 Universities + Columbus State CC</div>
+          <ul>
+            <li>Send outreach to: University of Utah, Missouri S&T, George Mason (via INTO), University of Illinois Chicago, University of Alabama (via Shorelight)</li>
+            <li>Follow up on all community college outreach — call any that haven't responded to email</li>
+            <li>Sign and execute all MOU agreements received — file signed copies in your Google Drive</li>
+            <li>Goal by end of Month 3: Active credentials on at least 3 aggregator platforms + 4–6 universities in negotiation or signed</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-week">
+        <div class="tl-badge teal-bg">Month 4</div>
+        <div class="tl-content teal-border">
+          <div class="tl-title">NAFSA Conference Registration &amp; Relationship Building</div>
+          <ul>
+            <li>Register for the nearest NAFSA Regional Conference (held in Fall/Spring each year — conferences.nafsa.org)</li>
+            <li>Attend regional event to meet international admissions staff in person — this accelerates direct partnerships dramatically</li>
+            <li>Business cards, one-pager on Steadfast, and your agent credential list all ready to share</li>
+            <li>Follow up within 48 hours of meeting any university or college contact at the conference</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>Month 6 Milestone Goals</h3>
+    <div class="hbox teal">
+      <p>By the end of Month 6, you should have: ✦ Active credentials on 5+ aggregator platforms ✦ Signed agent MOUs with at least 8–10 universities and colleges ✦ Applications submitted for at least 5–10 students ✦ At least 1–2 confirmed enrollments generating your first commission payments ✦ A functional CRM tracking every application, school relationship, and commission status</p>
+    </div>
+
+    <h3>Month 7–12 — Deepening &amp; Diversifying</h3>
+    <div class="timeline">
+      <div class="tl-week">
+        <div class="tl-badge">Q3–Q4</div>
+        <div class="tl-content">
+          <div class="tl-title">Convert Aggregator Relationships to Direct Agreements</div>
+          <ul>
+            <li>For any school where you've placed 1+ students via aggregator, email the school's international office directly to discuss a direct agent MOU — you can now cite your placed student as a reference</li>
+            <li>A direct agreement saves you 25–40% of commission that currently goes to the aggregator platform split</li>
+            <li>Attend NAFSA Annual Conference (May — largest international education conference in the world) — register early, budget ~$1,200–$1,800 total including registration and travel</li>
+            <li>Target 3 new direct university agreements from NAFSA connections</li>
+            <li>Evaluate performance by country: which source markets are generating the most placements? Deepen agent recruitment in those countries first.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6: MASTER CHECKLIST ══ -->
+  <div class="section">
+    <div class="section-label">Section 06</div>
+    <div class="section-title">Master Partnership Checklist</div>
+    <div class="section-intro">Print this page and check off each item as completed. Nothing moves to revenue until these are done.</div>
+
+    <div class="two-col">
+      <div>
+        <h3>Business Foundation</h3>
+        <ul class="checklist">
+          <li><div class="cl-box"></div><div>LLC registered in your state</div></li>
+          <li><div class="cl-box"></div><div>EIN obtained from IRS.gov</div></li>
+          <li><div class="cl-box"></div><div>Business bank account opened</div></li>
+          <li><div class="cl-box"></div><div>Google Workspace email active</div></li>
+          <li><div class="cl-box"></div><div>Website live (minimum 3 pages)</div></li>
+          <li><div class="cl-box"></div><div>LinkedIn company page created</div></li>
+          <li><div class="cl-box"></div><div>Client service agreement template drafted</div></li>
+          <li><div class="cl-box"></div><div>CRM set up (HubSpot or GoHighLevel)</div></li>
+        </ul>
+
+        <h3 style="margin-top:24px;">Aggregator Applications</h3>
+        <ul class="checklist">
+          <li><div class="cl-box"></div><div>ApplyBoard — applied &amp; training completed</div></li>
+          <li><div class="cl-box"></div><div>Adventus.io — applied &amp; orientation done</div></li>
+          <li><div class="cl-box"></div><div>Shorelight — applied &amp; MOU reviewed</div></li>
+          <li><div class="cl-box"></div><div>IDP Education — applied &amp; compliance training done</div></li>
+          <li><div class="cl-box"></div><div>Study Group — registered on portal</div></li>
+          <li><div class="cl-box"></div><div>INTO University Partnerships — registered</div></li>
+          <li><div class="cl-box"></div><div>EduCo Pathways — registered</div></li>
+          <li><div class="cl-box"></div><div>Navitas — registered on portal</div></li>
+          <li><div class="cl-box"></div><div>Kaplan International — applied</div></li>
+        </ul>
+      </div>
+      <div>
+        <h3>University Direct MOUs</h3>
+        <ul class="checklist">
+          <li><div class="cl-box"></div><div>Arizona State University — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>University of Arizona — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>University of Delaware — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>University of South Florida — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Wichita State University — MOU signed</div></li>
+          <li><div class="cl-box"></div><div>University of the Incarnate Word — MOU signed</div></li>
+          <li><div class="cl-box"></div><div>Fairleigh Dickinson University — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Pace University — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>University of Utah — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>University of New Haven — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Lynn University — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>University of Bridgeport — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Missouri S&amp;T — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>George Mason (via INTO) — registered</div></li>
+          <li><div class="cl-box"></div><div>University of Illinois Chicago — outreach sent</div></li>
+        </ul>
+
+        <h3 style="margin-top:16px;">Community Colleges</h3>
+        <ul class="checklist">
+          <li><div class="cl-box"></div><div>NOVA — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Miami Dade College — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Houston Community College — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Dallas College — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Portland Community College — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Austin Community College — outreach sent</div></li>
+          <li><div class="cl-box"></div><div>Columbus State Community College — outreach sent</div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hbox gold" style="margin-top:28px;">
+      <p><strong>Final Reminder on Commission Payment Timing:</strong> Most universities and aggregators pay commissions 30–90 days after the student's confirmed enrollment (start of semester). Build this lag into your cash flow planning. Your upfront retainer fees from high-risk students are the bridge that keeps operations funded while you wait for backend commissions to arrive.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><strong>Steadfast Student Services</strong> &nbsp;|&nbsp; Partnership Acquisition Playbook v1.0 &nbsp;|&nbsp; Prepared June 2026</p>
+  <p style="margin-top:6px; font-size:0.75rem; opacity:0.5;">Confidential — Internal Operations Document. Contact details and platform names are provided for research and outreach purposes. Verify all URLs, email addresses, and commission structures directly with each platform and institution before signing agreements. Platforms and universities update their agent programs periodically.</p>
+</div>
+
+</body>
+</html>

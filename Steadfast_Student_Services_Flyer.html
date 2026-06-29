@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Steadfast Student Services — Flyer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e8edf2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    /* ── PAGE 1: PRIMARY FLYER ── */
+    .flyer {
+      width: 816px;           /* 8.5 in @ 96 dpi */
+      min-height: 1056px;     /* 11 in @ 96 dpi */
+      background: #FFFFFF;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      margin-bottom: 48px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Header Band */
+    .header {
+      background: linear-gradient(135deg, #0B1F3A 0%, #1A2F50 60%, #1A6B72 100%);
+      padding: 48px 52px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.12);
+      top: -200px; right: -100px;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+      bottom: -100px; left: -80px;
+    }
+    .logo-line {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .logo-mark {
+      width: 52px; height: 52px;
+      background: #C9A84C;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .logo-text {}
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .logo-name span { color: #C9A84C; }
+    .logo-sub {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .header-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.1;
+      max-width: 520px;
+      margin-bottom: 16px;
+    }
+    .header-headline span { color: #C9A84C; }
+
+    .header-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 540px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .header-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+    .badge .dot {
+      width: 6px; height: 6px;
+      background: #C9A84C;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* Accent Strip */
+    .strip {
+      background: #C9A84C;
+      height: 5px;
+    }
+
+    /* Body */
+    .body {
+      flex: 1;
+      padding: 44px 52px;
+    }
+
+    /* Section label */
+    .sec-label {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C9A84C;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0B1F3A;
+      margin-bottom: 22px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #E8EDF2;
+    }
+
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 38px;
+    }
+    .svc-card {
+      background: #F4F7FA;
+      border-radius: 10px;
+      padding: 18px 16px;
+      border-left: 3px solid #1A6B72;
+      position: relative;
+    }
+    .svc-card.gold { border-left-color: #C9A84C; }
+    .svc-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .svc-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #0B1F3A;
+      margin-bottom: 4px;
+    }
+    .svc-desc {
+      font-size: 0.77rem;
+      color: #5A6A7A;
+      line-height: 1.45;
+    }
+
+    /* Two-col lower section */
+    .lower-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+
+    /* Why Steadfast */
+    .why-list { list-style: none; padding: 0; }
+    .why-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid #E8EDF2;
+      font-size: 0.85rem;
+      color: #1C2B3A;
+    }
+    .why-list li:last-child { border-bottom: none; }
+    .check {
+      width: 20px; height: 20px;
+      background: #1A6B72;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Pricing Panel */
+    .pricing-panel {
+      background: #0B1F3A;
+      border-radius: 12px;
+      padding: 26px 22px;
+      color: white;
+    }
+    .pricing-panel .p-label {
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #C9A84C;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-row .p-name {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.80);
+    }
+    .price-row .p-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #C9A84C;
+    }
+    .price-row .p-sub {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 2px;
+    }
+
+    /* Countries band */
+    .countries-band {
+      background: #F4F7FA;
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 36px;
+    }
+    .countries-band .cb-label {
+      font-size: 0.68rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #1A6B72;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .flags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .flag-chip {
+      background: white;
+      border: 1px solid #D6E0EA;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      color: #1C2B3A;
+      font-weight: 500;
+    }
+
+    /* CTA */
+    .cta-band {
+      background: linear-gradient(90deg, #1A6B72, #0B1F3A);
+      border-radius: 12px;
+      padding: 26px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .cta-left .cta-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+    .cta-left .cta-sub {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+    }
+    .cta-right {
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: #C9A84C;
+      color: #0B1F3A;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 12px 26px;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+    .cta-contact {
+      font-size: 0.73rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 8px;
+    }
+
+    /* Footer strip */
+    .flyer-footer {
+      background: #0B1F3A;
+      padding: 16px 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .flyer-footer .f-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: white;
+      font-weight: 700;
+    }
+    .flyer-footer .f-name span { color: #C9A84C; }
+    .flyer-footer .f-contact {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      text-align: right;
+    }
+
+    /* ── PAGE 2: SERVICES + VISA GUIDE FLYER ── */
+    .flyer2 {
+      width: 816px;
+      min-height: 1056px;
+      background: #FFFFFF;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      margin-bottom: 48px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .f2-header {
+      background: #C9A84C;
+      padding: 36px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .f2-header .f2-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #0B1F3A;
+    }
+    .f2-header .f2-tag {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #0B1F3A;
+      background: rgba(0,0,0,0.1);
+      padding: 6px 16px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .f2-body {
+      flex: 1;
+      padding: 44px 52px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .f2-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #0B1F3A;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .f2-headline span { color: #1A6B72; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background: linear-gradient(to bottom, #1A6B72, #C9A84C);
+    }
+    .tl-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+      position: relative;
+    }
+    .tl-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: #0B1F3A;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #C9A84C;
+      font-weight: 700;
+      font-size: 0.85rem;
+      z-index: 1;
+      border: 2px solid white;
+    }
+    .tl-content {
+      background: #F4F7FA;
+      border-radius: 10px;
+      padding: 16px 18px;
+      flex: 1;
+    }
+    .tl-content .tl-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #0B1F3A;
+      margin-bottom: 4px;
+    }
+    .tl-content .tl-desc {
+      font-size: 0.8rem;
+      color: #5A6A7A;
+      line-height: 1.45;
+    }
+
+    /* Visa defense highlight */
+    .vd-box {
+      background: linear-gradient(135deg, #0B1F3A, #1A6B72);
+      border-radius: 14px;
+      padding: 30px 32px;
+      color: white;
+    }
+    .vd-box .vd-label {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #C9A84C;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .vd-box .vd-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .vd-rounds {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    .vd-round {
+      background: rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 14px 14px;
+      text-align: center;
+    }
+    .vd-round .rn {
+      font-size: 0.68rem;
+      color: #C9A84C;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .vd-round .rt {
+      font-size: 0.82rem;
+      color: white;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .vd-round .rd {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* Bottom CTA band for flyer 2 */
+    .f2-cta {
+      background: #C9A84C;
+      padding: 24px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .f2-cta .f2-cta-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0B1F3A;
+    }
+    .f2-cta .f2-cta-sub {
+      font-size: 0.8rem;
+      color: rgba(11,31,58,0.65);
+      margin-top: 3px;
+    }
+    .f2-cta-btn {
+      background: #0B1F3A;
+      color: #C9A84C;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .flyer, .flyer2 { box-shadow: none; margin: 0; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════ FLYER 1: Main Marketing Flyer ════════════ -->
+<div class="flyer">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-line">
+      <div class="logo-mark">🎓</div>
+      <div class="logo-text">
+        <div class="logo-name">Steadfast <span>Student</span> Services</div>
+        <div class="logo-sub">International Education Consulting</div>
+      </div>
+    </div>
+    <div class="header-headline">
+      Your Path to a<br/><span>U.S. University</span><br/>Starts Here.
+    </div>
+    <div class="header-sub">
+      Expert guidance for international students — from your first consultation to the moment you step on campus. We handle the complexity so you can focus on your future.
+    </div>
+    <div class="header-badges">
+      <span class="badge"><span class="dot"></span> 20+ Countries Served</span>
+      <span class="badge"><span class="dot"></span> University Placement</span>
+      <span class="badge"><span class="dot"></span> Visa Interview Coaching</span>
+      <span class="badge"><span class="dot"></span> End-to-End Support</span>
+    </div>
+  </div>
+
+  <div class="strip"></div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <!-- Services -->
+    <div>
+      <div class="sec-label">What We Do</div>
+      <div class="sec-title">Complete International Student Advisory Services</div>
+      <div class="services-grid">
+        <div class="svc-card">
+          <div class="svc-icon">🔍</div>
+          <div class="svc-title">University Matching</div>
+          <div class="svc-desc">Personalized school selection based on your GPA, goals, and budget across top U.S. institutions.</div>
+        </div>
+        <div class="svc-card gold">
+          <div class="svc-icon">📄</div>
+          <div class="svc-title">Application Management</div>
+          <div class="svc-desc">SOP coaching, resume formatting, letter of recommendation coordination, and portal submission.</div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon">📋</div>
+          <div class="svc-title">I-20 & SEVIS Guidance</div>
+          <div class="svc-desc">Full support navigating financial verification and I-20 issuance with your school's international office.</div>
+        </div>
+        <div class="svc-card gold">
+          <div class="svc-icon">🎤</div>
+          <div class="svc-title">Visa Defense Program</div>
+          <div class="svc-desc">3 rounds of mock consular interviews targeting 214(b) objections — our most powerful differentiator.</div>
+        </div>
+        <div class="svc-card">
+          <div class="svc-icon">✈️</div>
+          <div class="svc-title">Pre-Departure Orientation</div>
+          <div class="svc-desc">U.S. arrival prep: banking, housing, DSO check-in, SSN, and cultural transition coaching.</div>
+        </div>
+        <div class="svc-card gold">
+          <div class="svc-icon">🌐</div>
+          <div class="svc-title">Referral Partner Network</div>
+          <div class="svc-desc">Trusted local agents in South Asia, Africa, Latin America, and East Asia — fluent in your market.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why + Pricing -->
+    <div class="lower-grid">
+      <div>
+        <div class="sec-label">Why Steadfast</div>
+        <div class="sec-title">What Sets Us Apart</div>
+        <ul class="why-list">
+          <li><span class="check">✓</span> <div><strong>U.S.-Based &amp; Fully Compliant</strong> — All operations run inside U.S. tax law and SEVIS regulations. No gray-area shortcuts.</div></li>
+          <li><span class="check">✓</span> <div><strong>Risk-Tiered Strategy</strong> — We match our service model to your country's visa reality — so you always get honest advice, not empty promises.</div></li>
+          <li><span class="check">✓</span> <div><strong>3-Round Visa Defense</strong> — More mock interview preparation than any other advisor in the market. We know the 214(b) objections and how to beat them.</div></li>
+          <li><span class="check">✓</span> <div><strong>Top University Partnerships</strong> — Direct pipelines to ASU, University of Delaware, University of Arizona, and more through major aggregator networks.</div></li>
+          <li><span class="check">✓</span> <div><strong>Transparent Pricing</strong> — No hidden fees. No guarantees we can't keep. You know exactly what you're paying for and why.</div></li>
+          <li><span class="check">✓</span> <div><strong>Personalized, Not Processed</strong> — Every student gets a dedicated advisor, not a case number.</div></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="pricing-panel">
+          <div class="p-label">Our Packages</div>
+
+          <div class="price-row">
+            <div>
+              <div class="p-name">Low-Risk Express</div>
+              <div class="p-sub">Latin America · East Asia · Gulf</div>
+            </div>
+            <div>
+              <div class="p-amount">$250</div>
+              <div class="p-sub">Visa prep deposit only</div>
+            </div>
+          </div>
+
+          <div class="price-row">
+            <div>
+              <div class="p-name">High-Risk Complete</div>
+              <div class="p-sub">South Asia · Africa · High-denial markets</div>
+            </div>
+            <div>
+              <div class="p-amount">$500</div>
+              <div class="p-sub">Upfront, full service</div>
+            </div>
+          </div>
+
+          <div class="price-row">
+            <div>
+              <div class="p-name">Premium Advisory</div>
+              <div class="p-sub">Concierge, all markets</div>
+            </div>
+            <div>
+              <div class="p-amount">$1,200</div>
+              <div class="p-sub">All-inclusive</div>
+            </div>
+          </div>
+
+          <div style="margin-top:18px; padding-top:16px; border-top:1px solid rgba(255,255,255,0.1);">
+            <div style="font-size:0.72rem; color:rgba(255,255,255,0.45); line-height:1.5;">
+              Commission-based fees for qualifying low-risk students are collected from the university partner upon enrollment — at no extra cost to you.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Countries served -->
+    <div class="countries-band">
+      <div class="cb-label">Countries We Serve</div>
+      <div class="flags">
+        <span class="flag-chip">🇨🇴 Colombia</span>
+        <span class="flag-chip">🇧🇷 Brazil</span>
+        <span class="flag-chip">🇰🇷 South Korea</span>
+        <span class="flag-chip">🇯🇵 Japan</span>
+        <span class="flag-chip">🇹🇼 Taiwan</span>
+        <span class="flag-chip">🇨🇱 Chile</span>
+        <span class="flag-chip">🇸🇦 Saudi Arabia</span>
+        <span class="flag-chip">🇵🇪 Peru</span>
+        <span class="flag-chip">🇮🇩 Indonesia</span>
+        <span class="flag-chip">🇹🇷 Turkey</span>
+        <span class="flag-chip">🇻🇳 Vietnam</span>
+        <span class="flag-chip">🇺🇿 Uzbekistan</span>
+        <span class="flag-chip">🇳🇵 Nepal</span>
+        <span class="flag-chip">🇧🇩 Bangladesh</span>
+        <span class="flag-chip">🇳🇬 Nigeria</span>
+        <span class="flag-chip">🇵🇰 Pakistan</span>
+        <span class="flag-chip">🇬🇭 Ghana</span>
+        <span class="flag-chip">🇪🇹 Ethiopia</span>
+        <span class="flag-chip">🇾🇪 Yemen</span>
+        <span class="flag-chip">+ More</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-band">
+      <div class="cta-left">
+        <div class="cta-headline">Ready to Start Your Journey?</div>
+        <div class="cta-sub">Book a free 30-minute eligibility consultation with a Steadfast advisor today.</div>
+      </div>
+      <div class="cta-right">
+        <div class="cta-btn">Book Free Consultation</div>
+        <div class="cta-contact" style="color:rgba(255,255,255,0.55); font-size:0.72rem; margin-top:8px;">steadfaststudentservices.com</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="flyer-footer">
+    <div class="f-name">Steadfast <span>Student</span> Services</div>
+    <div class="f-contact">
+      U.S.-Based · Operating Globally<br/>
+      info@steadfaststudentservices.com
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════ FLYER 2: Service Deep-Dive / Back Page ════════════ -->
+<div class="flyer2">
+
+  <div class="f2-header">
+    <div class="f2-logo">Steadfast Student Services</div>
+    <div class="f2-tag">How It Works</div>
+  </div>
+
+  <div class="f2-body">
+
+    <div class="f2-headline">
+      From First Call to<br/><span>Campus Arrival</span> — We're With You Every Step.
+    </div>
+
+    <!-- Timeline -->
+    <div>
+      <div class="sec-label" style="text-align:center; margin-bottom:20px;">The Steadfast 5-Phase Enrollment Journey</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-num">1</div>
+          <div class="tl-content">
+            <div class="tl-title">Pre-Screening &amp; Eligibility Evaluation</div>
+            <div class="tl-desc">We audit your GPA, English test scores (IELTS / TOEFL / Duolingo), financial capacity, and academic goals. Every applicant receives a Placement Viability Score before we commit to working together. Honest assessment upfront saves everyone time.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">2</div>
+          <div class="tl-content">
+            <div class="tl-title">University Alignment &amp; Match Strategy</div>
+            <div class="tl-desc">We build a balanced portfolio of 8–10 schools — reach, target, and safety — all with active F-1 pipelines. Partners include ASU, University of Delaware, University of Arizona, University of Utah, and more. We submit directly through aggregator portals for fast processing.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">3</div>
+          <div class="tl-content">
+            <div class="tl-title">Document Assembly &amp; Application Submission</div>
+            <div class="tl-desc">We coach you through your Statement of Purpose, format your resume to U.S. academic standards, coordinate Letters of Recommendation timelines, and oversee every portal submission. We guide — you write. Full academic integrity, always.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">4</div>
+          <div class="tl-content">
+            <div class="tl-title">I-20 &amp; SEVIS Processing</div>
+            <div class="tl-desc">Once admitted, we guide your family through every financial verification document the school's International Student Office requires to issue your Form I-20. We also ensure your SEVIS record is created and the I-901 fee is paid before your DS-160 visa application is filed.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">5</div>
+          <div class="tl-content">
+            <div class="tl-title">Pre-Departure Orientation</div>
+            <div class="tl-desc">A 90-minute virtual session: airport arrival, campus check-in, DSO reporting, Social Security Number, banking setup, health insurance, and cultural transition coaching. You'll land in the U.S. knowing exactly what to do on Day 1.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visa Defense Highlight -->
+    <div class="vd-box">
+      <div class="vd-label">Our Signature Service</div>
+      <div class="vd-headline">🎤 The Visa Defense Program — 3-Round Mock Interview Protocol</div>
+      <div class="vd-rounds">
+        <div class="vd-round">
+          <div class="rn">Round 1</div>
+          <div class="rt">Baseline Interview</div>
+          <div class="rd">Core intent, home-country ties, financial sponsors — building your foundation</div>
+        </div>
+        <div class="vd-round">
+          <div class="rn">Round 2</div>
+          <div class="rt">Stress Test</div>
+          <div class="rd">Career path logic, school choice rationale, timeline credibility — pressure-testing your story</div>
+        </div>
+        <div class="vd-round">
+          <div class="rn">Round 3</div>
+          <div class="rt">Full Simulation</div>
+          <div class="rd">Adversarial consular role-play, recorded, scored, written action plan delivered</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA Footer -->
+  <div class="f2-cta">
+    <div>
+      <div class="f2-cta-text">Your steadfast path to a U.S. university starts today.</div>
+      <div class="f2-cta-sub">Book your free eligibility consultation — no obligation, no pressure.</div>
+    </div>
+    <a class="f2-cta-btn" href="#">Book Free Consultation</a>
+  </div>
+
+</div>
+
+</body>
+</html>
