@@ -51,24 +51,34 @@ export default function BookPage() {
             </div>
           </div>
 
-          {/* Cal.com embed placeholder */}
+          {/* Booking panel */}
           <div className="md:col-span-3 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            {/* Replace the src below with your actual Cal.com embed URL */}
-            <iframe
-              src="https://cal.com/steadfast-student-services/consultation"
-              width="100%"
-              height="600"
-              frameBorder="0"
-              title="Book a consultation with Steadfast Student Services"
-              className="w-full"
-              style={{ minHeight: '600px' }}
-            />
-            {/* Fallback if Cal.com not yet configured */}
-            <div className="p-8 text-center hidden">
-              <Calendar size={40} className="text-teal mx-auto mb-4" />
-              <h3 className="font-display text-xl font-bold text-navy mb-2">Booking Calendar</h3>
-              <p className="text-gray-500 text-sm mb-4">Connect your Cal.com account to enable online booking. Until then, email us at:</p>
-              <a href="mailto:advisors@steadfaststudentservices.com" className="text-teal font-semibold text-sm hover:underline">advisors@steadfaststudentservices.com</a>
+            {/* When Cal.com is ready, replace this div with an <iframe src="https://cal.com/YOUR_USERNAME/consultation" ... /> */}
+            <div className="p-10 flex flex-col items-center justify-center text-center" style={{ minHeight: '600px' }}>
+              <Calendar size={48} className="text-teal mx-auto mb-5" />
+              <h3 className="font-display text-2xl font-bold text-navy mb-3">Schedule Your Free Call</h3>
+              <p className="text-gray-500 text-sm mb-6 max-w-sm">
+                Send us an email and a senior advisor will reach out within <strong>24 hours</strong> to confirm your appointment — including evenings and weekends.
+              </p>
+              <a
+                href="mailto:advisors@steadfaststudentservices.com?subject=Free%20Consultation%20Request"
+                className="btn-primary inline-block"
+              >
+                Email to Book a Call
+              </a>
+              <p className="text-gray-400 text-xs mt-4">advisors@steadfaststudentservices.com</p>
+              <div className="mt-8 pt-6 border-t border-gray-100 w-full grid grid-cols-3 gap-4 text-center">
+                {[
+                  { stat: '24h', label: 'Response time' },
+                  { stat: 'Free', label: 'No cost, no obligation' },
+                  { stat: '7 days', label: 'Available evenings too' },
+                ].map(({ stat, label }) => (
+                  <div key={stat}>
+                    <div className="font-bold text-navy text-lg">{stat}</div>
+                    <div className="text-gray-400 text-xs">{label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
