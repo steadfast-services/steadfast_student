@@ -40,7 +40,7 @@ export default function Footer() {
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2"><Mail size={14} className="text-gold" /> advisors@steadfaststudentservices.com</div>
-              <div className="flex items-center gap-2"><Phone size={14} className="text-gold" /> +1 (800) 000-STUDY</div>
+              <div className="flex items-center gap-2"><Phone size={14} className="text-gold" /> +1 (781) 929-4623</div>
               <div className="flex items-center gap-2"><MapPin size={14} className="text-gold" /> United States · Serving 68 Countries</div>
             </div>
           </div>

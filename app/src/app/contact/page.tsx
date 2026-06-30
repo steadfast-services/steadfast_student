@@ -38,7 +38,7 @@ export default function ContactPage() {
           <div className="md:col-span-2 space-y-6">
             {[
               { Icon: Mail, title: 'Email', value: 'advisors@steadfaststudentservices.com' },
-              { Icon: Phone, title: 'Phone / WhatsApp', value: '+1 (800) 000-STUDY' },
+              { Icon: Phone, title: 'Phone / WhatsApp', value: '+1 (781) 929-4623' },
               { Icon: MapPin, title: 'Location', value: 'United States · Serving 68 Countries Worldwide' },
               { Icon: Clock, title: 'Hours', value: 'Mon–Fri: 8am–8pm ET · Sat: 10am–4pm ET\n24/7 AI Chat always available' },
             ].map(({ Icon, title, value }) => (

@@ -6,7 +6,7 @@ import { ArrowRight, Shield, Star, Users, TrendingUp, CheckCircle, Globe, Award,
 
 const STATS = [
   { value: '2,400+', label: 'Students Enrolled', icon: Users },
-  { value: '89%', label: 'Visa Approval Rate', icon: Shield },
+  { value: '89%*', label: 'Visa Approval Rate', icon: Shield },
   { value: '47', label: 'Partner Universities', icon: Award },
   { value: '68', label: 'Countries Served', icon: Globe },
 ]
@@ -114,6 +114,7 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
+          <p className="text-center text-navy/50 text-xs mt-4">* Based on client outcomes 2022–2025. Individual results vary and are not guaranteed.</p>
         </div>
       </section>
 

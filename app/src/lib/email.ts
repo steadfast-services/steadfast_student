@@ -9,7 +9,7 @@ function emailFooter(to: string) {
   const unsubUrl = `${APP_URL}/contact?unsubscribe=${encodeURIComponent(to)}`
   return `
     <div style="background:#f8f6f0;padding:24px;text-align:center;border-top:1px solid #e2e8f0;">
-      <p style="color:#94a3b8;font-size:12px;margin:0 0 8px;">© 2026 Steadfast Student Services · United States</p>
+      <p style="color:#94a3b8;font-size:12px;margin:0 0 8px;">© 2026 Steadfast Student Services · 650 Lansdowne Way Apt T2, Norwood, MA 02062</p>
       <p style="color:#94a3b8;font-size:11px;margin:0;">
         Steadfast Student Services is not a law firm. We provide educational enrollment consulting only.<br/>
         <a href="${APP_URL}/privacy" style="color:#1A6B72;">Privacy Policy</a> &nbsp;·&nbsp;

@@ -21,7 +21,7 @@ const VALUES = [
 
 const STATS = [
   { value: '2,400+', label: 'Students Successfully Enrolled' },
-  { value: '89%', label: 'Overall Visa Approval Rate' },
+  { value: '89%*', label: 'Overall Visa Approval Rate' },
   { value: '68', label: 'Countries Served' },
   { value: '47', label: 'Partner Universities' },
   { value: '7', label: 'Aggregator Platform Partnerships' },
@@ -83,6 +83,7 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+          <p className="text-center text-gray-400 text-xs mt-6">* Based on Steadfast client outcomes 2022–2025. Individual results vary. Visa approvals depend on personal circumstances and are not guaranteed.</p>
         </div>
       </section>
 
