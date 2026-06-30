@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Clock, Video, CheckCircle } from 'lucide-react'
+import { Calendar, Clock, Video, CheckCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Book a Free Consultation',
