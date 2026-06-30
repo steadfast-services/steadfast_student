@@ -12,7 +12,7 @@ function extractLeadMarker(text: string) {
 }
 
 function stripLeadMarker(text: string) {
-  return text.replace(/\[LEAD_CAPTURED:.*?\]/gs, '').trim()
+  return text.replace(/\[LEAD_CAPTURED:[\s\S]*?\]/g, '').trim()
 }
 
 export async function POST(req: NextRequest) {

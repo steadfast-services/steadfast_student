@@ -18,7 +18,7 @@ function extractLeadMarker(text: string) {
 }
 
 function stripLeadMarker(text: string) {
-  return text.replace(/\[LEAD_CAPTURED:.*?\]/gs, '').trim()
+  return text.replace(/\[LEAD_CAPTURED:[\s\S]*?\]/g, '').trim()
 }
 
 // Return TwiML response (Twilio reads this to send the message)
