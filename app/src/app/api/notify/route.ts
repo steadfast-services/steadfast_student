@@ -9,12 +9,18 @@ export async function POST(req: NextRequest) {
 
     switch (type) {
       case 'booking_confirmed':
+        if (!email || !name || !dateTime) {
+          return NextResponse.json({ error: 'Missing email, name, or dateTime' }, { status: 400 })
+        }
         await Promise.allSettled([
           sendBookingConfirmationEmail(email, name, dateTime),
           sendAdvisorAlert(`New Booking: ${name}`, `<p><strong>Student:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Time:</strong> ${dateTime}</p>`),
         ])
         break
       case 'advisor_alert':
+        if (!body.subject || !body.html) {
+          return NextResponse.json({ error: 'Missing subject or html' }, { status: 400 })
+        }
         await sendAdvisorAlert(body.subject, body.html)
         break
       default:

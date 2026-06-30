@@ -1,15 +1,18 @@
 import twilio from 'twilio'
 
 function getClient() {
-  return twilio(process.env.TWILIO_ACCOUNT_SID!, process.env.TWILIO_AUTH_TOKEN!)
+  const sid = process.env.TWILIO_ACCOUNT_SID
+  const token = process.env.TWILIO_AUTH_TOKEN
+  if (!sid || !token) throw new Error('Missing TWILIO_ACCOUNT_SID or TWILIO_AUTH_TOKEN')
+  return twilio(sid, token)
 }
 
-const FROM_WHATSAPP = `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`
-
 export async function sendWhatsAppMessage(to: string, body: string) {
+  const from = process.env.TWILIO_WHATSAPP_NUMBER
+  if (!from) throw new Error('Missing TWILIO_WHATSAPP_NUMBER')
   const client = getClient()
   return client.messages.create({
-    from: FROM_WHATSAPP,
+    from: `whatsapp:${from}`,
     to: `whatsapp:${to}`,
     body,
   })

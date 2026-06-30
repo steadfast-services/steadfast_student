@@ -66,6 +66,7 @@ export default function ChatWidget() {
         body: JSON.stringify({ messages: updated }),
       })
       const data = await res.json()
+      if (!res.ok || typeof data.reply !== 'string') throw new Error(data.error ?? 'Empty response')
       setMessages((prev) => [...prev, { role: 'model', content: data.reply, timestamp: Date.now() }])
       if (data.leadCaptured) setLeadCaptured(true)
     } catch {

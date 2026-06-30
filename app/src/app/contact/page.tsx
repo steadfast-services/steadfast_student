@@ -12,11 +12,12 @@ export default function ContactPage() {
     e.preventDefault()
     setStatus('loading')
     try {
-      await fetch('/api/leads', {
+      const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: form.email, full_name: form.name, source: 'contact', quiz_data: { message: form.message, country: form.country } }),
       })
+      if (!res.ok) throw new Error('Server error')
       setStatus('success')
     } catch {
       setStatus('error')

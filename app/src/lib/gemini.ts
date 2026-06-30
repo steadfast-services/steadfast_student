@@ -1,7 +1,9 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import type { ChatMessage } from './types'
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
+const apiKey = process.env.GEMINI_API_KEY
+if (!apiKey) throw new Error('Missing GEMINI_API_KEY environment variable')
+const genAI = new GoogleGenerativeAI(apiKey)
 
 const SYSTEM_PROMPT = `You are Sofia, an enrollment advisor at Steadfast Student Services — a U.S.-based international education consulting company.
 
