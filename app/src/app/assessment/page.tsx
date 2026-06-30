@@ -166,7 +166,7 @@ export default function AssessmentPage() {
 
             {current.id === 'timeline' && (
               <div className="grid grid-cols-2 gap-3">
-                {['Fall 2025 (Aug–Sep)', 'Spring 2026 (Jan–Feb)', 'Fall 2026 (Aug–Sep)', 'Spring 2027 (Jan–Feb)', 'Summer 2026', 'Not sure yet'].map((t) => (
+                {['Fall 2026 (Aug–Sep)', 'Spring 2027 (Jan–Feb)', 'Fall 2027 (Aug–Sep)', 'Spring 2028 (Jan–Feb)', 'Summer 2027', 'Not sure yet'].map((t) => (
                   <button key={t} onClick={() => set('targetStartDate', t)}
                     className={`p-3 rounded-lg border-2 text-sm text-center transition-all ${answers.targetStartDate === t ? 'border-teal bg-teal/5 font-semibold text-navy' : 'border-gray-200 text-gray-600 hover:border-teal/50'}`}
                   >{t}</button>
