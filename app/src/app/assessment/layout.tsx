@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Free Risk Assessment',
-  description: 'Take our free 2-minute assessment to discover your U.S. student visa risk profile and get matched with the right level of enrollment support.',
+  title: 'Free Personalized Assessment',
+  description: 'Take our free 2-minute assessment to discover your personalized support profile and get matched with the right level of enrollment guidance.',
   openGraph: {
-    title: 'Free U.S. Student Visa Risk Assessment',
-    description: 'Answer 7 questions. Get your personalized visa risk profile and package recommendation — free, instant, no commitment.',
+    title: 'Free Personalized Assessment for U.S. Study',
+    description: 'Answer 7 questions to get your personalized support profile and package recommendation — free, instant, and no commitment.',
     url: '/assessment',
   },
 }

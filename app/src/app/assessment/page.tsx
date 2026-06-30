@@ -76,8 +76,8 @@ export default function AssessmentPage() {
       <div className="w-full max-w-xl">
         {/* Context */}
         <div className="text-center mb-6">
-          <p className="text-gold font-bold text-xs tracking-widest uppercase mb-2">Free Risk Assessment</p>
-          <p className="text-white/50 text-sm max-w-sm mx-auto">7 questions. 2 minutes. Your results reveal the specific risk factors in your profile — and the exact strategy to overcome them.</p>
+          <p className="text-gold font-bold text-xs tracking-widest uppercase mb-2">Free Personalized Assessment</p>
+          <p className="text-white/50 text-sm max-w-sm mx-auto">7 questions. 2 minutes. Your results reveal the specific factors in your profile and the exact level of support you need to succeed.</p>
         </div>
 
         {/* Progress */}

@@ -1,0 +1,29 @@
+FREELANCE INTERNATIONAL ADVISING BUSINESS PLAN1. Executive SummaryMission: Provide end-to-end U.S. university placement, enrollment support, and student visa navigation services for global applicants.Objective: Optimize agency revenue by using predictable, low-risk markets to subsidize highly motivated, high-risk pipeline pools.Value Proposition: Providing transparent, comprehensive document validation and rigorous mock visa preparation to maximize university enrollments.Location Constraints: Operated within the United States. All administrative and client acquisition pipelines function via compliant 1099 structures or master aggregator agency networks to protect local legal status.2. Operational Models by Risk PoolTo maximize profitability, you cannot treat all 20 countries the same way. Your strategy will change depending on the country's risk level:                  [ YOUR FREELANCE ADVISING PRACTICE ]
+
+                                   │
+
+         ┌─────────────────────────┴─────────────────────────┐
+
+         ▼                                                   ▼
+
+  LOW RISK POOL (≤ 55%)                               HIGH RISK POOL (> 55%)
+
+  (e.g., LatAm, East Asia)                            (e.g., South Asia, Africa)
+
+         │                                                   │
+
+         ▼                                                   ▼
+
+  • Backend Commission Model                         • Upfront Retainer Model
+
+  • Free Initial Screening                            • Strict Academic Filters
+
+  • Bulk Volume Focus                                • Heavy Visa Mock Prep Focus
+
+The Low-Risk Funnel (Backend Commission Model): For countries like Colombia, Brazil, South Korea, and Taiwan, adopt an onboarding-heavy model. Because approval chances are high, offer free or low-cost initial consultations. Rely on the master aggregator commission check ($500 to $2,000 per student) upon their successful arrival at the university campus.The High-Risk Funnel (Upfront Retainer Model): For countries like Nepal, Bangladesh, Nigeria, and Pakistan, do not rely on backend commissions. The 70%+ rejection risk means you could work for months and receive zero commission. Charge these students a non-refundable upfront "Admissions Consulting & Portfolio Build Fee" ($300 - $700). If they pass the visa interview, your aggregator commission is a pure bonus.3. Service Framework (The End-to-End Lifecycle)You will handle the student from initial contact until they step onto their U.S. campus:Phase 1: Pre-Screening & Evaluation: Audit the applicant's GPA transcripts, English test profiles (IELTS, TOEFL, or Duolingo), and liquid financial capacity.Phase 2: University Alignment: Match the student with partner public research systems (e.g., ASU, University of Delaware, University of Arizona) via your master aggregator portal.Phase 3: Document Assembly: Edit personal statements, format professional resumes, collect letters of recommendation, and oversee the formal application portal submission.Phase 4: I-20 & SEVIS Processing: Guide the family through the financial verification required by the school's international student office to issue the Form I-20.Phase 5: The Visa Defense Program: Conduct three distinct rounds of mock consular interviews. Target specific objections under Section 214(b) by practicing answers about their home country ties and exact career paths.4. Revenue & Monetization StrategyDirect-to-Consumer Client Pricing:Low-Risk Package: Free application management with a mandatory $250 visa prep deposit (refundable only if the visa is denied).High-Risk Package: $500 flat fee paid upfront for full application submission, transcript translation audits, and complete visa defense training.B2B Commission Structure: Secure sub-agent credentials through global platforms like ApplyBoard, Adventus, or Shorelight. Expect average commission yields of 10% to 15% of the student's first-year tuition payout, split between the master network and your agency.5. Compliance & Security Protocol (U.S. Based)1099 Financial Management: All incoming funds must pass through clear U.S. tax paths. Issue a Form W-9 to your aggregator partner and file taxes using Schedule C (Form 1040).Work Authorization Check: If operating on F-1 OPT, verify that your business description matches your major CIP code. Ensure your school's DSO logs at least 20 hours per week of active business development inside your SEVP portal.Ethical Boundaries: Never write essays directly for students, forge bank documentation, or guarantee visa issuance. Maintain clear, signed client agreements stating that visa decisions rest entirely with the U.S. Department of State.
+
+
+
+
+
+Visa Risk Classification MatrixLow to Moderate Risk Group (≤ 55% Rejection Rate):Colombia (~23%)Chile (~18%)South Korea (~16%)Japan (~12%)Taiwan (~15%)Brazil (~22%)Peru (~24%)Saudi Arabia (~20%)Indonesia (~25%)Turkey (~35%)Vietnam (~40%)Uzbekistan (~52%)High Risk Group (> 55% Rejection Rate):Nepal (~81%)Bangladesh (~73%)Pakistan (~71%)Nigeria (~75%)Ethiopia (~78%)Ghana (~65%)Somalia (~83%)Yemen (~67%)

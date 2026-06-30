@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 }
 
 const FAQ = [
-  { q: 'How do you determine which package I need?', a: 'Four factors drive the recommendation: your country\'s visa refusal rate, your financial documentation strength, your academic profile, and your prior visa history. The clearest path is our free 2-minute assessment — it weighs all four and gives you a specific package recommendation. You can also talk through it directly in a free consultation.' },
+  { q: 'How do you determine which package I need?', a: 'Four factors drive our recommendation: your country\'s historical visa data, your financial documentation, your academic profile, and any prior visa history. The clearest path is our free 2-minute assessment — it weighs all four and gives you a specific package recommendation. You can also discuss it directly in a free consultation.' },
   { q: 'Do you guarantee visa approval?', a: 'No ethical consultant can legally guarantee visa outcomes — the decision rests with the consular officer. What we guarantee is a comprehensive, well-prepared application that maximizes your chances.' },
-  { q: 'Can I upgrade my package later?', a: 'Yes. Many students upgrade after learning what their specific consular post looks for. That said, preparation time is the one asset you cannot buy back — starting at the right level early is almost always more effective than upgrading later under deadline pressure.' },
+  { q: 'Can I upgrade my package later?', a: 'Yes. However, the single most valuable asset in this process is time. Starting at the right level early is significantly more effective than upgrading later under pressure. We strongly recommend following the initial assessment.' },
   { q: 'How do I see pricing?', a: 'Pricing is discussed during your free 30-minute consultation, where we review your specific situation. We keep pricing private to ensure every student gets a fair, personalized quote.' },
   { q: 'Do you work with community colleges?', a: 'Yes — and for students with borderline academic profiles, community college is often the stronger strategic choice. Lower admission thresholds, direct transfer pathways to 4-year universities, and F-1 visa interviews that tend to be less scrutinized. Our advisors will tell you honestly when this path gives you a better shot than going direct to a 4-year school.' },
 ]

@@ -1,6 +1,7 @@
-import type { Metadata } from 'next'
+'use client'
+
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, BookOpen, CheckCircle, Shield, Star, TrendingUp, Users } from 'lucide-react'
 
 const STATS = [
@@ -17,8 +18,8 @@ const SERVICES = [
     color: 'border-green-200',
     accent: 'bg-green-50',
     title: 'Standard Package',
-    subtitle: 'Even a strong profile can be denied on a technicality.',
-    description: 'Most denials happen to qualified students — not because of weak credentials, but because of a missing document, the wrong financial format, or one unprepared interview answer. Standard gives you the expert review that finds every gap before the consulate does.',
+    subtitle: 'For strong profiles that need an expert review.',
+    description: 'Even qualified students get denied on technicalities. A missing document, the wrong financial format, or one unprepared interview answer can end a dream. Standard provides the expert review that closes every gap before the consulate finds it.',
     features: ['Document review & checklist', 'School selection guidance', 'Application proofreading', 'Visa interview tips', 'Email advisor support'],
   },
   {
@@ -27,8 +28,8 @@ const SERVICES = [
     color: 'border-amber-200',
     accent: 'bg-amber-50',
     title: 'Premium Package',
-    subtitle: 'The gap between approved and denied is almost always preparation.',
-    description: 'Your profile is competitive — but so are hundreds of others from your country. Premium adds financial document coaching, two mock visa interviews, and a dedicated advisor who knows exactly what consular officers look for at your level.',
+    subtitle: 'For competitive profiles that need a strategic edge.',
+    description: 'Your profile is solid, but so are hundreds of others from your country. Premium closes the gap with financial document coaching, two mock visa interviews, and a dedicated advisor who knows exactly what consular officers look for from applicants like you.',
     features: ['Everything in Standard', 'Financial document strategy', 'SOP expert coaching', 'Mock visa interview', 'Post-denial re-application', 'Dedicated advisor', 'Application status tracking'],
     highlighted: true,
   },
@@ -38,8 +39,8 @@ const SERVICES = [
     color: 'border-red-200',
     accent: 'bg-red-50',
     title: 'Elite Package',
-    subtitle: 'High-denial profiles need a custom strategy, not a template.',
-    description: 'Generic preparation does not win when refusal rates exceed 50%. Elite builds a case-by-case strategy that anticipates the specific objections your consulate will raise — financial narrative framing, home-tie documentation, and embassy-specific coaching.',
+    subtitle: 'For complex profiles that need a custom-built case.',
+    description: 'Generic advice fails when denial rates exceed 50%. Elite is our signature service, building a case-by-case strategy that anticipates the specific objections your consulate will raise. This is for students who leave nothing to chance.',
     features: ['Everything in Premium', 'Case-by-case custom visa strategy', 'Legal documentation review', 'Embassy-specific coaching', 'Unlimited consultations', 'Priority support line'],
   },
 ]
@@ -68,13 +69,13 @@ export default function HomePage() {
             className="font-display text-5xl md:text-6xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
           >
-            The U.S. Visa System Rejects More <span className="text-gold">Qualified Students</span> Than You Think.
+            The U.S. Visa System Rejects More <span className="text-gold">Qualified Students</span> Than You Realize.
           </motion.h1>
           <motion.p
             className="text-white/75 text-lg max-w-2xl mx-auto leading-relaxed mb-10"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Visa refusal rates exceed 40% in over 20 countries. One missing document, one weak financial narrative, one unprepared answer in a 3-minute consular interview — and your dream is delayed by a year. We have helped 2,400+ students from 68 countries get through. Start free — find out where you stand.
+            Visa refusal rates exceed 40% in over 20 countries. One missing document, one weak financial story, one unprepared answer in a 3-minute interview—and a dream is delayed by a year. We have helped 2,400+ students from 68 countries get through. Start with our free assessment.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -218,7 +219,7 @@ export default function HomePage() {
             <h2 className="section-title mt-2">From "Denied" to "Admitted"</h2>
             <p className="text-gray-500 mt-4 max-w-2xl mx-auto">We specialize in the cases other agencies turn away. Here’s what our students have to say.</p>
           </div>
-          <div className="space-y-8">
+          <AnimatePresence>
             {TESTIMONIALS.map((t) => (
               <motion.div key={t.name} className="bg-navy-50/30 rounded-xl p-6 md:p-8 border border-gray-100" whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} viewport={{ once: true }}>
                 <div className="flex flex-col md:flex-row md:items-center gap-4">
@@ -234,7 +235,7 @@ export default function HomePage() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </AnimatePresence>
           <p className="text-gray-400 text-xs text-center mt-8">* Individual experiences. Results are not typical or guaranteed. Visa outcomes depend on personal circumstances and consular officer discretion.</p>
         </div>
       </section>
@@ -258,5 +259,3 @@ export default function HomePage() {
     </div>
   )
 }
-```
-```diff

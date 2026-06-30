@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Steadfast Student Services — Premium Package Flyer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ddd8cc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .flyer {
+      width: 816px;
+      min-height: 1056px;
+      background: #FFFFFF;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(140deg, #1C2B45 0%, #2E3F5C 55%, #4A5568 100%);
+      padding: 48px 52px 42px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.12);
+      top: -140px; right: -60px;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      width: 200px; height: 200px;
+      background: rgba(201,168,76,0.04);
+      border-radius: 50%;
+      bottom: -60px; left: 80px;
+    }
+
+    .logo-row {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+    }
+    .logo-mark {
+      width: 46px; height: 46px;
+      background: rgba(201,168,76,0.2);
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem; font-weight: 900; color: #FFFFFF; line-height: 1;
+    }
+    .logo-name span { color: #C9A84C; }
+    .logo-sub {
+      font-size: 0.66rem; color: rgba(255,255,255,0.45);
+      letter-spacing: 2px; text-transform: uppercase; margin-top: 3px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.35);
+      color: #E8C96A;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;
+    }
+
+    .h-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.7rem; font-weight: 900; color: #FFFFFF;
+      line-height: 1.1; max-width: 580px; margin-bottom: 16px;
+    }
+    .h-headline span { color: #C9A84C; }
+    .h-sub {
+      font-size: 1rem; color: rgba(255,255,255,0.68);
+      max-width: 530px; line-height: 1.65; margin-bottom: 28px;
+    }
+
+    /* Reality check strip */
+    .reality-strip {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 10px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .reality-strip .ri {
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .reality-strip .rt {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.5;
+    }
+    .reality-strip .rt strong { color: #E8C96A; }
+
+    /* ── ACCENT ── */
+    .strip { height: 5px; background: linear-gradient(90deg, #C9A84C, #E8C96A, #C9A84C); }
+
+    /* ── BODY ── */
+    .body { padding: 40px 52px; flex: 1; display: flex; flex-direction: column; gap: 30px; }
+
+    .sec-label {
+      font-size: 0.66rem; letter-spacing: 3px; text-transform: uppercase;
+      color: #8B6914; font-weight: 700; margin-bottom: 6px;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; color: #1C2B45;
+      margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #EDE8DC;
+    }
+
+    /* Challenges grid */
+    .challenges-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .challenge-card {
+      background: #FAF8F3;
+      border-radius: 10px;
+      padding: 18px 18px;
+      border-left: 3px solid #C9A84C;
+    }
+    .challenge-card .cc-icon { font-size: 1.2rem; margin-bottom: 8px; }
+    .challenge-card .cc-title {
+      font-size: 0.87rem; font-weight: 700; color: #1C2B45; margin-bottom: 5px;
+    }
+    .challenge-card .cc-desc {
+      font-size: 0.78rem; color: #5A6878; line-height: 1.5;
+    }
+    .challenge-card .cc-stat {
+      margin-top: 8px;
+      display: inline-block;
+      background: #FEF3C7;
+      color: #92600A;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* Steadfast response */
+    .response-box {
+      background: linear-gradient(135deg, #1C2B45 0%, #2E3F5C 100%);
+      border-radius: 12px;
+      padding: 28px 30px;
+      color: white;
+    }
+    .response-box .rb-label {
+      font-size: 0.66rem; letter-spacing: 3px; text-transform: uppercase;
+      color: #C9A84C; font-weight: 700; margin-bottom: 10px;
+    }
+    .response-box .rb-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 16px;
+    }
+    .response-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    .rs-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 8px;
+      padding: 14px 14px;
+    }
+    .rs-card .rs-num {
+      font-size: 0.66rem; color: #C9A84C;
+      letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 6px;
+    }
+    .rs-card .rs-title {
+      font-size: 0.84rem; font-weight: 700; color: white; margin-bottom: 4px;
+    }
+    .rs-card .rs-desc {
+      font-size: 0.75rem; color: rgba(255,255,255,0.55); line-height: 1.45;
+    }
+    .response-box .rb-note {
+      margin-top: 16px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      font-style: italic;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 14px;
+    }
+    .response-box .rb-note strong { color: #C9A84C; font-style: normal; }
+
+    /* Two col */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    /* What to expect */
+    .expect-list { list-style: none; padding: 0; }
+    .expect-list li {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid #EDE8DC;
+      font-size: 0.85rem; color: #1C2B45;
+    }
+    .expect-list li:last-child { border-bottom: none; }
+    .e-icon {
+      width: 22px; height: 22px;
+      background: #C9A84C;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; color: #1C2B45; font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Honesty box */
+    .honesty-box {
+      background: #FAF8F3;
+      border: 1px solid #DDD5B8;
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+    .honesty-box .hb-label {
+      font-size: 0.66rem; letter-spacing: 2px; text-transform: uppercase;
+      color: #8B6914; font-weight: 700; margin-bottom: 8px;
+    }
+    .honesty-box p {
+      font-size: 0.82rem; color: #3A3020; line-height: 1.6;
+    }
+    .honesty-box p strong { color: #1C2B45; }
+
+    /* Countries */
+    .countries-band {
+      background: #1C2B45;
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .countries-band .cb-label {
+      font-size: 0.66rem; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #C9A84C; font-weight: 700; margin-bottom: 12px;
+    }
+    .flags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .flag-chip {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 20px; padding: 5px 13px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.80); font-weight: 500;
+    }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(90deg, #B8942A, #C9A84C);
+      border-radius: 12px;
+      padding: 26px 30px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .cta .cl-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: #1C2B45; margin-bottom: 4px;
+    }
+    .cta .cl-sub { font-size: 0.82rem; color: rgba(28,43,69,0.65); }
+    .cta-btn {
+      flex-shrink: 0;
+      background: #1C2B45; color: #C9A84C;
+      font-size: 0.85rem; font-weight: 700;
+      padding: 13px 26px; border-radius: 8px;
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .footer {
+      background: #1C2B45; padding: 16px 52px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer .fn {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.92rem; color: white; font-weight: 700;
+    }
+    .footer .fn span { color: #C9A84C; }
+    .footer .fc { font-size: 0.73rem; color: rgba(255,255,255,0.4); text-align: right; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .flyer { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="flyer">
+
+  <div class="header">
+    <div class="logo-row">
+      <div class="logo-mark">🎓</div>
+      <div>
+        <div class="logo-name">Steadfast <span>Student</span> Services</div>
+        <div class="logo-sub">International Education Consulting</div>
+      </div>
+    </div>
+    <div class="eyebrow">⚠ The Premium Package</div>
+    <div class="h-headline">The Path Is <span>Real.</span><br/>So Are the Obstacles.</div>
+    <div class="h-sub">Thousands of students from your country successfully enroll in U.S. universities every year — but the road is not as straightforward as it looks. We believe in telling you the truth about what the process involves, and exactly how we help you through it.</div>
+    <div class="reality-strip">
+      <div class="ri">📊</div>
+      <div class="rt">Students in moderate-risk markets face <strong>35–52% visa denial rates</strong> — not because their dreams aren't valid, but because most applicants are <strong>not properly prepared</strong> for the consulate's scrutiny. That gap is where Steadfast works.</div>
+    </div>
+  </div>
+
+  <div class="strip"></div>
+
+  <div class="body">
+
+    <!-- Real Challenges -->
+    <div>
+      <div class="sec-label">What You're Actually Facing</div>
+      <div class="sec-title">The Honest Challenges of Enrollment From Your Region</div>
+      <div class="challenges-grid">
+        <div class="challenge-card">
+          <div class="cc-icon">🏛️</div>
+          <div class="cc-title">Heightened Consular Scrutiny</div>
+          <div class="cc-desc">Consular officers at U.S. embassies in moderate-risk countries apply stricter questioning standards. Section 214(b) presumption of immigrant intent is actively enforced — applicants must prove strong home-country ties.</div>
+          <div class="cc-stat">Major cause of denials</div>
+        </div>
+        <div class="challenge-card">
+          <div class="cc-icon">📁</div>
+          <div class="cc-title">Documentation Complexity</div>
+          <div class="cc-desc">Schools require precise financial verification documents. Errors in bank statement formatting, affidavit of support wording, or sponsor letter structure can stall or kill an I-20 before the visa stage is even reached.</div>
+          <div class="cc-stat">Avoidable with guidance</div>
+        </div>
+        <div class="challenge-card">
+          <div class="cc-icon">🎓</div>
+          <div class="cc-title">University Matching Errors</div>
+          <div class="cc-desc">Applying to schools that are a poor academic fit — either too selective or without strong international pipelines — wastes time and signals poor planning to consulates reviewing the application record.</div>
+          <div class="cc-stat">Undermines credibility</div>
+        </div>
+        <div class="challenge-card">
+          <div class="cc-icon">🗣️</div>
+          <div class="cc-title">Visa Interview Unpreparedness</div>
+          <div class="cc-desc">Most denied applicants are rejected in under 3 minutes. Without practiced, concise answers to predictable consular questions, even qualified students stumble on language, confidence, or clarity.</div>
+          <div class="cc-stat">Most overlooked risk</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Steadfast Response -->
+    <div class="response-box">
+      <div class="rb-label">The Steadfast Response</div>
+      <div class="rb-headline">We've Built Our Entire Practice Around These Exact Obstacles.</div>
+      <div class="response-steps">
+        <div class="rs-card">
+          <div class="rs-num">Step 01</div>
+          <div class="rs-title">Honest Eligibility Assessment</div>
+          <div class="rs-desc">Before anything else, we tell you the truth about your profile — strengths, gaps, and real approval likelihood. No false promises.</div>
+        </div>
+        <div class="rs-card">
+          <div class="rs-num">Step 02</div>
+          <div class="rs-title">Strategic University Selection</div>
+          <div class="rs-desc">We match you to schools that fit your profile and strengthen your visa case — not just schools that accept anyone.</div>
+        </div>
+        <div class="rs-card">
+          <div class="rs-num">Step 03</div>
+          <div class="rs-title">Document Defense System</div>
+          <div class="rs-desc">Every financial document, sponsor letter, and I-20 support file is reviewed against the school's exact requirements before submission.</div>
+        </div>
+      </div>
+      <div class="rb-note">Our full preparation protocol goes deeper than what's listed here. <strong>The complete strategy is shared exclusively with enrolled clients</strong> — because a preparation system only works when it stays precise and protected.</div>
+    </div>
+
+    <!-- What to expect + Honesty -->
+    <div class="two-col">
+      <div>
+        <div class="sec-label">What to Expect Working With Us</div>
+        <div class="sec-title">Our Commitment to You</div>
+        <ul class="expect-list">
+          <li><span class="e-icon">1</span><div><strong>Straight Talk, Always</strong> — If your profile has weak points, we tell you directly. You deserve an advisor who prepares you for reality, not one who inflates your expectations.</div></li>
+          <li><span class="e-icon">2</span><div><strong>Targeted Preparation</strong> — Your visa case is built around the specific objections consulates raise in your country — not a generic script designed for everyone.</div></li>
+          <li><span class="e-icon">3</span><div><strong>No Wasted Applications</strong> — Every school in your portfolio is chosen for a reason. We don't pad lists. We build cases.</div></li>
+          <li><span class="e-icon">4</span><div><strong>You Are Never Alone</strong> — A dedicated advisor tracks your file from first consultation through pre-departure orientation.</div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sec-label">The Reality of Our Work</div>
+        <div class="sec-title">What We Will Not Promise</div>
+        <div class="honesty-box">
+          <div class="hb-label">Our Ethical Standard</div>
+          <p>We will <strong>never</strong> guarantee a visa approval. No honest advisor can — the decision belongs entirely to the U.S. Department of State.</p>
+          <br/>
+          <p>What we will promise is that by the time you walk into your consulate appointment, you will have <strong>done more preparation than 90% of applicants</strong> from your country — and that preparation is what moves the odds.</p>
+          <br/>
+          <p>Every client signs a clear service agreement before we begin. There are no hidden fees, no vague commitments, and no surprises.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Countries -->
+    <div class="countries-band">
+      <div class="cb-label">Moderate-Risk Markets We Specialize In</div>
+      <div class="flags">
+        <span class="flag-chip">🇹🇷 Turkey (~35% denial)</span>
+        <span class="flag-chip">🇻🇳 Vietnam (~40% denial)</span>
+        <span class="flag-chip">🇺🇿 Uzbekistan (~52% denial)</span>
+        <span class="flag-chip">+ Neighboring markets in transition zones</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <div>
+        <div class="cl-headline">Let's Talk Honestly About Your Chances.</div>
+        <div class="cl-sub">Book a free eligibility review — we'll tell you exactly where you stand and what it takes to succeed.</div>
+      </div>
+      <a class="cta-btn" href="#">Book Free Consultation</a>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="fn">Steadfast <span>Student</span> Services</div>
+    <div class="fc">steadfaststudentservices.com &nbsp;|&nbsp; info@steadfaststudentservices.com<br/>U.S.-Based · Globally Connected</div>
+  </div>
+
+</div>
+</body>
+</html>
