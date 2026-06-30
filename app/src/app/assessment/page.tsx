@@ -350,6 +350,10 @@ function ResultScreen({ result }: { result: RiskResult }) {
           <Link href="/book" className="btn-primary w-full justify-center">{ctaLabel} <ArrowRight size={16} /></Link>
         </div>
 
+        <p className="text-gray-400 text-xs text-center mt-4 leading-relaxed">
+          This assessment is for educational purposes only and is not legal advice. Visa outcomes depend on individual circumstances and consular officer discretion. Steadfast Student Services is not a law firm.
+        </p>
+
         <div className="text-center mt-4">
           <Link href="/" className="text-gray-400 text-sm hover:text-navy transition-colors">← Return to Home</Link>
         </div>

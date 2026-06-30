@@ -194,6 +194,7 @@ export default function HomePage() {
               </motion.div>
             ))}
           </div>
+          <p className="text-center text-gray-400 text-xs mt-8">* Individual results vary. Visa approval depends on personal circumstances and consular officer discretion. Not guaranteed.</p>
         </div>
       </section>
 

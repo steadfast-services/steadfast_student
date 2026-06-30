@@ -60,11 +60,16 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
-          <p>© 2026 Steadfast Student Services. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white/70 transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-white/70 transition-colors">Terms of Service</Link>
+        <div className="border-t border-white/10 mt-12 pt-8 space-y-4 text-xs text-white/40">
+          <p className="text-white/30 leading-relaxed max-w-3xl">
+            <strong className="text-white/40">Disclaimer:</strong> Steadfast Student Services is not a law firm. Our advisors are not licensed immigration attorneys or accredited representatives. We provide educational enrollment consulting only. Nothing on this site constitutes legal advice. For immigration legal matters, consult a licensed attorney.
+          </p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p>© 2026 Steadfast Student Services. All rights reserved.</p>
+            <div className="flex gap-6">
+              <Link href="/privacy" className="hover:text-white/70 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-white/70 transition-colors">Terms of Service</Link>
+            </div>
           </div>
         </div>
       </div>

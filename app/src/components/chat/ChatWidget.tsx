@@ -7,7 +7,7 @@ import type { ChatMessage } from '@/lib/types'
 
 const GREETING: ChatMessage = {
   role: 'model',
-  content: "Hi! I'm Sofia, your Steadfast enrollment advisor. I'm here 24 hours a day, 7 days a week.\n\nTo help you best — what country are you from, and what would you like to study in the U.S.?",
+  content: "Hi! I'm Sofia, an AI enrollment advisor at Steadfast Student Services. I'm here 24/7 to help with your U.S. study journey. I can answer questions and connect you with a human advisor — but I'm not a licensed attorney and cannot give legal advice.\n\nTo get started — what country are you from, and what would you like to study in the U.S.?",
   timestamp: Date.now(),
 }
 

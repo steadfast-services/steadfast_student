@@ -4,6 +4,22 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 const FROM = process.env.RESEND_FROM_EMAIL ?? 'advisors@steadfaststudentservices.com'
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.steadfaststudentservices.com'
 
+// CAN-SPAM compliant footer — required in every commercial email
+function emailFooter(to: string) {
+  const unsubUrl = `${APP_URL}/contact?unsubscribe=${encodeURIComponent(to)}`
+  return `
+    <div style="background:#f8f6f0;padding:24px;text-align:center;border-top:1px solid #e2e8f0;">
+      <p style="color:#94a3b8;font-size:12px;margin:0 0 8px;">© 2026 Steadfast Student Services · United States</p>
+      <p style="color:#94a3b8;font-size:11px;margin:0;">
+        Steadfast Student Services is not a law firm. We provide educational enrollment consulting only.<br/>
+        <a href="${APP_URL}/privacy" style="color:#1A6B72;">Privacy Policy</a> &nbsp;·&nbsp;
+        <a href="${APP_URL}/terms" style="color:#1A6B72;">Terms of Service</a> &nbsp;·&nbsp;
+        <a href="${unsubUrl}" style="color:#1A6B72;">Unsubscribe</a>
+      </p>
+    </div>
+  `
+}
+
 export async function sendWelcomeEmail(to: string, name: string) {
   return resend.emails.send({
     from: FROM,
@@ -29,9 +45,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
           </div>
           <p style="color:#94a3b8;font-size:13px;text-align:center;">Questions? Reply to this email or chat with Sofia, our 24/7 AI advisor on our website.</p>
         </div>
-        <div style="background:#f8f6f0;padding:24px;text-align:center;border-top:1px solid #e2e8f0;">
-          <p style="color:#94a3b8;font-size:12px;margin:0;">© 2026 Steadfast Student Services · <a href="${APP_URL}/contact" style="color:#1A6B72;">Contact Us</a></p>
-        </div>
+        ${emailFooter(to)}
       </div>
     `,
   })
@@ -61,9 +75,7 @@ export async function sendAssessmentResultEmail(to: string, name: string, tier: 
             <a href="${APP_URL}/book" style="background:#1A6B72;color:white;font-weight:600;padding:14px 28px;border-radius:8px;text-decoration:none;display:inline-block;">Book Free Consultation →</a>
           </div>
         </div>
-        <div style="background:#f8f6f0;padding:24px;text-align:center;border-top:1px solid #e2e8f0;">
-          <p style="color:#94a3b8;font-size:12px;margin:0;">© 2026 Steadfast Student Services</p>
-        </div>
+        ${emailFooter(to)}
       </div>
     `,
   })
@@ -94,9 +106,7 @@ export async function sendBookingConfirmationEmail(to: string, name: string, dat
           </ul>
           <p style="color:#94a3b8;font-size:13px;margin-top:24px;">You will receive a reminder 24 hours and 1 hour before your appointment. Questions? Reply to this email.</p>
         </div>
-        <div style="background:#f8f6f0;padding:24px;text-align:center;border-top:1px solid #e2e8f0;">
-          <p style="color:#94a3b8;font-size:12px;margin:0;">© 2026 Steadfast Student Services</p>
-        </div>
+        ${emailFooter(to)}
       </div>
     `,
   })
