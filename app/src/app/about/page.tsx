@@ -35,7 +35,7 @@ export default function AboutPage() {
       <section className="gradient-hero text-white py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="section-label text-gold mb-4">About Us</div>
-          <h1 className="font-display text-5xl font-bold mb-6">We Built Steadfast<br />for the Student Who Was Told<br /><span className="text-gold">&ldquo;It&apos;s Too Complicated.&rdquo;</span></h1>
+          <h1 className="font-display text-5xl font-bold mb-6">We Built Steadfast<br />for the Student Who Was Told<br /><span className="text-gold">&ldquo;No.&rdquo;</span></h1>
           <p className="text-white/75 text-lg max-w-2xl mx-auto leading-relaxed">
             Steadfast Student Services was founded on a simple belief: every motivated student deserves a fair shot at a U.S. education, and the application process shouldn't be a barrier.
           </p>
@@ -49,16 +49,15 @@ export default function AboutPage() {
             <div>
               <div className="section-label">Our Story</div>
               <h2 className="section-title mt-2 mb-5">Born from a Personal Experience</h2>
-              <p className="text-gray-600 leading-relaxed mb-4">Our founders watched friends and family members face application denials — not because they lacked the grades or the drive, but because they lacked the right guidance for the complex U.S. system.</p>
-              <p className="text-gray-600 leading-relaxed mb-4">They discovered that with the right documentation strategy, financial framing, and interview coaching, many of those "rejected" cases were actually very winnable.</p>
-              <p className="text-gray-600 leading-relaxed">Steadfast was built to be the advisor that every international student deserves — one who knows the system from the inside and fights for every single case.</p>
+              <p className="text-gray-600 leading-relaxed mb-4">Our founders watched talented friends and family members — people with strong grades, real drive, and every intention of returning home — lose $1,000 or more in non-refundable fees and a full year of their lives to visa denials. Not because they were unqualified. Because no one explained that bank statement formatting matters to a consular officer. Because no one told them the interview is about home-country ties, not grades. Because the system is designed to find reasons to say no — and without the right guidance, most students are guessing.</p>
+              <p className="text-gray-600 leading-relaxed mb-4">They discovered something important: most of those "rejected" cases were winnable. The denial was not a verdict on the student — it was a verdict on the preparation. With the right documentation strategy, financial narrative framing, and interview coaching, case after case that looked impossible became approved.</p>
+              <p className="text-gray-600 leading-relaxed">Steadfast was built to be the insider advantage every international student deserves — the advisor who knows the system from the inside, who has seen exactly what consular officers look for, and who fights for every single case.</p>
             </div>
             <div className="bg-navy rounded-2xl p-8 text-white">
               <h3 className="font-display text-2xl font-bold mb-5 text-gold">What Makes Us Different</h3>
               <ul className="space-y-3 text-white/80 text-sm leading-relaxed">
                 <li className="flex gap-3"><span className="text-gold">✓</span> We specialize in complex cases — many agencies turn them away</li>
-                <li className="flex gap-3"><span className="text-gold">✓</span> AI-powered risk assessment that gives you instant clarity</li>
-                <li className="flex gap-3"><span className="text-gold">✓</span> Secure student portal — track every step in real time</li>
+                <li className="flex gap-3"><span className="text-gold">✓</span> AI-powered assessment gives you instant clarity</li>
                 <li className="flex gap-3"><span className="text-gold">✓</span> Direct MOU partnerships with 22+ universities and colleges</li>
                 <li className="flex gap-3"><span className="text-gold">✓</span> Commission partnerships with 7 global aggregator platforms</li>
                 <li className="flex gap-3"><span className="text-gold">✓</span> We never expose our full strategy — protecting our edge and yours</li>

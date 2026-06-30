@@ -17,8 +17,8 @@ const SERVICES = [
     color: 'border-green-200',
     accent: 'bg-green-50',
     title: 'Standard Package',
-    subtitle: 'For self-guided students who need an expert review.',
-    description: 'Essential support for confident applicants who need a professional review of their documents and a clear checklist to follow.',
+    subtitle: 'Even a strong profile can be denied on a technicality.',
+    description: 'Most denials happen to qualified students — not because of weak credentials, but because of a missing document, the wrong financial format, or one unprepared interview answer. Standard gives you the expert review that finds every gap before the consulate does.',
     features: ['Document review & checklist', 'School selection guidance', 'Application proofreading', 'Visa interview tips', 'Email advisor support'],
   },
   {
@@ -27,8 +27,8 @@ const SERVICES = [
     color: 'border-amber-200',
     accent: 'bg-amber-50',
     title: 'Premium Package',
-    subtitle: 'Comprehensive guidance for a competitive edge.',
-    description: 'Our most popular package offers end-to-end support, from financial coaching to mock visa interviews, ensuring you are fully prepared.',
+    subtitle: 'The gap between approved and denied is almost always preparation.',
+    description: 'Your profile is competitive — but so are hundreds of others from your country. Premium adds financial document coaching, two mock visa interviews, and a dedicated advisor who knows exactly what consular officers look for at your level.',
     features: ['Everything in Standard', 'Financial document strategy', 'SOP expert coaching', 'Mock visa interview', 'Post-denial re-application', 'Dedicated advisor', 'Application status tracking'],
     highlighted: true,
   },
@@ -38,8 +38,8 @@ const SERVICES = [
     color: 'border-red-200',
     accent: 'bg-red-50',
     title: 'Elite Package',
-    subtitle: 'Intensive, personalized support for complex cases.',
-    description: 'Our highest level of service, providing unlimited access and a custom strategy for students who want our most dedicated and hands-on support.',
+    subtitle: 'High-denial profiles need a custom strategy, not a template.',
+    description: 'Generic preparation does not win when refusal rates exceed 50%. Elite builds a case-by-case strategy that anticipates the specific objections your consulate will raise — financial narrative framing, home-tie documentation, and embassy-specific coaching.',
     features: ['Everything in Premium', 'Case-by-case custom visa strategy', 'Legal documentation review', 'Embassy-specific coaching', 'Unlimited consultations', 'Priority support line'],
   },
 ]
@@ -68,13 +68,13 @@ export default function HomePage() {
             className="font-display text-5xl md:text-6xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
           >
-            Your Path to a <span className="text-gold">U.S. University</span> Starts Here.
+            The U.S. Visa System Rejects More <span className="text-gold">Qualified Students</span> Than You Think.
           </motion.h1>
           <motion.p
             className="text-white/75 text-lg max-w-2xl mx-auto leading-relaxed mb-10"
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Expert guidance for international students from every country. We turn visa obstacles into acceptance letters.
+            Visa refusal rates exceed 40% in over 20 countries. One missing document, one weak financial narrative, one unprepared answer in a 3-minute consular interview — and your dream is delayed by a year. We have helped 2,400+ students from 68 countries get through. Start free — find out where you stand.
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -105,6 +105,54 @@ export default function HomePage() {
             ))}
           </div>
           <p className="text-white/40 text-xs text-center mt-4">* Based on client outcomes 2022–2025. Individual results vary and are not guaranteed.</p>
+        </div>
+      </section>
+
+      {/* ===== DENIAL REALITY ===== */}
+      <section className="bg-navy py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="section-label text-red-400">The Numbers No One Tells You</div>
+            <h2 className="font-display text-3xl font-bold text-white mt-2 mb-3">This Is What Happens Without the Right Strategy</h2>
+            <p className="text-white/50 text-sm max-w-2xl mx-auto">Approximate annual U.S. visa refusal rates by country. These students applied. Many were qualified. Most did not know what they were missing.</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              { country: 'Nigeria', rate: '~63%', high: true },
+              { country: 'Pakistan', rate: '~54%', high: true },
+              { country: 'Ghana', rate: '~52%', high: true },
+              { country: 'Bangladesh', rate: '~46%', high: true },
+              { country: 'Vietnam', rate: '~38%', high: false },
+              { country: 'Nepal', rate: '~36%', high: false },
+              { country: 'India', rate: '~26%', high: false },
+              { country: 'China', rate: '~20%', high: false },
+            ].map((d) => (
+              <div key={d.country} className={`rounded-xl p-4 text-center border ${d.high ? 'bg-red-900/30 border-red-500/30' : 'bg-amber-900/20 border-amber-500/20'}`}>
+                <div className={`text-2xl font-bold font-display ${d.high ? 'text-red-400' : 'text-amber-400'}`}>{d.rate}</div>
+                <div className="text-white/80 text-sm font-semibold mt-1">{d.country}</div>
+                <div className="text-white/40 text-xs mt-0.5">refusal rate</div>
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto mb-4">
+            {[
+              { label: 'SEVIS Fee', value: '$350', note: 'Non-refundable' },
+              { label: 'Visa Application', value: '$185', note: 'Non-refundable' },
+              { label: 'School Deposits', value: '$500–$3K', note: 'Varies by school' },
+              { label: 'Time Lost', value: '12 months', note: 'To next intake' },
+            ].map((c) => (
+              <div key={c.label} className="bg-white/5 rounded-lg p-3 text-center">
+                <div className="text-white/40 text-xs uppercase tracking-wider">{c.label}</div>
+                <div className="text-white font-bold text-lg mt-1">{c.value}</div>
+                <div className="text-red-400/80 text-xs mt-0.5">{c.note}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-white/50 text-sm text-center mb-8">A single denial costs the average student <span className="text-red-400 font-semibold">$1,000–$3,500</span> and delays enrollment by a full academic year.</p>
+          <div className="bg-teal/10 border border-teal/40 rounded-xl p-5 text-center max-w-2xl mx-auto">
+            <p className="text-white font-semibold text-lg">Steadfast clients achieve an <span className="text-gold">89%*</span> approval rate — including in the highest-denial countries.</p>
+            <p className="text-white/40 text-xs mt-2">* Based on client outcomes 2022–2025. Source: U.S. Dept. of State, Bureau of Consular Affairs (approximate nonimmigrant visa refusal rates).</p>
+          </div>
         </div>
       </section>
 

@@ -74,6 +74,12 @@ export default function AssessmentPage() {
   return (
     <div className="min-h-screen bg-navy pt-16 flex items-center justify-center px-4">
       <div className="w-full max-w-xl">
+        {/* Context */}
+        <div className="text-center mb-6">
+          <p className="text-gold font-bold text-xs tracking-widest uppercase mb-2">Free Risk Assessment</p>
+          <p className="text-white/50 text-sm max-w-sm mx-auto">7 questions. 2 minutes. Your results reveal the specific risk factors in your profile — and the exact strategy to overcome them.</p>
+        </div>
+
         {/* Progress */}
         <div className="mb-8">
           <div className="flex justify-between text-white/50 text-xs mb-2">
@@ -226,8 +232,6 @@ const TIER_CONTENT = {
       'University and program selection guidance',
       'Application essay proofreading',
       'Visa interview preparation tips',
-      'Deadline tracking and reminders',
-      'Secure student portal access',
       'Email advisor support',
     ],
     ctaLabel: 'Book Your Free Consultation',

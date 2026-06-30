@@ -1,23 +1,23 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import ServicePackages from '@/components/services/CountryPackages'
+import ServicePackages from '@/components/services/ServicePackages'
 
 export const metadata: Metadata = {
   title: 'Our Packages',
-  description: 'Standard, Premium, and Elite enrollment packages for international students applying to U.S. universities. Choose the level of support that matches your visa risk profile.',
+  description: 'Standard, Premium, and Elite enrollment packages for international students applying to U.S. universities. Choose the level of support that matches your unique profile.',
   openGraph: {
     title: 'Enrollment Packages — Steadfast Student Services',
-    description: 'Three tiers of expert support for every risk profile. Document review, SOP coaching, mock visa interviews, and unlimited consultation.',
+    description: 'Three tiers of expert support for every student profile. Document review, SOP coaching, mock visa interviews, and unlimited consultation.',
     url: '/services',
   },
 }
 
 const FAQ = [
-  { q: 'How do you determine which package I need?', a: 'The best way is to take our free 2-minute assessment. It analyzes your unique profile and recommends the package that provides the right level of support for your goals. You can also book a free consultation to discuss your options.' },
+  { q: 'How do you determine which package I need?', a: 'Four factors drive the recommendation: your country\'s visa refusal rate, your financial documentation strength, your academic profile, and your prior visa history. The clearest path is our free 2-minute assessment — it weighs all four and gives you a specific package recommendation. You can also talk through it directly in a free consultation.' },
   { q: 'Do you guarantee visa approval?', a: 'No ethical consultant can legally guarantee visa outcomes — the decision rests with the consular officer. What we guarantee is a comprehensive, well-prepared application that maximizes your chances.' },
-  { q: 'Can I upgrade my package later?', a: 'Absolutely. If your situation changes or you need additional support, you can upgrade at any point in the process.' },
+  { q: 'Can I upgrade my package later?', a: 'Yes. Many students upgrade after learning what their specific consular post looks for. That said, preparation time is the one asset you cannot buy back — starting at the right level early is almost always more effective than upgrading later under deadline pressure.' },
   { q: 'How do I see pricing?', a: 'Pricing is discussed during your free 30-minute consultation, where we review your specific situation. We keep pricing private to ensure every student gets a fair, personalized quote.' },
-  { q: 'Do you work with community colleges?', a: 'Yes. We have direct partnerships with both universities and community colleges, and we have helped hundreds of students use community college as a pathway to a 4-year degree.' },
+  { q: 'Do you work with community colleges?', a: 'Yes — and for students with borderline academic profiles, community college is often the stronger strategic choice. Lower admission thresholds, direct transfer pathways to 4-year universities, and F-1 visa interviews that tend to be less scrutinized. Our advisors will tell you honestly when this path gives you a better shot than going direct to a 4-year school.' },
 ]
 
 const faqSchema = {
@@ -38,10 +38,9 @@ export default function ServicesPage() {
       <section className="gradient-hero text-white py-20 px-4 text-center">
         <div className="max-w-3xl mx-auto">
           <div className="section-label text-gold">Our Services</div>
-          <h1 className="font-display text-5xl font-bold mt-3 mb-5">The Right Support for Your Journey</h1>
-          <p className="text-white/75 text-lg">
-            Every student's path is unique. We've designed three tiers of service to provide the exact level of support you need to succeed.
-            Not sure where to start? Take our free assessment for a personalized recommendation.
+          <h1 className="font-display text-4xl md:text-5xl font-bold mt-3 mb-5 leading-tight">A Denied Visa Costs $1,000+ and 12 Months of Your Life. The Right Preparation Costs Neither.</h1>
+          <p className="text-white/75 text-lg max-w-2xl mx-auto">
+            SEVIS fees, application fees, and school deposits are non-refundable. So is the year you spend waiting for the next intake cycle. The three packages below represent three levels of preparation — and three very different outcomes.
           </p>
         </div>
       </section>
