@@ -1,14 +1,13 @@
-'use client'
-
-import { motion } from 'framer-motion'
+import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Shield, Star, Users, TrendingUp, CheckCircle, Globe, Award, BookOpen } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { ArrowRight, BookOpen, CheckCircle, Shield, Star, TrendingUp, Users } from 'lucide-react'
 
 const STATS = [
-  { value: '2,400+', label: 'Students Enrolled', icon: Users },
-  { value: '89%*', label: 'Visa Approval Rate', icon: Shield },
-  { value: '47', label: 'Partner Universities', icon: Award },
-  { value: '68', label: 'Countries Served', icon: Globe },
+  { icon: Users, value: '2,400+', label: 'Students Enrolled' },
+  { icon: CheckCircle, value: '89%*', label: 'Visa Approval Rate' },
+  { icon: TrendingUp, value: '68', label: 'Countries Served' },
+  { icon: Shield, value: '100%', label: 'Compliance Record' },
 ]
 
 const SERVICES = [
@@ -20,7 +19,7 @@ const SERVICES = [
     title: 'Standard Package',
     subtitle: 'For self-guided students who need an expert review.',
     description: 'Essential support for confident applicants who need a professional review of their documents and a clear checklist to follow.',
-    features: ['Document review & checklist', 'School selection guidance', 'Application proofreading', 'Visa interview tips', 'Portal access'],
+    features: ['Document review & checklist', 'School selection guidance', 'Application proofreading', 'Visa interview tips', 'Email advisor support'],
   },
   {
     tier: 'Premium',
@@ -30,7 +29,7 @@ const SERVICES = [
     title: 'Premium Package',
     subtitle: 'Comprehensive guidance for a competitive edge.',
     description: 'Our most popular package offers end-to-end support, from financial coaching to mock visa interviews, ensuring you are fully prepared.',
-    features: ['Everything in Standard', 'Financial document strategy', 'SOP expert coaching', 'Mock visa interview', 'Post-denial re-application', 'Dedicated advisor'],
+    features: ['Everything in Standard', 'Financial document strategy', 'SOP expert coaching', 'Mock visa interview', 'Post-denial re-application', 'Dedicated advisor', 'Application status tracking'],
     highlighted: true,
   },
   {
@@ -41,14 +40,8 @@ const SERVICES = [
     title: 'Elite Package',
     subtitle: 'Intensive, personalized support for complex cases.',
     description: 'Our highest level of service, providing unlimited access and a custom strategy for students who want our most dedicated and hands-on support.',
-    features: ['Everything in Premium', 'Case-by-case strategy', 'Legal documentation review', 'Embassy-specific coaching', 'Unlimited consultations', 'Priority support line'],
+    features: ['Everything in Premium', 'Case-by-case custom visa strategy', 'Legal documentation review', 'Embassy-specific coaching', 'Unlimited consultations', 'Priority support line'],
   },
-]
-
-const TESTIMONIALS = [
-  { name: 'Adaeze O.', country: 'Nigeria', program: 'MBA, Michigan Ross', text: 'I was told by another agency that my chances were too low. Steadfast built a strategy that got me approved. I am now studying in Ann Arbor!', stars: 5 },
-  { name: 'Rajiv M.', country: 'India', program: 'MS Computer Science, UT Austin', text: 'The Portal made document submission so easy. My advisor responded within hours every time. Worth every penny.', stars: 5 },
-  { name: 'Yuki T.', country: 'Japan', program: 'BS Business, USC', text: 'Super smooth process. I did not realize how many forms were involved — having a team handle everything was a relief.', stars: 5 },
 ]
 
 const PROCESS_STEPS = [
@@ -56,65 +49,62 @@ const PROCESS_STEPS = [
   { step: '02', title: 'Free Consultation', desc: 'A senior advisor reviews your profile and builds a personalized enrollment strategy — tailored to your specific situation.' },
   { step: '03', title: 'Guided Application', desc: 'We manage your document checklist, application submissions, and follow-ups through your secure student portal.' },
   { step: '04', title: 'Visa Preparation', desc: 'Mock interviews, financial document coaching, and embassy-specific tips based on your country and consulate.' },
-  { step: '05', title: 'Arrival & Beyond', desc: 'Post-arrival support, OPT/CPT guidance, and a community of Steadfast alumni in your city.' },
+  { step: '05', title: 'Enrollment & Arrival', desc: 'We guide you through pre-departure steps so you arrive on campus confident and prepared.' },
+]
+
+const TESTIMONIALS = [
+  { name: 'Fatima A.', country: 'Nigeria', stars: 5, program: 'MS in Computer Science', text: 'After two denials, I thought my dream was over. Steadfast built a new strategy from scratch, focusing on my home ties and financial narrative. Their mock interviews were tougher than the real thing. I got my visa on the third try. They didn\'t just give me advice; they gave me confidence.' },
+  { name: 'Rohan K.', country: 'India', stars: 5, program: 'MBA', text: 'The process is overwhelming. Steadfast made it simple. My advisor, Sarah, was always one step ahead, managing my deadlines and ensuring every document was perfect. The investment was worth every penny for the peace of mind alone.' },
+  { name: 'Isabella C.', country: 'Colombia', stars: 5, program: 'BS in Nursing', text: 'As the first in my family to study in the U.S., we had no idea where to start. Steadfast guided us through everything, from choosing a university to preparing for the visa interview. They were patient, professional, and truly cared about my success.' },
 ]
 
 export default function HomePage() {
   return (
-    <>
+    <div className="min-h-screen pt-16">
       {/* ===== HERO ===== */}
-      <section className="gradient-hero text-white min-h-[92vh] flex items-center relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 right-20 w-96 h-96 rounded-full bg-gold blur-3xl" />
-          <div className="absolute bottom-20 left-20 w-64 h-64 rounded-full bg-teal blur-2xl" />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
-          <div className="max-w-3xl">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <span className="inline-block bg-gold/20 border border-gold/40 text-gold text-xs font-bold tracking-widest uppercase px-4 py-2 rounded-full mb-6">
-                Trusted by 2,400+ International Students
-              </span>
-            </motion.div>
-            <motion.h1
-              className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              Your Path to a<br /><span className="text-gold">U.S. University</span><br />Starts Here
-            </motion.h1>
-            <motion.p
-              className="text-xl text-white/80 mb-10 max-w-xl leading-relaxed"
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              Expert enrollment consulting for international students from every country — even the most challenging cases. We turn visa obstacles into acceptance letters.
-            </motion.p>
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4"
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Link href="/assessment" className="btn-primary text-base px-8 py-4 animate-pulse-gold">
-                Get My Free Assessment <ArrowRight size={18} />
-              </Link>
-              <Link href="/book" className="btn-secondary text-base px-8 py-4">
-                Book Free Consultation
-              </Link>
-            </motion.div>
-          </div>
+      <section className="gradient-hero text-white py-24 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h1
+            className="font-display text-5xl md:text-6xl font-bold mb-6"
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+          >
+            Your Path to a <span className="text-gold">U.S. University</span> Starts Here.
+          </motion.h1>
+          <motion.p
+            className="text-white/75 text-lg max-w-2xl mx-auto leading-relaxed mb-10"
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Expert guidance for international students from every country. We turn visa obstacles into acceptance letters.
+          </motion.p>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Link href="/assessment" className="btn-primary text-base px-8 py-4 animate-pulse-gold">
+              Get My Free Assessment <ArrowRight size={18} />
+            </Link>
+            <Link href="/book" className="btn-secondary text-base px-8 py-4">
+              Book Free Consultation
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* ===== STATS BAR ===== */}
-      <section className="bg-gold py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <section className="bg-navy-light py-10">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white">
             {STATS.map((s) => (
-              <motion.div key={s.label} className="text-center" whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 12 }} viewport={{ once: true }}>
-                <s.icon className="mx-auto mb-2 text-navy/60" size={22} />
-                <div className="font-display text-3xl font-bold text-navy">{s.value}</div>
-                <div className="text-navy/70 text-sm font-medium">{s.label}</div>
-              </motion.div>
+              <div key={s.label} className="flex items-center gap-4">
+                <s.icon size={32} className="text-gold flex-shrink-0" />
+                <div>
+                  <div className="text-2xl font-bold">{s.value}</div>
+                  <div className="text-white/60 text-xs uppercase tracking-wider">{s.label}</div>
+                </div>
+              </div>
             ))}
           </div>
-          <p className="text-center text-navy/50 text-xs mt-4">* Based on client outcomes 2022–2025. Individual results vary and are not guaranteed.</p>
+          <p className="text-white/40 text-xs text-center mt-4">* Based on client outcomes 2022–2025. Individual results vary and are not guaranteed.</p>
         </div>
       </section>
 
@@ -128,20 +118,19 @@ export default function HomePage() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {SERVICES.map((s) => (
-              <motion.div
-                key={s.tier}
-                className={`card border-2 ${s.color} relative ${s.highlighted ? 'ring-2 ring-teal ring-offset-4' : ''}`}
-                whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 24 }} viewport={{ once: true }} transition={{ duration: 0.4 }}
+              <motion.div key={s.tier}
+                className={`card relative overflow-hidden ${s.highlighted ? 'border-gold ring-2 ring-gold/50' : ''}`}
+                whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} viewport={{ once: true }}
               >
-                {s.highlighted && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal text-white text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</div>}
-                <div className={`inline-block ${s.badge} mb-3`}>{s.tier}</div>
-                <h3 className="font-display text-2xl font-bold text-navy mb-1">{s.title}</h3>
-                <p className="text-gray-400 text-sm mb-3">{s.subtitle}</p>
-                <p className="text-gray-600 text-sm mb-5 leading-relaxed">{s.description}</p>
-                <ul className="space-y-2 mb-6">
-                  {s.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm text-gray-600">
-                      <CheckCircle size={15} className="text-teal flex-shrink-0" /> {f}
+                {s.highlighted && <div className="absolute top-0 right-0 bg-gold text-navy text-xs font-bold px-4 py-1 rounded-bl-lg">MOST POPULAR</div>}
+                <div className={`${s.badge} mb-3`}>{s.tier}</div>
+                <h3 className="font-display text-2xl font-bold text-navy mb-2">{s.title}</h3>
+                <p className="text-teal font-medium text-sm mb-4">{s.subtitle}</p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-5">{s.description}</p>
+                <ul className="space-y-2 text-sm mb-6">
+                  {s.features.slice(0, 5).map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <CheckCircle size={14} className="text-teal flex-shrink-0 mt-0.5" /> {f}
                     </li>
                   ))}
                 </ul>
@@ -153,53 +142,56 @@ export default function HomePage() {
       </section>
 
       {/* ===== PROCESS ===== */}
-      <section className="py-24 bg-navy-50 bg-navy">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="section-label text-gold">How It Works</div>
-            <h2 className="section-title text-white mt-2">Your Journey in 5 Steps</h2>
+            <div className="section-label">How It Works</div>
+            <h2 className="section-title mt-2">Your 5-Step Path to a U.S. Campus</h2>
           </div>
-          <div className="grid md:grid-cols-5 gap-6">
-            {PROCESS_STEPS.map((step, i) => (
-              <motion.div key={step.step} className="text-center" whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                <div className="w-14 h-14 bg-gold rounded-full flex items-center justify-center font-display text-navy font-bold text-lg mx-auto mb-4">{step.step}</div>
-                <h3 className="text-white font-semibold text-sm mb-2">{step.title}</h3>
-                <p className="text-white/55 text-xs leading-relaxed">{step.desc}</p>
-              </motion.div>
+          <div className="grid md:grid-cols-5 gap-4">
+            {PROCESS_STEPS.map((p, i) => (
+              <div key={p.step} className="flex items-start gap-4 md:flex-col md:text-center">
+                <div className="font-display text-4xl font-bold text-teal/20">{p.step}</div>
+                <div className="md:mt-2">
+                  <h3 className="font-semibold text-navy mb-1">{p.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{p.desc}</p>
+                </div>
+              </div>
             ))}
-          </div>
-          <div className="text-center mt-12">
-            <Link href="/assessment" className="btn-primary">Start with Free Assessment <ArrowRight size={18} /></Link>
           </div>
         </div>
       </section>
 
       {/* ===== TESTIMONIALS ===== */}
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="section-label">Success Stories</div>
-            <h2 className="section-title mt-2">Students Who Made It</h2>
+            <h2 className="section-title mt-2">From "Denied" to "Admitted"</h2>
+            <p className="text-gray-500 mt-4 max-w-2xl mx-auto">We specialize in the cases other agencies turn away. Here’s what our students have to say.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="space-y-8">
             {TESTIMONIALS.map((t) => (
-              <motion.div key={t.name} className="card" whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} viewport={{ once: true }}>
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.stars }).map((_, i) => <Star key={i} size={16} className="text-gold fill-gold" />)}
-                </div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-5 italic">&ldquo;{t.text}&rdquo;</p>
-                <div className="border-t border-gray-100 pt-4">
-                  <div className="font-semibold text-navy">{t.name}</div>
-                  <div className="text-xs text-gray-400">{t.country} · {t.program}</div>
+              <motion.div key={t.name} className="bg-navy-50/30 rounded-xl p-6 md:p-8 border border-gray-100" whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 20 }} viewport={{ once: true }}>
+                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                  <div className="flex-shrink-0 text-center">
+                    <div className="w-20 h-20 bg-navy text-gold rounded-full flex flex-col items-center justify-center mx-auto">
+                      <span className="text-3xl font-display">{t.stars}</span>
+                      <span className="text-xs tracking-widest uppercase">STARS</span>
+                    </div>
+                    <div className="font-semibold text-navy text-sm mt-2">{t.name}</div>
+                    <div className="text-xs text-gray-400">{t.country}</div>
+                  </div>
+                  <p className="text-gray-700 text-base md:text-lg leading-relaxed italic border-t md:border-t-0 md:border-l border-gray-200 pt-4 md:pt-0 md:pl-6">&ldquo;{t.text}&rdquo;</p>
                 </div>
               </motion.div>
             ))}
           </div>
-          <p className="text-center text-gray-400 text-xs mt-8">* Individual results vary. Visa approval depends on personal circumstances and consular officer discretion. Not guaranteed.</p>
+          <p className="text-gray-400 text-xs text-center mt-8">* Individual experiences. Results are not typical or guaranteed. Visa outcomes depend on personal circumstances and consular officer discretion.</p>
         </div>
       </section>
 
-      {/* ===== CTA BANNER ===== */}
+      {/* ===== FINAL CTA ===== */}
       <section className="py-20 bg-teal">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <BookOpen className="mx-auto mb-4 text-white/60" size={36} />
@@ -215,6 +207,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   )
 }
+```
+```diff
