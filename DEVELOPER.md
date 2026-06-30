@@ -37,10 +37,10 @@ These are standalone HTML files requiring no build step. Open directly in any br
 | File | Description |
 |---|---|
 | `Steadfast_Student_Services_Business_Plan.html` | 10-section investor-grade business plan |
-| `Steadfast_Student_Services_Flyer.html` | General two-page marketing flyer |
-| `Flyer_LowRisk_Opportunity.html` | Market flyer for low-risk countries (≤35% visa denial) |
-| `Flyer_ModerateRisk_Challenges.html` | Market flyer for moderate-risk countries (35–55% denial) |
-| `Flyer_HighRisk_Confidence.html` | Market flyer for high-risk countries (>55% denial) |
+| `Steadfast_Student_Services_Flyer.html` | General two-page marketing flyer (for all students) |
+| `Flyer_Standard_Package.html` | Flyer for the Standard support package |
+| `Flyer_Premium_Package.html` | Flyer for the Premium support package |
+| `Flyer_Elite_Package.html` | Flyer for the Elite support package |
 | `Steadfast_Partnership_Acquisition_Playbook.html` | Full playbook — 7 aggregator platforms + 22 universities/colleges |
 
 ### Web Application (`app/` folder)
@@ -48,7 +48,7 @@ These are standalone HTML files requiring no build step. Open directly in any br
 A full-stack Next.js web platform with:
 
 - **Public website** — landing page, services, about, contact, resources/blog
-- **Lead generation** — AI chatbot, risk assessment quiz, contact form
+- **Lead generation** — AI chatbot, free assessment quiz, contact form
 - **Student portal** — progress tracker, document upload, application kanban board
 - **Admin CRM** — lead pipeline, student management dashboard
 - **Automation engine** — 12 email automation flows via Resend
@@ -61,7 +61,7 @@ A full-stack Next.js web platform with:
 - **Supabase over Firebase** — PostgreSQL gives proper relational data, row-level security, and easy export for compliance. Firebase's NoSQL model is harder to query for CRM-style reporting.
 - **Next.js App Router** — Combines frontend, backend API routes, and SSR into one deployment unit on Vercel. No separate backend server needed.
 - **Vercel over AWS/GCP** — Zero-config deployment from GitHub. Free tier covers startup needs. Auto-scales with traffic.
-- **Three-tier service model** — Low/Moderate/High risk. Risk score is calculated in `src/lib/assessment.ts` using real U.S. State Department visa denial rate data per country.
+- **Needs-based service model** — Standard/Premium/Elite support packages. A student's recommended support level is calculated in `src/lib/assessment.ts`. The algorithm considers individual factors (GPA, financials) more heavily than country of origin to provide a personalized, empowering recommendation.
 
 ---
 
@@ -75,9 +75,9 @@ steadfast_student/
 │
 ├── Steadfast_Student_Services_Business_Plan.html
 ├── Steadfast_Student_Services_Flyer.html
-├── Flyer_LowRisk_Opportunity.html
-├── Flyer_ModerateRisk_Challenges.html
-├── Flyer_HighRisk_Confidence.html
+├── Flyer_Standard_Package.html
+├── Flyer_Premium_Package.html
+├── Flyer_Elite_Package.html
 ├── Steadfast_Partnership_Acquisition_Playbook.html
 │
 └── app/                                ← Next.js application root
@@ -112,7 +112,7 @@ steadfast_student/
         │   │
         │   └── api/
         │       ├── chat/route.ts       ← POST /api/chat       (Gemini chatbot)
-        │       ├── assessment/route.ts ← POST /api/assessment  (risk scoring)
+        │       ├── assessment/route.ts ← POST /api/assessment  (support profile scoring)
         │       ├── leads/route.ts      ← POST /api/leads       (CRM + welcome email)
         │       ├── documents/route.ts  ← POST /api/documents   (Supabase Storage upload)
         │       └── notify/route.ts     ← POST /api/notify      (Cal.com webhook handler)
@@ -128,8 +128,8 @@ steadfast_student/
         └── lib/
             ├── types.ts                ← All TypeScript interfaces
             ├── supabase.ts             ← Supabase client + service role client
-            ├── gemini.ts               ← Gemini AI adapter + Sofia system prompt
-            ├── assessment.ts           ← Risk scoring algorithm + country denial rates
+            ├── gemini.ts               ← Gemini AI adapter + "Sofia" system prompt
+            ├── assessment.ts           ← Support profile algorithm + country data
             └── email.ts                ← All Resend email templates
 ```
 

@@ -1,5 +1,16 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { BookOpen, FileText, Globe, Download, ArrowRight } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Free Visa & Enrollment Resources',
+  description: 'Free country guides, F-1 visa tips, SOP frameworks, and downloadable checklists for international students applying to U.S. universities.',
+  openGraph: {
+    title: 'Free U.S. Student Visa Resources — Country Guides & Checklists',
+    description: 'F-1 interview prep, Nigeria & India visa guides, sponsor letter templates, and more. All free from Steadfast Student Services.',
+    url: '/resources',
+  },
+}
 
 const ARTICLES = [
   { category: 'Visa Tips', title: 'F-1 Visa Interview: The 15 Questions Every Student Must Prepare For', slug: 'f1-visa-interview-questions', readTime: '8 min', tags: ['F-1', 'Interview', 'All Countries'] },

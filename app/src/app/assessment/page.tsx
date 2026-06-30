@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, ArrowLeft, CheckCircle, AlertTriangle, XCircle, Loader2 } from 'lucide-react'
+import { ArrowRight, ArrowLeft, ShieldCheck, ShieldAlert, ShieldX, Loader2, CheckCircle } from 'lucide-react'
 import type { AssessmentAnswers, RiskResult } from '@/lib/types'
 
 const COUNTRIES = [
@@ -16,7 +16,7 @@ const COUNTRIES = [
 
 const STEPS = [
   { id: 'country', title: 'Home Country', subtitle: 'Select your country of citizenship' },
-  { id: 'program', title: 'Intended Program', subtitle: 'What level of study are you pursuing?' },
+  { id: 'program', title: 'Your Goal', subtitle: 'What level of study are you pursuing?' },
   { id: 'gpa', title: 'Academic Record', subtitle: 'What is your GPA (on a 4.0 scale)?' },
   { id: 'financial', title: 'Financial Documentation', subtitle: 'Describe your financial proof for the visa interview' },
   { id: 'denial', title: 'Prior Visa History', subtitle: 'Have you had any previous U.S. visa denials?' },
@@ -90,7 +90,7 @@ export default function AssessmentPage() {
           <motion.div key={step} className="bg-white rounded-2xl p-8 shadow-2xl"
             initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.25 }}
           >
-            <p className="text-teal text-xs font-bold tracking-widest uppercase mb-2">Free Risk Assessment</p>
+            <p className="text-teal text-xs font-bold tracking-widest uppercase mb-2">Free Assessment</p>
             <h2 className="font-display text-2xl font-bold text-navy mb-1">{current.title}</h2>
             <p className="text-gray-500 text-sm mb-6">{current.subtitle}</p>
 
@@ -211,48 +211,143 @@ export default function AssessmentPage() {
   )
 }
 
+const TIER_CONTENT = {
+  low: {
+    Icon: ShieldCheck,
+    colorClass: 'text-green-600',
+    bgClass: 'bg-green-50 border-green-200',
+    pillClass: 'bg-green-100 text-green-700',
+    label: 'Strong Profile',
+    headline: "You're in a Strong Position",
+    message: "Your profile shows a high likelihood of approval. Our Standard Package will polish your documents, guide your school selection, and get your application submission-ready.",
+    pkg: 'Standard Package',
+    features: [
+      'Comprehensive document review & checklist',
+      'University and program selection guidance',
+      'Application essay proofreading',
+      'Visa interview preparation tips',
+      'Deadline tracking and reminders',
+      'Secure student portal access',
+      'Email advisor support',
+    ],
+    ctaLabel: 'Book Your Free Consultation',
+    urgency: null as string | null,
+  },
+  moderate: {
+    Icon: ShieldAlert,
+    colorClass: 'text-amber-600',
+    bgClass: 'bg-amber-50 border-amber-200',
+    pillClass: 'bg-amber-100 text-amber-700',
+    label: 'Competitive Profile',
+    headline: 'Preparation Is the Deciding Factor',
+    message: "Your profile is solid, but thorough preparation separates approvals from denials at your level. Our Premium Package provides the financial coaching, SOP guidance, and mock interviews that give you the competitive edge.",
+    pkg: 'Premium Package',
+    features: [
+      'Everything in the Standard Package',
+      'Financial document strategy session',
+      'Statement of Purpose (SOP) expert coaching',
+      'Mock visa interview — 2 sessions',
+      'Post-denial re-application strategy',
+      'Dedicated personal advisor',
+      'Priority email & chat support',
+    ],
+    ctaLabel: 'Book Your Strategy Session',
+    urgency: 'Advisors have limited slots — early preparation significantly improves outcomes.' as string | null,
+  },
+  high: {
+    Icon: ShieldX,
+    colorClass: 'text-red-600',
+    bgClass: 'bg-red-50 border-red-200',
+    pillClass: 'bg-red-100 text-red-700',
+    label: 'Complex Profile',
+    headline: 'Your Case Needs Expert-Level Strategy',
+    message: "Your profile has factors that require a specialized, hands-on approach. Our Elite Package was built for exactly this — a fully custom strategy, unlimited sessions, and our most experienced team in your corner.",
+    pkg: 'Elite Package',
+    features: [
+      'Case-by-case custom visa strategy',
+      'Legal documentation review',
+      'Embassy-specific consular officer coaching',
+      'Financial narrative framing (beyond documents)',
+      'Unlimited consultation sessions',
+      'Priority direct advisor phone line',
+      'Post-arrival and OPT/CPT guidance',
+    ],
+    ctaLabel: 'Book Your Elite Strategy Call',
+    urgency: 'Complex cases need the most lead time — the earlier we start, the stronger your file.' as string | null,
+  },
+}
+
 function ResultScreen({ result }: { result: RiskResult }) {
-  const isLow = result.tier === 'low'
-  const isMod = result.tier === 'moderate'
-  const Icon = isLow ? CheckCircle : isMod ? AlertTriangle : XCircle
-  const color = isLow ? 'text-green-600' : isMod ? 'text-amber-600' : 'text-red-600'
-  const bg = isLow ? 'bg-green-50 border-green-200' : isMod ? 'bg-amber-50 border-amber-200' : 'bg-red-50 border-red-200'
-  const label = isLow ? 'Low Risk' : isMod ? 'Moderate Risk' : 'High Risk'
+  const { Icon, colorClass, bgClass, pillClass, label, headline, message, pkg, features, ctaLabel, urgency } = TIER_CONTENT[result.tier]
 
   return (
     <div className="min-h-screen bg-navy pt-16 flex items-center justify-center px-4 py-12">
       <motion.div className="w-full max-w-xl bg-white rounded-2xl p-8 shadow-2xl" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
         <p className="text-teal text-xs font-bold tracking-widest uppercase mb-2">Your Results</p>
-        <h2 className="font-display text-3xl font-bold text-navy mb-6">Your Visa Risk Profile</h2>
+        <h2 className="font-display text-3xl font-bold text-navy mb-6">{headline}</h2>
 
-        <div className={`rounded-xl border-2 p-5 mb-6 ${bg}`}>
+        {/* Tier badge */}
+        <div className={`rounded-xl border-2 p-5 mb-6 ${bgClass}`}>
           <div className="flex items-center gap-3 mb-3">
-            <Icon size={28} className={color} />
+            <Icon size={28} className={colorClass} />
             <div>
-              <div className={`font-bold text-xl ${color}`}>{label}</div>
-              <div className="text-gray-500 text-sm">Historical denial rate in your country: {result.denialRate}</div>
+              <div className={`font-bold text-xl ${colorClass}`}>{label}</div>
+              <div className="text-gray-500 text-sm">Based on your unique answers</div>
             </div>
           </div>
-          <div className="text-sm text-gray-600">Recommended service: <strong className="text-navy">{result.packageRecommendation}</strong></div>
+          <p className="text-sm text-gray-700 leading-relaxed">{message}</p>
         </div>
 
+        {/* Package features — only this tier's package is shown */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="font-semibold text-navy text-sm">Your Recommended Package</h3>
+            <span className={`text-xs font-bold px-3 py-1 rounded-full ${pillClass}`}>{pkg}</span>
+          </div>
+          <ul className="space-y-2">
+            {features.map((f, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                <CheckCircle size={14} className="text-teal flex-shrink-0 mt-0.5" /> {f}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Key factors */}
         <div className="mb-6">
           <h3 className="font-semibold text-navy text-sm mb-3">Key Factors in Your Profile</h3>
           <ul className="space-y-2">
-            {result.keyFactors.map((f, i) => <li key={i} className="flex items-start gap-2 text-sm text-gray-600"><span className="text-teal mt-0.5">•</span>{f}</li>)}
+            {result.keyFactors.map((f, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                <span className="text-teal mt-0.5">•</span>{f}
+              </li>
+            ))}
           </ul>
         </div>
 
-        <div className="mb-8">
+        {/* Next steps */}
+        <div className="mb-6">
           <h3 className="font-semibold text-navy text-sm mb-3">Your Next Steps</h3>
           <ul className="space-y-2">
-            {result.nextSteps.map((s, i) => <li key={i} className="flex items-start gap-2 text-sm text-gray-600"><span className="w-5 h-5 bg-teal text-white rounded-full text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">{i + 1}</span>{s}</li>)}
+            {result.nextSteps.map((s, i) => (
+              <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                <span className="w-5 h-5 bg-teal text-white rounded-full text-xs flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">{i + 1}</span>{s}
+              </li>
+            ))}
           </ul>
         </div>
 
+        {/* Urgency note (moderate + high only) */}
+        {urgency && (
+          <div className={`rounded-lg border-2 p-3 mb-6 text-xs text-center font-medium ${bgClass} ${colorClass}`}>
+            {urgency}
+          </div>
+        )}
+
+        {/* CTA */}
         <div className="bg-navy rounded-xl p-5 text-center">
-          <p className="text-white/80 text-sm mb-4">Ready to turn this assessment into an action plan? Book your free 30-minute strategy call.</p>
-          <Link href="/book" className="btn-primary w-full justify-center">Book Free Consultation <ArrowRight size={16} /></Link>
+          <p className="text-white/80 text-sm mb-4">Ready to turn this into an action plan? Book your free 30-minute call with a Steadfast advisor.</p>
+          <Link href="/book" className="btn-primary w-full justify-center">{ctaLabel} <ArrowRight size={16} /></Link>
         </div>
 
         <div className="text-center mt-4">

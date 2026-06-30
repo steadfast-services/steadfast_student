@@ -1,4 +1,15 @@
+import type { Metadata } from 'next'
 import { Calendar, Clock, Video, CheckCircle } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Book a Free Consultation',
+  description: 'Schedule your free 30-minute strategy call with a Steadfast advisor. We review your profile, answer your questions, and build your personalized enrollment plan.',
+  openGraph: {
+    title: 'Book a Free 30-Minute Strategy Call',
+    description: 'No commitment, no cost. A senior Steadfast advisor will review your profile and map out your path to U.S. enrollment.',
+    url: '/book',
+  },
+}
 
 export default function BookPage() {
   return (

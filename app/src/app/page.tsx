@@ -13,38 +13,35 @@ const STATS = [
 
 const SERVICES = [
   {
-    tier: 'Low Risk',
+    tier: 'Standard',
     badge: 'badge-low',
     color: 'border-green-200',
     accent: 'bg-green-50',
     title: 'Standard Package',
-    subtitle: 'Countries with ≤35% denial rate',
-    description: 'Streamlined support for students from high-approval countries. We handle the paperwork, you focus on choosing your dream school.',
+    subtitle: 'For self-guided students who need an expert review.',
+    description: 'Essential support for confident applicants who need a professional review of their documents and a clear checklist to follow.',
     features: ['Document review & checklist', 'School selection guidance', 'Application proofreading', 'Visa interview tips', 'Portal access'],
-    countries: 'UK, Germany, Japan, Brazil, Mexico',
   },
   {
-    tier: 'Moderate Risk',
+    tier: 'Premium',
     badge: 'badge-moderate',
     color: 'border-amber-200',
     accent: 'bg-amber-50',
     title: 'Premium Package',
-    subtitle: 'Countries with 35–55% denial rate',
-    description: 'Comprehensive support to navigate the additional scrutiny faced by students from moderate-risk countries.',
+    subtitle: 'Comprehensive guidance for a competitive edge.',
+    description: 'Our most popular package offers end-to-end support, from financial coaching to mock visa interviews, ensuring you are fully prepared.',
     features: ['Everything in Standard', 'Financial document strategy', 'SOP expert coaching', 'Mock visa interview', 'Post-denial re-application', 'Dedicated advisor'],
-    countries: 'India, China, Philippines, Vietnam, Indonesia',
     highlighted: true,
   },
   {
-    tier: 'High Risk',
+    tier: 'Elite',
     badge: 'badge-high',
     color: 'border-red-200',
     accent: 'bg-red-50',
     title: 'Elite Package',
-    subtitle: 'Countries with >55% denial rate',
-    description: 'Our most thorough service, designed specifically for students from countries with historically high visa denial rates.',
+    subtitle: 'Intensive, personalized support for complex cases.',
+    description: 'Our highest level of service, providing unlimited access and a custom strategy for students who want our most dedicated and hands-on support.',
     features: ['Everything in Premium', 'Case-by-case strategy', 'Legal documentation review', 'Embassy-specific coaching', 'Unlimited consultations', 'Priority support line'],
-    countries: 'Nigeria, Pakistan, Ghana, Cameroon, Haiti',
   },
 ]
 
@@ -55,7 +52,7 @@ const TESTIMONIALS = [
 ]
 
 const PROCESS_STEPS = [
-  { step: '01', title: 'Free Risk Assessment', desc: 'Take our 2-minute quiz. Our AI scores your visa eligibility based on country, GPA, financial strength, and more.' },
+  { step: '01', title: 'Free Assessment', desc: 'Take our 2-minute quiz. We analyze your unique profile to recommend the right level of support.' },
   { step: '02', title: 'Free Consultation', desc: 'A senior advisor reviews your profile and builds a personalized enrollment strategy — tailored to your specific situation.' },
   { step: '03', title: 'Guided Application', desc: 'We manage your document checklist, application submissions, and follow-ups through your secure student portal.' },
   { step: '04', title: 'Visa Preparation', desc: 'Mock interviews, financial document coaching, and embassy-specific tips based on your country and consulate.' },
@@ -95,7 +92,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
             >
               <Link href="/assessment" className="btn-primary text-base px-8 py-4 animate-pulse-gold">
-                Get My Free Risk Assessment <ArrowRight size={18} />
+                Get My Free Assessment <ArrowRight size={18} />
               </Link>
               <Link href="/book" className="btn-secondary text-base px-8 py-4">
                 Book Free Consultation
@@ -124,9 +121,9 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <div className="section-label">Our Services</div>
-            <h2 className="section-title mt-2">Tailored to Every Risk Tier</h2>
-            <p className="text-gray-500 mt-4 max-w-2xl mx-auto">We believe every student deserves a chance at a U.S. education. Our three-tier service model ensures you get exactly the level of support your situation requires.</p>
+            <div className="section-label">Our Packages</div>
+            <h2 className="section-title mt-2">The Right Level of Support for Your Goals</h2>
+            <p className="text-gray-500 mt-4 max-w-2xl mx-auto">We offer three tiers of service, designed to provide the exact level of guidance you need. Find the perfect fit or take our free assessment to get a personalized recommendation.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {SERVICES.map((s) => (
@@ -147,8 +144,7 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-xs text-gray-400 mb-5">Example countries: {s.countries}</p>
-                <Link href="/book" className="btn-outline w-full justify-center text-sm py-2.5">Get Pricing <ArrowRight size={15} /></Link>
+                <Link href="/services" className="btn-outline w-full justify-center text-sm py-2.5">Learn More <ArrowRight size={15} /></Link>
               </motion.div>
             ))}
           </div>
@@ -205,11 +201,11 @@ export default function HomePage() {
       <section className="py-20 bg-teal">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <BookOpen className="mx-auto mb-4 text-white/60" size={36} />
-          <h2 className="font-display text-4xl font-bold text-white mb-4">Ready to Begin Your U.S. Study Journey?</h2>
-          <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">Take our free 2-minute risk assessment and get matched with the right package — no commitment, no cost.</p>
+          <h2 className="font-display text-4xl font-bold text-white mb-4">Ready to Start Your U.S. Study Journey?</h2>
+          <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">Take our free 2-minute assessment and get matched with the right package — no commitment, no cost.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/assessment" className="bg-white text-teal font-bold px-8 py-4 rounded-lg hover:bg-gold hover:text-navy transition-all duration-200 inline-flex items-center gap-2">
-              Free Risk Assessment <ArrowRight size={18} />
+              Free Personal Assessment <ArrowRight size={18} />
             </Link>
             <Link href="/contact" className="border-2 border-white/60 text-white font-semibold px-8 py-4 rounded-lg hover:border-white hover:bg-white/10 transition-all inline-flex items-center gap-2">
               Contact an Advisor

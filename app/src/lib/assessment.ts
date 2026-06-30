@@ -22,27 +22,27 @@ function getCountryDenialRate(country: string): number {
   return COUNTRY_DENIAL_RATES[country] ?? 45 // Default to moderate
 }
 
-export function calculateRisk(answers: AssessmentAnswers): RiskResult {
+export function calculateSupportProfile(answers: AssessmentAnswers): RiskResult {
   const denialRate = getCountryDenialRate(answers.country)
-  let score = denialRate
+  let score = denialRate * 0.5 // Reduce country-based weight
 
   // GPA adjustment
-  if (answers.gpa === 'above_3_5') score -= 8
-  else if (answers.gpa === '3_0_to_3_5') score -= 4
-  else if (answers.gpa === '2_5_to_3_0') score += 2
-  else score += 8 // below 2.5
+  if (answers.gpa === 'above_3_5') score -= 15
+  else if (answers.gpa === '3_0_to_3_5') score -= 7
+  else if (answers.gpa === '2_5_to_3_0') score += 7
+  else score += 15 // below 2.5
 
   // Financial proof adjustment
-  if (answers.financialProof === 'full_sponsor_letter') score -= 6
-  else if (answers.financialProof === 'bank_statements_strong') score -= 3
-  else if (answers.financialProof === 'bank_statements_borderline') score += 5
-  else score += 12 // insufficient
+  if (answers.financialProof === 'full_sponsor_letter') score -= 10
+  else if (answers.financialProof === 'bank_statements_strong') score -= 5
+  else if (answers.financialProof === 'bank_statements_borderline') score += 10
+  else score += 20 // insufficient
 
   // Prior visa denial
-  if (answers.priorVisaDenial) score += 15
+  if (answers.priorVisaDenial) score += 20
 
   // Clamp to 0–100
-  score = Math.min(100, Math.max(0, score))
+  score = Math.round(Math.min(100, Math.max(0, score)))
 
   const tier: RiskTier = score <= 35 ? 'low' : score <= 55 ? 'moderate' : 'high'
 
@@ -65,24 +65,37 @@ export function calculateRisk(answers: AssessmentAnswers): RiskResult {
 
 function buildKeyFactors(answers: AssessmentAnswers, countryRate: number): string[] {
   const factors: string[] = []
-  if (countryRate > 55) factors.push(`${answers.country} has a high consular denial rate (${countryRate}%) — extra documentation critical`)
-  else if (countryRate > 35) factors.push(`${answers.country} has a moderate denial rate (${countryRate}%) — strong financial proof is essential`)
-  else factors.push(`${answers.country} historically has a low denial rate (${countryRate}%) — positive indicator`)
+  if (countryRate > 35) factors.push(`Consular trends for applicants from ${answers.country} show a need for a well-prepared case.`)
+  else factors.push(`Applicants from ${answers.country} have historically seen positive outcomes.`)
 
   if (answers.gpa === 'above_3_5') factors.push('Strong GPA (3.5+) significantly strengthens your application')
-  else if (answers.gpa === 'below_2_5') factors.push('GPA below 2.5 may raise admissibility concerns — we will help you address this')
+  else if (answers.gpa === 'below_2_5') factors.push('Your GPA requires a strategy to highlight other strengths in your profile, which we can build together.')
 
-  if (answers.financialProof === 'insufficient') factors.push('Financial documentation needs strengthening before application — our team will guide you')
-  else if (answers.financialProof === 'full_sponsor_letter') factors.push('Full sponsor letter is excellent — this greatly supports your case')
+  if (answers.financialProof === 'insufficient') factors.push('Your financial profile is a key area where our guidance can make a significant impact.')
+  else if (answers.financialProof === 'full_sponsor_letter') factors.push('A full sponsorship is an excellent foundation for your financial documentation.')
 
-  if (answers.priorVisaDenial) factors.push('Prior visa denial noted — we specialize in successful re-application strategies')
+  if (answers.priorVisaDenial) factors.push('A prior visa denial requires a specialized strategy, which is one of our core strengths.')
 
   return factors
 }
 
 function buildNextSteps(tier: RiskTier): string[] {
-  const base = ['Book a free 30-minute consultation with a Steadfast advisor', 'Prepare a document checklist (we will provide one customized to you)']
-  if (tier === 'low') return [...base, 'Begin gathering financial documents and transcripts', 'Research your target programs — you are in a strong position']
-  if (tier === 'moderate') return [...base, 'Schedule a financial document review session', 'Strengthen your Statement of Purpose with our expert guidance']
-  return [...base, 'Review prior denial details so we can craft a targeted strategy', 'Enroll in our Elite package for hands-on visa preparation coaching']
+  if (tier === 'low') return [
+    'Book your free 30-minute consultation to confirm your school shortlist',
+    'Begin gathering financial documents and academic transcripts now',
+    'Review your target programs — you are in a strong position to apply broadly',
+    'Submit with confidence after our advisor reviews your full application',
+  ]
+  if (tier === 'moderate') return [
+    'Book a strategy session — preparation timing is critical at your level',
+    'Schedule a financial document strategy review with your dedicated advisor',
+    'Work with our SOP coaches to craft a compelling, specific personal statement',
+    'Complete two mock visa interview sessions before your consulate appointment',
+  ]
+  return [
+    'Contact us today — complex cases need the most lead time to build correctly',
+    'Share your full background so we can begin your custom Elite strategy',
+    'Review prior denial details with an Elite advisor in a confidential session',
+    'Let our team design an embassy-specific coaching plan built around your file',
+  ]
 }

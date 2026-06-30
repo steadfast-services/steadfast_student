@@ -11,7 +11,7 @@ create table if not exists leads (
   id uuid primary key default uuid_generate_v4(),
   email text unique not null,
   full_name text,
-  source text check (source in ('chatbot', 'quiz', 'contact', 'blog')) default 'contact',
+  source text check (source in ('chatbot', 'quiz', 'contact', 'blog', 'whatsapp')) default 'contact',
   quiz_data jsonb,
   converted boolean default false,
   created_at timestamptz default now()
@@ -77,6 +77,20 @@ create table if not exists documents (
   advisor_notes text,
   uploaded_at timestamptz default now()
 );
+
+-- ===== WHATSAPP SESSIONS =====
+-- Stores per-phone conversation history for the Sofia WhatsApp bot
+create table if not exists whatsapp_sessions (
+  phone text primary key,
+  messages jsonb default '[]',
+  lead_captured boolean default false,
+  updated_at timestamptz default now()
+);
+create index if not exists idx_whatsapp_sessions_updated on whatsapp_sessions(updated_at desc);
+
+-- If you already ran the schema, add the whatsapp source to the leads table with:
+-- alter table leads drop constraint leads_source_check;
+-- alter table leads add constraint leads_source_check check (source in ('chatbot', 'quiz', 'contact', 'blog', 'whatsapp'));
 
 -- ===== CHAT SESSIONS =====
 create table if not exists chat_sessions (

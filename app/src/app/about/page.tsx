@@ -1,8 +1,19 @@
+import type { Metadata } from 'next'
 import { Shield, Users, Globe, Award, TrendingUp, Heart } from 'lucide-react'
 import Link from 'next/link'
 
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Steadfast Student Services was built for students told their case was too complex. We specialize in high-risk visa profiles and have helped 2,400+ students enroll in U.S. universities.',
+  openGraph: {
+    title: 'About Steadfast Student Services',
+    description: 'Our founders were the students told "it\'s too complicated." Now we fight for every complex case others turn away.',
+    url: '/about',
+  },
+}
+
 const VALUES = [
-  { icon: Shield, title: 'Integrity First', desc: 'We never overpromise. Every student receives an honest assessment of their situation — and a real strategy to improve it.' },
+  { icon: Shield, title: 'Integrity First', desc: 'We never overpromise. Every student receives an honest, data-informed assessment of their profile — and a real strategy to improve it.' },
   { icon: Heart, title: 'Student-Centered', desc: 'Your success is our success. We measure performance by visa approvals and enrollment completions, not billable hours.' },
   { icon: Globe, title: 'No Student Left Behind', desc: 'We serve students from all 195 countries — including the most challenging. Especially those.' },
   { icon: TrendingUp, title: 'Data-Driven Strategy', desc: 'Every recommendation is backed by real visa denial data, consular trends, and institutional acceptance patterns.' },
@@ -24,9 +35,9 @@ export default function AboutPage() {
       <section className="gradient-hero text-white py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="section-label text-gold mb-4">About Us</div>
-          <h1 className="font-display text-5xl font-bold mb-6">We Built Steadfast<br />for the Student Who Was Told<br /><span className="text-gold">&ldquo;It&apos;s Too Risky.&rdquo;</span></h1>
+          <h1 className="font-display text-5xl font-bold mb-6">We Built Steadfast<br />for the Student Who Was Told<br /><span className="text-gold">&ldquo;It&apos;s Too Complicated.&rdquo;</span></h1>
           <p className="text-white/75 text-lg max-w-2xl mx-auto leading-relaxed">
-            Steadfast Student Services was founded on a simple belief: every motivated international student deserves a fair shot at a U.S. education — regardless of what country they come from.
+            Steadfast Student Services was founded on a simple belief: every motivated student deserves a fair shot at a U.S. education, and the application process shouldn't be a barrier.
           </p>
         </div>
       </section>
@@ -38,14 +49,14 @@ export default function AboutPage() {
             <div>
               <div className="section-label">Our Story</div>
               <h2 className="section-title mt-2 mb-5">Born from a Personal Experience</h2>
-              <p className="text-gray-600 leading-relaxed mb-4">Our founders watched friends and family members from Nigeria, Pakistan, and India face repeated visa denials — not because they lacked the grades or the drive, but because they lacked the right guidance.</p>
-              <p className="text-gray-600 leading-relaxed mb-4">They discovered that with the right documentation strategy, financial framing, and embassy-specific coaching, many of those &ldquo;too risky&rdquo; cases were actually very winnable.</p>
+              <p className="text-gray-600 leading-relaxed mb-4">Our founders watched friends and family members face application denials — not because they lacked the grades or the drive, but because they lacked the right guidance for the complex U.S. system.</p>
+              <p className="text-gray-600 leading-relaxed mb-4">They discovered that with the right documentation strategy, financial framing, and interview coaching, many of those "rejected" cases were actually very winnable.</p>
               <p className="text-gray-600 leading-relaxed">Steadfast was built to be the advisor that every international student deserves — one who knows the system from the inside and fights for every single case.</p>
             </div>
             <div className="bg-navy rounded-2xl p-8 text-white">
               <h3 className="font-display text-2xl font-bold mb-5 text-gold">What Makes Us Different</h3>
               <ul className="space-y-3 text-white/80 text-sm leading-relaxed">
-                <li className="flex gap-3"><span className="text-gold">✓</span> We specialize in high-risk country cases — most agencies turn them away</li>
+                <li className="flex gap-3"><span className="text-gold">✓</span> We specialize in complex cases — many agencies turn them away</li>
                 <li className="flex gap-3"><span className="text-gold">✓</span> AI-powered risk assessment that gives you instant clarity</li>
                 <li className="flex gap-3"><span className="text-gold">✓</span> Secure student portal — track every step in real time</li>
                 <li className="flex gap-3"><span className="text-gold">✓</span> Direct MOU partnerships with 22+ universities and colleges</li>
