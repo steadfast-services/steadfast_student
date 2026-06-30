@@ -12,7 +12,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 export function getServiceClient() {
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!serviceKey) throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY')
-  return createClient(supabaseUrl, serviceKey, {
+  return createClient(supabaseUrl!, serviceKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   })
 }
