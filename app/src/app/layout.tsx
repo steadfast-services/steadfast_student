@@ -3,6 +3,7 @@ import './globals.css'
 import Navigation from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
 import ChatWidget from '@/components/chat/ChatWidget'
+import GoogleAnalytics from '@/components/analytics/GoogleAnalytics'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.steadfaststudentservices.com'),
@@ -42,7 +43,7 @@ const organizationSchema = {
   logo: 'https://www.steadfaststudentservices.com/opengraph-image',
   description: 'Expert U.S. university enrollment consulting for international students from 68 countries. Visa consultation, document preparation, and SOP coaching.',
   email: 'advisors@steadfaststudentservices.com',
-  telephone: '+1-800-000-7883',
+  telephone: '+1-781-929-4623',
   areaServed: 'Worldwide',
   serviceType: 'International Student Enrollment Consulting',
   knowsAbout: ['F-1 Student Visa', 'U.S. University Admissions', 'Student Visa Application', 'Study in USA', 'International Student Services'],
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <ChatWidget />
+        <GoogleAnalytics />
       </body>
     </html>
   )
