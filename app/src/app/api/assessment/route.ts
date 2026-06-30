@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { calculateRisk } from '@/lib/assessment'
+import { calculateSupportProfile } from '@/lib/assessment'
 import { getServiceClient } from '@/lib/supabase'
 import { sendAssessmentResultEmail } from '@/lib/email'
 import type { AssessmentAnswers } from '@/lib/types'
@@ -7,7 +7,7 @@ import type { AssessmentAnswers } from '@/lib/types'
 export async function POST(req: NextRequest) {
   try {
     const answers: AssessmentAnswers = await req.json()
-    const result = calculateRisk(answers)
+    const result = calculateSupportProfile(answers)
 
     // If email provided, save lead and send result email
     if (answers.email) {
