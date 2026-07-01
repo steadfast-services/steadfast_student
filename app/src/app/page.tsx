@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, BookOpen, CheckCircle, Shield, Star, TrendingUp, Users } from 'lucide-react'
+import EducateYourselfGuide from '@/components/faq-guide/EducateYourselfGuide'
 
 const STATS = [
   { icon: Users, value: '2,400+', label: 'Students Enrolled' },
@@ -237,6 +238,18 @@ export default function HomePage() {
             ))}
           </AnimatePresence>
           <p className="text-gray-400 text-xs text-center mt-8">* Individual experiences. Results are not typical or guaranteed. Visa outcomes depend on personal circumstances and consular officer discretion.</p>
+        </div>
+      </section>
+
+      {/* ===== EDUCATE YOURSELF ===== */}
+      <section className="py-20 bg-navy">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <div className="section-label text-gold">Before You Book</div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-white mt-2 mb-4">Not Ready for a Consultation Yet?</h2>
+          <p className="text-white/60 text-base mb-8 max-w-xl mx-auto">
+            Listen to our free, narrated guide covering the 100 questions every applicant asks — admissions, financial documents, the F-1 visa, and life after arrival. Come to your consultation already knowing the basics.
+          </p>
+          <EducateYourselfGuide />
         </div>
       </section>
 

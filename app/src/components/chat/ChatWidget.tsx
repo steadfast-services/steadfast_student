@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send, Loader2, Bot, CheckCircle, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import type { ChatMessage } from '@/lib/types'
+import { OPEN_SOFIA_EVENT } from '@/lib/sofiaEvents'
 
 const GREETING: ChatMessage = {
   role: 'model',
@@ -46,6 +47,13 @@ export default function ChatWidget() {
       setTimeout(() => inputRef.current?.focus(), 100)
     }
   }, [open])
+
+  // Allow other components (e.g. the Educate Yourself guide) to open this chat.
+  useEffect(() => {
+    const handler = () => setOpen(true)
+    window.addEventListener(OPEN_SOFIA_EVENT, handler)
+    return () => window.removeEventListener(OPEN_SOFIA_EVENT, handler)
+  }, [])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
