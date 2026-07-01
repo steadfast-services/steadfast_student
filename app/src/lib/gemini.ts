@@ -63,10 +63,10 @@ WHAT YOU KNOW (answer questions on these topics):
 
 export async function getChatResponse(messages: ChatMessage[]): Promise<string> {
   const model = genAI.getGenerativeModel({
-    model: 'gemini-2.0-flash',
+    model: 'gemini-flash-latest',
     systemInstruction: SYSTEM_PROMPT,
     generationConfig: {
-      maxOutputTokens: 700,
+      maxOutputTokens: 2048,
       temperature: 0.65,
     },
   })
