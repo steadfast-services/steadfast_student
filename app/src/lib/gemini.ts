@@ -71,7 +71,11 @@ export async function getChatResponse(messages: ChatMessage[]): Promise<string> 
     },
   })
 
-  const history = messages.slice(0, -1).map((m) => ({
+  // Gemini requires chat history to start with a 'user' turn — drop any
+  // leading client-seeded greeting (role 'model') before the first real user message.
+  const priorMessages = messages.slice(0, -1)
+  const firstUserIndex = priorMessages.findIndex((m) => m.role === 'user')
+  const history = (firstUserIndex === -1 ? [] : priorMessages.slice(firstUserIndex)).map((m) => ({
     role: m.role,
     parts: [{ text: m.content }],
   }))
