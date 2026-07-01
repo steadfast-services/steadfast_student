@@ -93,6 +93,12 @@ export default function EducateYourselfGuide() {
     }
   }
 
+  // Deliberately does NOT call speechSynthesis.cancel() here — this is only
+  // ever called once the previous utterance has already finished (or after an
+  // explicit pause()/skip() already cancelled), so speak() just queues
+  // normally. Calling cancel() immediately before speak() from inside another
+  // utterance's own onend handler is a known Chrome race that silently drops
+  // the new utterance — that's what broke question narration previously.
   function speakLine(text: string) {
     if (!speechSupported) {
       const words = text.split(/\s+/).length
@@ -102,33 +108,35 @@ export default function EducateYourselfGuide() {
       }, ms)
       return
     }
-    window.speechSynthesis.cancel()
     const utter = new SpeechSynthesisUtterance(text)
     utter.rate = 0.95
     utter.lang = 'en-US'
     utter.onend = () => { if (!pausingRef.current) advance() }
-    utter.onerror = () => { if (!pausingRef.current) advance() }
-    // Chrome can silently drop an utterance queued synchronously inside another
-    // utterance's own onend handler — deferring one tick avoids that.
-    window.setTimeout(() => {
-      if (!pausingRef.current) window.speechSynthesis.speak(utter)
-    }, 50)
+    utter.onerror = (e) => {
+      console.error('Educate Yourself guide: speech error on answer line', e.error)
+      if (!pausingRef.current) advance()
+    }
+    window.speechSynthesis.speak(utter)
   }
 
   // One-off utterance (not part of the answer-line auto-advance chain) — used
   // to announce the question itself in a distinct, female-matched voice.
   function speakText(text: string, onEnd: () => void) {
-    window.speechSynthesis.cancel()
     const utter = new SpeechSynthesisUtterance(text)
     utter.rate = 0.92
     utter.pitch = 1.15
-    utter.lang = 'en-US'
-    if (femaleVoiceRef.current) utter.voice = femaleVoiceRef.current
+    if (femaleVoiceRef.current) {
+      utter.voice = femaleVoiceRef.current
+      utter.lang = femaleVoiceRef.current.lang
+    } else {
+      utter.lang = 'en-US'
+    }
     utter.onend = () => { if (!pausingRef.current) onEnd() }
-    utter.onerror = () => { if (!pausingRef.current) onEnd() }
-    window.setTimeout(() => {
-      if (!pausingRef.current) window.speechSynthesis.speak(utter)
-    }, 50)
+    utter.onerror = (e) => {
+      console.error('Educate Yourself guide: speech error on question header', e.error)
+      if (!pausingRef.current) onEnd()
+    }
+    window.speechSynthesis.speak(utter)
   }
 
   // Entry point for beginning a segment fresh: narrates the question header
