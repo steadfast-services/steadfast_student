@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send, Loader2, Bot, CheckCircle, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import type { ChatMessage } from '@/lib/types'
-import { OPEN_SOFIA_EVENT } from '@/lib/sofiaEvents'
+import { OPEN_SOFIA_EVENT, notifySofiaOpenChanged } from '@/lib/sofiaEvents'
 
 const GREETING: ChatMessage = {
   role: 'model',
@@ -54,6 +54,12 @@ export default function ChatWidget() {
     window.addEventListener(OPEN_SOFIA_EVENT, handler)
     return () => window.removeEventListener(OPEN_SOFIA_EVENT, handler)
   }, [])
+
+  // Let other floating UI (e.g. the Educate Yourself panel) know when this
+  // widget opens/closes, so they can move aside instead of overlapping it.
+  useEffect(() => {
+    notifySofiaOpenChanged(open)
+  }, [open])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })

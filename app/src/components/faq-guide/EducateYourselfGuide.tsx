@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, X, Play, Pause, SkipBack, SkipForward, MessageCircle, ArrowRight } from 'lucide-react'
 import { FAQ_PLAYLIST, TOTAL_QUESTIONS, type FaqSegment } from '@/lib/faqGuidePlaylist'
-import { openSofiaChat } from '@/lib/sofiaEvents'
+import { openSofiaChat, SOFIA_OPEN_CHANGED_EVENT } from '@/lib/sofiaEvents'
 
 // Best-effort match for a female-sounding English voice — availability varies
 // by OS/browser, so this degrades gracefully to the system default voice.
@@ -40,6 +40,7 @@ export default function EducateYourselfGuide() {
   const [playing, setPlaying] = useState(false)
   const [finished, setFinished] = useState(false)
   const [speechSupported, setSpeechSupported] = useState(false)
+  const [sofiaOpen, setSofiaOpen] = useState(false)
 
   const segIndexRef = useRef(0)
   const lineIndexRef = useRef(0)
@@ -56,6 +57,13 @@ export default function EducateYourselfGuide() {
     loadVoice()
     window.speechSynthesis.addEventListener('voiceschanged', loadVoice)
     return () => window.speechSynthesis.removeEventListener('voiceschanged', loadVoice)
+  }, [])
+
+  // Shift aside when Sofia's chat widget opens so the two never overlap.
+  useEffect(() => {
+    const handler = (e: Event) => setSofiaOpen((e as CustomEvent<{ open: boolean }>).detail.open)
+    window.addEventListener(SOFIA_OPEN_CHANGED_EVENT, handler)
+    return () => window.removeEventListener(SOFIA_OPEN_CHANGED_EVENT, handler)
   }, [])
 
   function clearFallbackTimer() {
@@ -234,8 +242,10 @@ export default function EducateYourselfGuide() {
           >
             <motion.div
               className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl h-[85vh] flex flex-col overflow-hidden"
-              initial={{ opacity: 0, y: 20, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.97 }}
-              transition={{ duration: 0.25 }}
+              initial={{ opacity: 0, y: 20, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1, x: sofiaOpen ? -140 : 0 }}
+              exit={{ opacity: 0, y: 20, scale: 0.97 }}
+              transition={{ duration: 0.3 }}
             >
               {/* Header */}
               <div className="bg-navy px-5 py-4 flex items-center gap-3 flex-shrink-0">
