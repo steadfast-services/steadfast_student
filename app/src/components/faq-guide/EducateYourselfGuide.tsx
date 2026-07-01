@@ -4,8 +4,21 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Headphones, X, Play, Pause, SkipBack, SkipForward, MessageCircle, ArrowRight } from 'lucide-react'
-import { FAQ_PLAYLIST, TOTAL_QUESTIONS } from '@/lib/faqGuidePlaylist'
+import { FAQ_PLAYLIST, TOTAL_QUESTIONS, type FaqSegment } from '@/lib/faqGuidePlaylist'
 import { openSofiaChat } from '@/lib/sofiaEvents'
+
+// Best-effort match for a female-sounding English voice — availability varies
+// by OS/browser, so this degrades gracefully to the system default voice.
+const FEMALE_VOICE_HINTS = [
+  'female', 'zira', 'samantha', 'victoria', 'susan', 'karen', 'moira',
+  'tessa', 'fiona', 'aria', 'jenny', 'hazel', 'catherine', 'linda', 'eva',
+]
+
+function findFemaleVoice(): SpeechSynthesisVoice | null {
+  const voices = window.speechSynthesis.getVoices()
+  const english = voices.filter((v) => v.lang.toLowerCase().startsWith('en'))
+  return english.find((v) => FEMALE_VOICE_HINTS.some((hint) => v.name.toLowerCase().includes(hint))) ?? null
+}
 
 function renderInline(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).filter(Boolean)
@@ -33,9 +46,16 @@ export default function EducateYourselfGuide() {
   const pausingRef = useRef(false)
   const fallbackTimerRef = useRef<number | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const femaleVoiceRef = useRef<SpeechSynthesisVoice | null>(null)
 
   useEffect(() => {
-    setSpeechSupported(typeof window !== 'undefined' && 'speechSynthesis' in window)
+    const supported = typeof window !== 'undefined' && 'speechSynthesis' in window
+    setSpeechSupported(supported)
+    if (!supported) return
+    const loadVoice = () => { femaleVoiceRef.current = findFemaleVoice() }
+    loadVoice()
+    window.speechSynthesis.addEventListener('voiceschanged', loadVoice)
+    return () => window.speechSynthesis.removeEventListener('voiceschanged', loadVoice)
   }, [])
 
   function clearFallbackTimer() {
@@ -58,7 +78,7 @@ export default function EducateYourselfGuide() {
       lineIndexRef.current = 0
       setSegIndex(nextSeg)
       setLineIndex(0)
-      speakLine(FAQ_PLAYLIST[nextSeg].lines[0].speech)
+      speakSegmentStart(FAQ_PLAYLIST[nextSeg])
     } else {
       setPlaying(false)
       setFinished(true)
@@ -83,6 +103,30 @@ export default function EducateYourselfGuide() {
     window.speechSynthesis.speak(utter)
   }
 
+  // One-off utterance (not part of the answer-line auto-advance chain) — used
+  // to announce the question itself in a distinct, female-matched voice.
+  function speakText(text: string, onEnd: () => void) {
+    window.speechSynthesis.cancel()
+    const utter = new SpeechSynthesisUtterance(text)
+    utter.rate = 0.92
+    utter.pitch = 1.15
+    utter.lang = 'en-US'
+    if (femaleVoiceRef.current) utter.voice = femaleVoiceRef.current
+    utter.onend = () => { if (!pausingRef.current) onEnd() }
+    utter.onerror = () => { if (!pausingRef.current) onEnd() }
+    window.speechSynthesis.speak(utter)
+  }
+
+  // Entry point for beginning a segment fresh: narrates the question header
+  // (female-matched voice) before handing off to the normal answer narration.
+  function speakSegmentStart(seg: FaqSegment) {
+    if (seg.kind === 'question' && speechSupported) {
+      speakText(seg.title, () => speakLine(seg.lines[0].speech))
+    } else {
+      speakLine(seg.lines[0].speech)
+    }
+  }
+
   function pause() {
     pausingRef.current = true
     clearFallbackTimer()
@@ -97,7 +141,12 @@ export default function EducateYourselfGuide() {
       setSegIndex(0)
       setLineIndex(0)
       setFinished(false)
+      pausingRef.current = false
+      setPlaying(true)
+      speakSegmentStart(FAQ_PLAYLIST[0])
+      return
     }
+    // Plain resume from pause — continue the current line, don't re-announce the question.
     pausingRef.current = false
     setPlaying(true)
     const seg = FAQ_PLAYLIST[segIndexRef.current]
@@ -114,7 +163,7 @@ export default function EducateYourselfGuide() {
     setFinished(false)
     pausingRef.current = false
     setPlaying(true)
-    speakLine(FAQ_PLAYLIST[newSeg].lines[0].speech)
+    speakSegmentStart(FAQ_PLAYLIST[newSeg])
   }
 
   function pauseAndAskSofia() {
@@ -137,7 +186,7 @@ export default function EducateYourselfGuide() {
     setFinished(false)
     pausingRef.current = false
     setPlaying(true)
-    speakLine(FAQ_PLAYLIST[0].lines[0].speech)
+    speakSegmentStart(FAQ_PLAYLIST[0])
     return () => {
       pausingRef.current = true
       clearFallbackTimer()
