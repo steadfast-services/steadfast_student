@@ -100,7 +100,11 @@ export default function EducateYourselfGuide() {
     utter.lang = 'en-US'
     utter.onend = () => { if (!pausingRef.current) advance() }
     utter.onerror = () => { if (!pausingRef.current) advance() }
-    window.speechSynthesis.speak(utter)
+    // Chrome can silently drop an utterance queued synchronously inside another
+    // utterance's own onend handler — deferring one tick avoids that.
+    window.setTimeout(() => {
+      if (!pausingRef.current) window.speechSynthesis.speak(utter)
+    }, 50)
   }
 
   // One-off utterance (not part of the answer-line auto-advance chain) — used
@@ -114,7 +118,9 @@ export default function EducateYourselfGuide() {
     if (femaleVoiceRef.current) utter.voice = femaleVoiceRef.current
     utter.onend = () => { if (!pausingRef.current) onEnd() }
     utter.onerror = () => { if (!pausingRef.current) onEnd() }
-    window.speechSynthesis.speak(utter)
+    window.setTimeout(() => {
+      if (!pausingRef.current) window.speechSynthesis.speak(utter)
+    }, 50)
   }
 
   // Entry point for beginning a segment fresh: narrates the question header
