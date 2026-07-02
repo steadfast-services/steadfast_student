@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { FileText, Calendar, Clock, CheckCircle, AlertCircle, ArrowRight, User, BookOpen } from 'lucide-react'
+import JourneyTimeline from '@/components/portal/JourneyTimeline'
 
 // Demo data — in production, fetched from Supabase based on auth session
 // TODO(follow-up): route is now real-session-gated (see portal/layout.tsx),
@@ -73,6 +74,9 @@ export default function PortalPage() {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-8">
+        {/* Real, per-student milestone progress */}
+        <JourneyTimeline />
+
         {/* Progress bar */}
         <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 mb-6">
           <div className="flex justify-between items-center mb-3">
