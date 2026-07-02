@@ -282,13 +282,18 @@ const TIER_CONTENT = {
 }
 
 function ResultScreen({ result }: { result: RiskResult }) {
-  const { Icon, colorClass, bgClass, pillClass, label, headline, message, pkg, features, ctaLabel, urgency } = TIER_CONTENT[result.tier]
+  const isLow = result.tier === 'low'
+  const isModerate = result.tier === 'moderate'
+  const Icon = isLow ? ShieldCheck : isModerate ? ShieldAlert : ShieldX
+  const colorClass = isLow ? 'text-green-600' : isModerate ? 'text-amber-600' : 'text-red-600'
+  const bgClass = isLow ? 'bg-green-50 border-green-200' : isModerate ? 'bg-amber-50 border-amber-200' : 'bg-red-50 border-red-200'
+  const label = isLow ? 'Strong Profile' : isModerate ? 'Competitive Profile' : 'Complex Profile'
 
   return (
     <div className="min-h-screen bg-navy pt-16 flex items-center justify-center px-4 py-12">
       <motion.div className="w-full max-w-xl bg-white rounded-2xl p-8 shadow-2xl" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
         <p className="text-teal text-xs font-bold tracking-widest uppercase mb-2">Your Results</p>
-        <h2 className="font-display text-3xl font-bold text-navy mb-6">{headline}</h2>
+        <h2 className="font-display text-3xl font-bold text-navy mb-6">Your Support Profile</h2>
 
         {/* Tier badge */}
         <div className={`rounded-xl border-2 p-5 mb-6 ${bgClass}`}>
@@ -299,22 +304,15 @@ function ResultScreen({ result }: { result: RiskResult }) {
               <div className="text-gray-500 text-sm">Based on your unique answers</div>
             </div>
           </div>
-          <p className="text-sm text-gray-700 leading-relaxed">{message}</p>
+          <div className="text-sm text-gray-600">Recommended support package: <strong className="text-navy">{result.packageRecommendation}</strong></div>
         </div>
 
         {/* Package features — only this tier's package is shown */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-semibold text-navy text-sm">Your Recommended Package</h3>
-            <span className={`text-xs font-bold px-3 py-1 rounded-full ${pillClass}`}>{pkg}</span>
+            <span className={`text-xs font-bold px-3 py-1 rounded-full ${isLow ? 'bg-green-100 text-green-700' : isModerate ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'}`}>{result.packageRecommendation}</span>
           </div>
-          <ul className="space-y-2">
-            {features.map((f, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                <CheckCircle size={14} className="text-teal flex-shrink-0 mt-0.5" /> {f}
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Key factors */}
@@ -342,16 +340,16 @@ function ResultScreen({ result }: { result: RiskResult }) {
         </div>
 
         {/* Urgency note (moderate + high only) */}
-        {urgency && (
+        {result.tier !== 'low' && (
           <div className={`rounded-lg border-2 p-3 mb-6 text-xs text-center font-medium ${bgClass} ${colorClass}`}>
-            {urgency}
+            {result.tier === 'moderate' ? 'Advisors have limited slots — early preparation significantly improves outcomes.' : 'Complex cases need the most lead time — the earlier we start, the stronger your file.'}
           </div>
         )}
 
         {/* CTA */}
         <div className="bg-navy rounded-xl p-5 text-center">
           <p className="text-white/80 text-sm mb-4">Ready to turn this into an action plan? Book your free 30-minute call with a Steadfast advisor.</p>
-          <Link href="/book" className="btn-primary w-full justify-center">{ctaLabel} <ArrowRight size={16} /></Link>
+          <Link href="/book" className="btn-primary w-full justify-center">{result.tier === 'low' ? 'Book Your Free Consultation' : result.tier === 'moderate' ? 'Book Your Strategy Session' : 'Book Your Elite Strategy Call'} <ArrowRight size={16} /></Link>
         </div>
 
         <p className="text-gray-400 text-xs text-center mt-4 leading-relaxed">
