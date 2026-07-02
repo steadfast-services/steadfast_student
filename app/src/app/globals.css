@@ -57,3 +57,10 @@
 
 /* Progress ring */
 .progress-ring-circle { transition: stroke-dashoffset 0.8s ease-in-out; transform: rotate(-90deg); transform-origin: 50% 50%; }
+
+/* Draws the eye to a gold CTA without being an obnoxious full bounce/shake */
+.animate-pulse-gold { animation: pulseGold 2.4s ease-in-out infinite; }
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.55); }
+  50% { box-shadow: 0 0 0 8px rgba(201, 168, 76, 0); }
+}

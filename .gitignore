@@ -32,3 +32,6 @@ yarn-debug.log*
 # TypeScript
 *.tsbuildinfo
 app/next-env.d.ts
+
+# application-processing is its own separate git repo, not part of this one
+application-processing/

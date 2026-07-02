@@ -235,11 +235,15 @@ export default function EducateYourselfGuide() {
 
   return (
     <>
+      {/* Fixed top-right, stays put on scroll — meant to be the first thing
+          a visitor tries, so it's persistent rather than buried in a section. */}
       <button
         onClick={() => setOpen(true)}
-        className="btn-primary text-base px-8 py-4 inline-flex items-center gap-2"
+        className="fixed top-20 right-4 sm:right-6 z-40 btn-primary text-sm px-4 py-2.5 sm:px-5 sm:py-3 shadow-lg animate-pulse-gold inline-flex items-center gap-2"
       >
-        <Headphones size={18} /> Educate Yourself With Important Facts
+        <Headphones size={16} />
+        <span className="hidden sm:inline">Educate Yourself With Important Facts</span>
+        <span className="sm:hidden">Educate Yourself</span>
       </button>
 
       <AnimatePresence>
