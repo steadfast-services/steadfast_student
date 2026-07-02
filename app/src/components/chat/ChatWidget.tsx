@@ -28,6 +28,20 @@ export default function ChatWidget() {
   const [leadCaptured, setLeadCaptured] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const sessionKeyRef = useRef<string>('')
+
+  // One key per browser session, so every message from this visit groups
+  // into the same chat_sessions row for weekly review on /admin.
+  useEffect(() => {
+    const existing = sessionStorage.getItem('sofia-session-key')
+    if (existing) {
+      sessionKeyRef.current = existing
+    } else {
+      const key = crypto.randomUUID()
+      sessionStorage.setItem('sofia-session-key', key)
+      sessionKeyRef.current = key
+    }
+  }, [])
 
   // Auto-open after 45 seconds on first visit
   useEffect(() => {
@@ -77,7 +91,7 @@ export default function ChatWidget() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updated }),
+        body: JSON.stringify({ messages: updated, sessionKey: sessionKeyRef.current }),
       })
       const data = await res.json()
       if (!res.ok || typeof data.reply !== 'string') throw new Error(data.error ?? 'Empty response')

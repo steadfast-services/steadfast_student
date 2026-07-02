@@ -281,6 +281,11 @@ NEXT_PUBLIC_COMPANY_NAME=Steadfast Student Services
 # ── Admin ───────────────────────────────────────────────────────────────────
 ADMIN_EMAIL=admin@steadfaststudentservices.com
 # Advisor alert emails are sent to this address
+
+ADMIN_PASSWORD=choose-a-strong-password
+# Required to view /admin (HTTP Basic Auth — see src/middleware.ts).
+# /admin shows real applicant chat questions, so this must be set in every
+# environment. Without it, /admin is blocked entirely rather than left open.
 ```
 
 > **Note for Vercel:** Add every variable above to Vercel dashboard → Project → Settings → Environment Variables. Do NOT use `.env.local` in production — Vercel reads its own env store.

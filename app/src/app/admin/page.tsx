@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import { Users, FileText, Calendar, TrendingUp, AlertCircle, CheckCircle, Clock, Search } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Users, FileText, Calendar, TrendingUp, AlertCircle, CheckCircle, Clock, Search, MessageCircle } from 'lucide-react'
+
+type ChatQuestion = { question: string; timestamp: number; sessionKey: string; leadCaptured: boolean }
 
 // Demo data — in production sourced from Supabase with admin auth
 const LEADS = [
@@ -23,10 +25,25 @@ const STATS = [
 
 export default function AdminPage() {
   const [search, setSearch] = useState('')
+  const [questions, setQuestions] = useState<ChatQuestion[]>([])
+  const [questionSearch, setQuestionSearch] = useState('')
+  const [days, setDays] = useState(7)
+  const [loadingQuestions, setLoadingQuestions] = useState(true)
 
   const filtered = LEADS.filter(
     (l) => l.name.toLowerCase().includes(search.toLowerCase()) || l.email.toLowerCase().includes(search.toLowerCase()) || l.country.toLowerCase().includes(search.toLowerCase())
   )
+
+  useEffect(() => {
+    setLoadingQuestions(true)
+    fetch(`/api/admin/chat-questions?days=${days}`)
+      .then((res) => res.json())
+      .then((data) => setQuestions(data.questions ?? []))
+      .catch(() => setQuestions([]))
+      .finally(() => setLoadingQuestions(false))
+  }, [days])
+
+  const filteredQuestions = questions.filter((q) => q.question.toLowerCase().includes(questionSearch.toLowerCase()))
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
@@ -47,6 +64,58 @@ export default function AdminPage() {
               <div className="text-gray-400 text-xs mt-1">{delta}</div>
             </div>
           ))}
+        </div>
+
+        {/* Applicant Questions */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+          <div className="flex items-center justify-between p-4 border-b border-gray-100 gap-4 flex-wrap">
+            <div className="flex items-center gap-2">
+              <MessageCircle size={16} className="text-teal" />
+              <h2 className="font-semibold text-navy">Applicant Questions</h2>
+              <span className="text-xs text-gray-400">
+                {loadingQuestions ? 'Loading…' : `${filteredQuestions.length} question${filteredQuestions.length === 1 ? '' : 's'}`}
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <select
+                value={days} onChange={(e) => setDays(Number(e.target.value))}
+                className="text-sm border border-gray-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-teal"
+              >
+                <option value={7}>Last 7 days</option>
+                <option value={14}>Last 14 days</option>
+                <option value={30}>Last 30 days</option>
+              </select>
+              <div className="relative">
+                <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input
+                  value={questionSearch} onChange={(e) => setQuestionSearch(e.target.value)}
+                  placeholder="Search questions…"
+                  className="pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-teal w-56"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="max-h-96 overflow-y-auto divide-y divide-gray-50">
+            {!loadingQuestions && filteredQuestions.length === 0 && (
+              <div className="text-center py-12 text-gray-400 text-sm">
+                <AlertCircle size={24} className="mx-auto mb-2" /> No questions asked in this window yet
+              </div>
+            )}
+            {filteredQuestions.map((q, i) => (
+              <div key={`${q.sessionKey}-${i}`} className="px-4 py-3 flex items-start justify-between gap-4 hover:bg-gray-50 transition-colors">
+                <p className="text-sm text-navy flex-1">{q.question}</p>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  {q.leadCaptured && <span className="text-xs text-green-600 font-semibold whitespace-nowrap">Lead</span>}
+                  <span className="text-xs text-gray-400 whitespace-nowrap">
+                    {new Date(q.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-gray-400 text-xs px-4 py-2.5 bg-gray-50 border-t border-gray-100">
+            Every question asked to Sofia is logged here, whether or not the visitor left contact info — use this to spot patterns and revise the Educate Yourself guide weekly.
+          </p>
         </div>
 
         {/* Lead table */}

@@ -17,12 +17,30 @@ function stripLeadMarker(text: string) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages } = await req.json() as { messages: ChatMessage[] }
+    const { messages, sessionKey } = await req.json() as { messages: ChatMessage[]; sessionKey?: string }
     if (!messages?.length) return NextResponse.json({ error: 'No messages' }, { status: 400 })
 
     const rawReply = await getChatResponse(messages)
     const lead = extractLeadMarker(rawReply)
     const reply = stripLeadMarker(rawReply)
+    const fullConversation = [...messages, { role: 'model' as const, content: reply, timestamp: Date.now() }]
+
+    // Log every conversation (not just ones that convert to a lead) so all
+    // applicant questions can be reviewed weekly on /admin.
+    if (sessionKey) {
+      try {
+        const supabase = getServiceClient()
+        const upsertData: Record<string, unknown> = {
+          session_key: sessionKey,
+          messages: fullConversation,
+          updated_at: new Date().toISOString(),
+        }
+        if (lead) upsertData.lead_captured = true
+        await supabase.from('chat_sessions').upsert(upsertData, { onConflict: 'session_key' })
+      } catch (logErr) {
+        console.error('Failed to log chat session:', logErr)
+      }
+    }
 
     if (lead) {
       const supabase = getServiceClient()

@@ -93,14 +93,22 @@ create index if not exists idx_whatsapp_sessions_updated on whatsapp_sessions(up
 -- alter table leads add constraint leads_source_check check (source in ('chatbot', 'quiz', 'contact', 'blog', 'whatsapp'));
 
 -- ===== CHAT SESSIONS =====
+-- Stores the full running conversation for every website Sofia chat (not
+-- just ones that convert to a lead), so all applicant questions can be
+-- reviewed weekly on /admin.
 create table if not exists chat_sessions (
   id uuid primary key default uuid_generate_v4(),
-  session_key text not null,
+  session_key text not null unique,
   student_id uuid references students(id),
   messages jsonb default '[]',
   lead_captured boolean default false,
-  started_at timestamptz default now()
+  started_at timestamptz default now(),
+  updated_at timestamptz default now()
 );
+
+-- If you already ran this schema before the updated_at/unique additions:
+-- alter table chat_sessions add column if not exists updated_at timestamptz default now();
+-- alter table chat_sessions add constraint chat_sessions_session_key_key unique (session_key);
 
 -- ===== ROW LEVEL SECURITY =====
 alter table students enable row level security;
@@ -133,3 +141,5 @@ create index if not exists idx_documents_student on documents(student_id);
 create index if not exists idx_leads_email on leads(email);
 create index if not exists idx_leads_source on leads(source);
 create index if not exists idx_leads_created on leads(created_at desc);
+create index if not exists idx_chat_sessions_updated on chat_sessions(updated_at desc);
+create index if not exists idx_chat_sessions_session_key on chat_sessions(session_key);
