@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, BookOpen, CheckCircle, Shield, Star, TrendingUp, Users } from 'lucide-react'
 import EducateYourselfGuide from '@/components/faq-guide/EducateYourselfGuide'
+import CountryCapturePrompt from '@/components/CountryCapturePrompt'
 
 const STATS = [
   { icon: Users, value: '2,400+', label: 'Students Enrolled' },
@@ -63,6 +64,7 @@ const TESTIMONIALS = [
 export default function HomePage() {
   return (
     <div className="min-h-screen pt-16">
+      <CountryCapturePrompt />
       {/* ===== HERO ===== */}
       <section className="gradient-hero text-white py-24 px-4">
         <div className="max-w-4xl mx-auto text-center">

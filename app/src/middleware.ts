@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { updateSession } from '@/lib/supabase/middleware'
+
+export async function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname.startsWith('/admin') || req.nextUrl.pathname.startsWith('/api/admin')) {
+    return adminAuth(req)
+  }
+  return updateSession(req)
+}
 
 // Gates /admin and its API routes behind a single shared password (HTTP Basic
 // Auth) — lightweight protection since real applicant chat data now lives
 // there. Fails closed: if ADMIN_PASSWORD isn't set, access is blocked rather
 // than left open by accident.
-export function middleware(req: NextRequest) {
+function adminAuth(req: NextRequest) {
   const expectedPassword = process.env.ADMIN_PASSWORD
 
   if (!expectedPassword) {
@@ -28,5 +36,14 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*'],
+  matcher: [
+    '/admin/:path*',
+    '/api/admin/:path*',
+    '/portal/:path*',
+    // Match all other paths except static assets, so the Supabase session
+    // cookie refreshes on every navigation (needed for Navigation.tsx's
+    // auth-state UI to stay correct). The /admin branch above already wins
+    // for admin paths since middleware() checks and returns early for them.
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 }

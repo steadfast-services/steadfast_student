@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, BookOpen } from 'lucide-react'
+import type { User } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase/client'
 
 const NAV_LINKS = [
   { href: '/services', label: 'Services' },
@@ -15,12 +17,23 @@ const NAV_LINKS = [
 export default function Navigation() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handler)
     return () => window.removeEventListener('scroll', handler)
+  }, [])
+
+  // Reactive auth state — fires immediately with the current session on
+  // subscribe, then again on every sign-in/sign-out, no full reload needed.
+  useEffect(() => {
+    const supabase = createClient()
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => subscription.unsubscribe()
   }, [])
 
   return (
@@ -56,7 +69,16 @@ export default function Navigation() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/portal" className="text-white/70 text-sm hover:text-white transition-colors">Student Portal</Link>
+            {user ? (
+              <>
+                <Link href="/portal" className="text-white/70 text-sm hover:text-white transition-colors">My Account</Link>
+                <form action="/api/auth/sign-out" method="post">
+                  <button type="submit" className="text-white/70 text-sm hover:text-white transition-colors">Sign Out</button>
+                </form>
+              </>
+            ) : (
+              <Link href="/sign-in" className="text-white/70 text-sm hover:text-white transition-colors">Sign In</Link>
+            )}
             <Link href="/book" className="bg-gold text-navy text-sm font-bold px-4 py-2 rounded-lg hover:bg-gold-light transition-colors">
               Book Free Call
             </Link>
@@ -78,7 +100,16 @@ export default function Navigation() {
             >{link.label}</Link>
           ))}
           <div className="border-t border-white/10 pt-3 mt-2 space-y-2">
-            <Link href="/portal" onClick={() => setOpen(false)} className="block px-4 py-3 text-white/60 text-sm hover:text-white transition-colors">Student Portal</Link>
+            {user ? (
+              <>
+                <Link href="/portal" onClick={() => setOpen(false)} className="block px-4 py-3 text-white/60 text-sm hover:text-white transition-colors">My Account</Link>
+                <form action="/api/auth/sign-out" method="post">
+                  <button type="submit" onClick={() => setOpen(false)} className="w-full text-left block px-4 py-3 text-white/60 text-sm hover:text-white transition-colors">Sign Out</button>
+                </form>
+              </>
+            ) : (
+              <Link href="/sign-in" onClick={() => setOpen(false)} className="block px-4 py-3 text-white/60 text-sm hover:text-white transition-colors">Sign In</Link>
+            )}
             <Link href="/book" onClick={() => setOpen(false)} className="block bg-gold text-navy text-sm font-bold px-4 py-3 rounded-lg text-center">Book Free Consultation</Link>
           </div>
         </div>

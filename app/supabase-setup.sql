@@ -43,6 +43,34 @@ create table if not exists students (
   created_at timestamptz default now()
 );
 
+-- ===== AUTH TRIGGER: create a students row automatically on signup =====
+-- Runs inside the same transaction as the auth.users insert, so there's no
+-- orphaned-row failure mode from a dropped connection or delayed email
+-- confirmation. full_name/country_of_origin come from supabase.auth.signUp's
+-- options.data (Supabase copies it into raw_user_meta_data). risk_tier/
+-- risk_score are intentionally left NULL here — populated later when the
+-- student completes /assessment while logged in.
+create or replace function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.students (id, full_name, email, country_of_origin, status)
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'full_name', ''),
+    new.email,
+    new.raw_user_meta_data->>'country_of_origin',
+    'lead'
+  )
+  on conflict (id) do nothing;
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+
 -- ===== APPLICATIONS =====
 create table if not exists applications (
   id uuid primary key default uuid_generate_v4(),

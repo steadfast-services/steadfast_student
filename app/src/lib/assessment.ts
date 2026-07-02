@@ -1,7 +1,7 @@
 import type { AssessmentAnswers, RiskResult, RiskTier } from './types'
 
 // Visa denial rates by country (US State Dept data — representative values)
-const COUNTRY_DENIAL_RATES: Record<string, number> = {
+export const COUNTRY_DENIAL_RATES: Record<string, number> = {
   // Low risk (< 35%)
   'United Kingdom': 2, 'Germany': 5, 'France': 7, 'Canada': 10, 'Australia': 12,
   'Japan': 8, 'South Korea': 15, 'Brazil': 22, 'Mexico': 28, 'Italy': 6,

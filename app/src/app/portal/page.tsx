@@ -6,6 +6,10 @@ import Link from 'next/link'
 import { FileText, Calendar, Clock, CheckCircle, AlertCircle, ArrowRight, User, BookOpen } from 'lucide-react'
 
 // Demo data — in production, fetched from Supabase based on auth session
+// TODO(follow-up): route is now real-session-gated (see portal/layout.tsx),
+// but this page's content is still hardcoded. Replace with a real Supabase
+// read keyed on the authenticated user's id — separate follow-up, out of
+// scope for the auth phase that added the route protection.
 const DEMO_STUDENT = {
   name: 'Adaeze Okafor',
   country: 'Nigeria',
