@@ -22,6 +22,13 @@ function getCountryDenialRate(country: string): number {
   return COUNTRY_DENIAL_RATES[country] ?? 45 // Default to moderate
 }
 
+// Maps a risk tier to the students.service_package enum ('standard' |
+// 'premium' | 'elite') — kept next to the scoring logic that produces the
+// tier, rather than re-deriving this mapping at each call site.
+export function tierToPackage(tier: RiskTier): 'standard' | 'premium' | 'elite' {
+  return tier === 'low' ? 'standard' : tier === 'moderate' ? 'premium' : 'elite'
+}
+
 export function calculateSupportProfile(answers: AssessmentAnswers): RiskResult {
   const denialRate = getCountryDenialRate(answers.country)
   let score = denialRate * 0.5 // Reduce country-based weight

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendBookingConfirmationEmail, sendAdvisorAlert } from '@/lib/email'
+import { getServiceClient } from '@/lib/supabase'
+import { recordMilestone } from '@/lib/milestones'
 
 // Webhook endpoint for Cal.com booking confirmations and other notification triggers
 export async function POST(req: NextRequest) {
@@ -16,6 +18,17 @@ export async function POST(req: NextRequest) {
           sendBookingConfirmationEmail(email, name, dateTime),
           sendAdvisorAlert(`New Booking: ${name}`, `<p><strong>Student:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Time:</strong> ${dateTime}</p>`),
         ])
+
+        // Best-effort — only records a milestone if the booker already has
+        // an account under this email; skips silently otherwise (e.g.
+        // someone booked without ever signing up).
+        try {
+          const supabase = getServiceClient()
+          const { data: student } = await supabase.from('students').select('id').eq('email', email).maybeSingle()
+          if (student) await recordMilestone(student.id, 'consultation_booked', { dateTime })
+        } catch (milestoneErr) {
+          console.error('Failed to record consultation_booked milestone:', milestoneErr)
+        }
         break
       case 'advisor_alert':
         if (!body.subject || !body.html) {

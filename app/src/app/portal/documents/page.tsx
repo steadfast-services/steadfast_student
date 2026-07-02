@@ -17,6 +17,7 @@ const DOC_TYPES = [
 ]
 
 interface UploadedFile {
+  file: File
   name: string
   type: string
   size: number
@@ -30,7 +31,7 @@ export default function DocumentsPage() {
 
   const onDrop = useCallback((accepted: File[]) => {
     const newFiles = accepted.map((f) => ({
-      name: f.name, type: docType || 'other', size: f.size, status: 'pending' as const,
+      file: f, name: f.name, type: docType || 'other', size: f.size, status: 'pending' as const,
     }))
     setFiles((prev) => [...prev, ...newFiles])
   }, [docType])
@@ -44,9 +45,21 @@ export default function DocumentsPage() {
   async function uploadAll() {
     if (!files.length || !docType) return alert('Please select a document type first.')
     setUploading(true)
-    // In production: upload each file to Supabase Storage, then record in 'documents' table
-    await new Promise((r) => setTimeout(r, 1500)) // Demo delay
-    setFiles((prev) => prev.map((f) => ({ ...f, status: 'done' })))
+    setFiles((prev) => prev.map((f) => ({ ...f, status: 'uploading' })))
+
+    const results = await Promise.all(files.map(async (f) => {
+      try {
+        const formData = new FormData()
+        formData.append('doc_type', f.type)
+        formData.append('file', f.file)
+        const res = await fetch('/api/documents', { method: 'POST', body: formData })
+        return res.ok ? ('done' as const) : ('error' as const)
+      } catch {
+        return 'error' as const
+      }
+    }))
+
+    setFiles((prev) => prev.map((f, i) => ({ ...f, status: results[i] })))
     setUploading(false)
   }
 

@@ -1,15 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServiceClient } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase/server'
 import { sendAdvisorAlert } from '@/lib/email'
+import { recordMilestone } from '@/lib/milestones'
 
 export async function POST(req: NextRequest) {
   try {
+    // student_id comes from the authenticated session, not the client —
+    // trusting a client-supplied value would let anyone upload a document
+    // to any student's record.
+    const authClient = createClient()
+    const { data: { user } } = await authClient.auth.getUser()
+    if (!user) {
+      return NextResponse.json({ error: 'Not signed in' }, { status: 401 })
+    }
+    const studentId = user.id
+
     const formData = await req.formData()
-    const studentId = formData.get('student_id') as string
     const docType = formData.get('doc_type') as string
     const file = formData.get('file') as File
 
-    if (!studentId || !docType || !file) {
+    if (!docType || !file) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
@@ -33,6 +44,8 @@ export async function POST(req: NextRequest) {
       `Document Uploaded: ${docType}`,
       `<p>Student ID: ${studentId}</p><p>Document: ${docType}</p><p>File: ${file.name}</p><p>Please review at: /admin/documents/${doc?.id}</p>`
     ).catch(() => {})
+
+    await recordMilestone(studentId, 'document_uploaded', { doc_type: docType })
 
     return NextResponse.json({ success: true, document_id: doc?.id })
   } catch (err) {

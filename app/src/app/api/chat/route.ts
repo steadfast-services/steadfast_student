@@ -17,7 +17,7 @@ function stripLeadMarker(text: string) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, sessionKey } = await req.json() as { messages: ChatMessage[]; sessionKey?: string }
+    const { messages, sessionKey, studentId } = await req.json() as { messages: ChatMessage[]; sessionKey?: string; studentId?: string | null }
     if (!messages?.length) return NextResponse.json({ error: 'No messages' }, { status: 400 })
 
     const rawReply = await getChatResponse(messages)
@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
           updated_at: new Date().toISOString(),
         }
         if (lead) upsertData.lead_captured = true
+        if (studentId) upsertData.student_id = studentId
         await supabase.from('chat_sessions').upsert(upsertData, { onConflict: 'session_key' })
       } catch (logErr) {
         console.error('Failed to log chat session:', logErr)

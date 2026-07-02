@@ -5,6 +5,7 @@ import { MessageCircle, X, Send, Loader2, Bot, CheckCircle, Calendar } from 'luc
 import Link from 'next/link'
 import type { ChatMessage } from '@/lib/types'
 import { OPEN_SOFIA_EVENT, notifySofiaOpenChanged } from '@/lib/sofiaEvents'
+import { createClient } from '@/lib/supabase/client'
 
 const GREETING: ChatMessage = {
   role: 'model',
@@ -29,6 +30,7 @@ export default function ChatWidget() {
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const sessionKeyRef = useRef<string>('')
+  const studentIdRef = useRef<string | null>(null)
 
   // One key per browser session, so every message from this visit groups
   // into the same chat_sessions row for weekly review on /admin.
@@ -41,6 +43,14 @@ export default function ChatWidget() {
       sessionStorage.setItem('sofia-session-key', key)
       sessionKeyRef.current = key
     }
+  }, [])
+
+  // If the visitor is signed in, tie their chat_sessions row to their
+  // account too — anonymous visitors are unaffected, studentIdRef stays null.
+  useEffect(() => {
+    createClient().auth.getUser().then(({ data: { user } }) => {
+      studentIdRef.current = user?.id ?? null
+    })
   }, [])
 
   // Auto-open after 45 seconds on first visit
@@ -91,7 +101,7 @@ export default function ChatWidget() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updated, sessionKey: sessionKeyRef.current }),
+        body: JSON.stringify({ messages: updated, sessionKey: sessionKeyRef.current, studentId: studentIdRef.current }),
       })
       const data = await res.json()
       if (!res.ok || typeof data.reply !== 'string') throw new Error(data.error ?? 'Empty response')

@@ -43,6 +43,25 @@ create table if not exists students (
   created_at timestamptz default now()
 );
 
+-- ===== STUDENT MILESTONES =====
+-- A lightweight, append-only timeline of what happened when per student
+-- (account created, assessment completed, document uploaded, consultation
+-- booked) — not a CRM, just clean journey data for later use. Defined here
+-- (before the auth trigger below) because the trigger inserts into it.
+create table if not exists student_milestones (
+  id uuid primary key default uuid_generate_v4(),
+  student_id uuid not null references students(id) on delete cascade,
+  type text not null check (type in (
+    'account_created', 'assessment_completed', 'document_uploaded', 'consultation_booked'
+  )),
+  metadata jsonb,
+  created_at timestamptz default now()
+);
+alter table student_milestones enable row level security;
+create policy "Milestones: own student" on student_milestones
+  for select using (student_id = auth.uid());
+create index if not exists idx_milestones_student on student_milestones(student_id, created_at desc);
+
 -- ===== AUTH TRIGGER: create a students row automatically on signup =====
 -- Runs inside the same transaction as the auth.users insert, so there's no
 -- orphaned-row failure mode from a dropped connection or delayed email
@@ -62,6 +81,10 @@ begin
     'lead'
   )
   on conflict (id) do nothing;
+
+  insert into public.student_milestones (student_id, type)
+  values (new.id, 'account_created');
+
   return new;
 end;
 $$ language plpgsql security definer set search_path = public;
@@ -159,7 +182,20 @@ create policy "Documents: own student" on documents
 -- Admins (service role) bypass RLS — no additional policy needed
 
 -- ===== STORAGE BUCKET =====
--- Create in Supabase dashboard: Storage > New Bucket > "student-documents" (private)
+-- Safe no-op if you already created this manually per the old instructions.
+insert into storage.buckets (id, name, public)
+values ('student-documents', 'student-documents', false)
+on conflict (id) do nothing;
+
+-- Uploads themselves go through the service-role /api/documents route, but
+-- this policy scopes each student to their own folder (files are stored as
+-- "<student_id>/<doc_type>/<filename>") as defense in depth, in case the
+-- portal ever reads files back directly from the client.
+create policy "Students: own document folder" on storage.objects
+  for all using (
+    bucket_id = 'student-documents'
+    and (storage.foldername(name))[1] = auth.uid()::text
+  );
 
 -- ===== INDEXES =====
 create index if not exists idx_students_email on students(email);
